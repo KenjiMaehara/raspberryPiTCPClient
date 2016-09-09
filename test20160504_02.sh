@@ -17,7 +17,7 @@ then
 echo "`date +%Y%m%d-%H%M%S` :プロセスは生きています" | tee -a $LOGDIR/${FNAME}.log
 else
 echo "`date +%Y%m%d-%H%M%S` :プロセスは死んでいます" | tee -a $LOGDIR/${FNAME}.log
-sh /home/pi/python/autorun_script
+sh /home/pi/raspberryPiTCPClient/autorun_script
 fi
 :
 #sleep 60
