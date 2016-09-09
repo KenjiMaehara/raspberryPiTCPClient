@@ -12,7 +12,7 @@ LOGDIR=/home/pi/python
 FNAME=`date +%Y%m%d`
 
 #if ps axww | grep "[s]udo python /home/pi/Desktop/tcp_client1_02.py" >/dev/null
-if ps axww | grep "[p]ython /home/pi/Desktop/tcp_client1_02.py" >/dev/null
+if ps axww | grep "[p]ython /home/pi/raspberryPiTCPClient/tcp_client1_02.py" >/dev/null
 then
 echo "`date +%Y%m%d-%H%M%S` :プロセスは生きています" | tee -a $LOGDIR/${FNAME}.log
 else
