@@ -15,16 +15,26 @@ class RootWidget(BoxLayout):
 
         self.label=Label(text="Time Display")
         self.add_widget(self.label)
-
         Clock.schedule_interval(self.TimerCallback, 1.0)
+
+        self.label=Label(text="Time Display")
+        self.add_widget(self.label)
+        Clock.schedule_interval(self.TimerCallback, 1.0)
+
+        self.label=Label(text="Time Display")
+        self.add_widget(self.label)
+        Clock.schedule_interval(self.TimerCallback, 1.0)
+
 
         #self.textinput = TextInput(text='Hello world', multiline=False)
         #self.add_widget(self.textinput)
+        #Clock.schedule_interval(self.TimerCallback, 1.0)
 
     def TimerCallback(self,dt):
         time=datetime.now().strftime("%Y/%m/%d %H:%M:%S")
         #self.textinput.text=time
         self.label.text=time
+        self.label.font_size='48sp'
 
 class TestApp(App):
     def build(self):
