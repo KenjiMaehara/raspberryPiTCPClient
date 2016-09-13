@@ -13,16 +13,15 @@ class RootWidget(BoxLayout):
     def __init__(self, **kwargs):
         super(RootWidget, self).__init__(padding=30, orientation='vertical')
 
-        self.label=Label(text="Time Display")
-        self.add_widget(self.label)
-        Clock.schedule_interval(self.TimerCallback, 1.0)
+ 
+        self.label02=Label(text="Home Security")
+        self.add_widget(self.label02)
+        #Clock.schedule_interval(self.TimerCallback02, 1.0)
+        self.label02.font_size='80sp'
 
-        self.label=Label(text="Time Display")
-        self.add_widget(self.label)
-        Clock.schedule_interval(self.TimerCallback, 1.0)
 
-        self.label=Label(text="Time Display")
-        self.add_widget(self.label)
+        self.label_time=Label(text="Time Display")
+        self.add_widget(self.label_time)
         Clock.schedule_interval(self.TimerCallback, 1.0)
 
 
@@ -30,11 +29,21 @@ class RootWidget(BoxLayout):
         #self.add_widget(self.textinput)
         #Clock.schedule_interval(self.TimerCallback, 1.0)
 
+
+    #def Label_status(self,dt):
+        #time=datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+        #self.textinput.text=time
+        #self.label02.text=time
+
+
     def TimerCallback(self,dt):
         time=datetime.now().strftime("%Y/%m/%d %H:%M:%S")
         #self.textinput.text=time
-        self.label.text=time
-        self.label.font_size='48sp'
+        self.label_time.text=time
+        self.label_time.font_size='60sp'
+
+
+        
 
 class TestApp(App):
     def build(self):

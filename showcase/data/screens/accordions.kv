@@ -1,6 +1,15 @@
-ShowcaseScreen:
-    name: 'Accordions'
+<ColoredLabel@Label>:
+    font_size: '48sp'
+    color: (.6, .6, .6, 1)
+    canvas.before:
+        Color:
+            rgb: (.9, .9, .9)
+        Rectangle:
+            pos: self.x + sp(2), self.y + sp(2)
+            size: self.width - sp(4), self.height - sp(4)
 
+ShowcaseScreen:
+    name: 'Carousel'
     fullscreen: True
 
     BoxLayout:
@@ -8,32 +17,37 @@ ShowcaseScreen:
         height: '48dp'
 
         ToggleButton:
-            id: tbh
-            text: 'Horizontal'
-            group: 'accordion'
-            state: 'down'
+            text: 'Loop'
+            id: btnloop
 
-        ToggleButton:
-            text: 'Vertical'
-            group: 'accordion'
+        Label:
+            size_hint_x: None
+            width: self.height
+            text: '{}'.format(carousel.index)
 
-    Accordion:
+        Button:
+            size_hint_x: None
+            width: self.height
+            text: 'Prev'
+            on_release: carousel.load_previous()
 
-        orientation: 'horizontal' if tbh.state == 'down' else 'vertical'
+        Button:
+            size_hint_x: None
+            width: self.height
+            text: 'Next'
+            on_release: carousel.load_next()
 
-        AccordionItem:
-            title: 'Panel 1'
-            Label:
-                text: 'This is a label fit to the content view'
-                text_size: self.width, None
+    Carousel:
+        id: carousel
+        loop: btnloop.state == 'down'
 
-        AccordionItem:
-            title: 'Panel 2'
-            Button:
-                text: 'A button, what else?'
+        ColoredLabel:
+            #text: 'Slide 0'
+            text: 'test'
+            font_size: 80
 
-        AccordionItem:
-            title: 'Panel 3'
-            Label:
-                text: 'This is a label fit to the content view'
-                text_size: self.width, None
+        ColoredLabel:
+            text: 'Slide 1'
+
+        ColoredLabel:
+            text: 'Slide 2'
