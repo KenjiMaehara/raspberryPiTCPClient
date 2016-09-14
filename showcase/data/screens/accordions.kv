@@ -45,6 +45,12 @@ ShowcaseScreen:
             #text: 'Slide 0'
             text: 'test'
             font_size: 80
+        
+		Button:
+            		size_hint_x: None
+            		width: self.height
+            		text: 'Prev'
+            		on_release: carousel.load_previous()
 
         ColoredLabel:
             text: 'Slide 1'
