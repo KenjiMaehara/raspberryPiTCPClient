@@ -6,7 +6,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 from kivy.uix.widget import Widget
 from kivy.graphics import Line
 
-class Painter(Widget)
+class Painter(Widget):
+
     def on_touch_down(self, touch):
         with self.canvas:
             touch.ud["line"] = Line(points=(touch.x, touch.y))
