@@ -1,6 +1,11 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.config import Config
+from kivy.lang import Builder
+
+Clock_screen = Builder.load_file("../clock/clock.kv")
+
+
 
 Config.set('graphics', 'fullscreen', 0)
 
@@ -10,6 +15,7 @@ class Menu(Widget):
 
     def clock_btn(self):
         print("The time is ... about time you got a watch!")
+        return Clock_screen
 
     def alarm_btn(self):
         print("Wake up at 8am? Are you kidding?")
