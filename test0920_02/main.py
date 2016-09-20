@@ -18,7 +18,7 @@ presentation = Builder.load_file("main.kv")
 class MainApp(App):
 
     def build(self):
-        return presentation()
+        return presentation
 
 
 if __name__ == "__main__":
