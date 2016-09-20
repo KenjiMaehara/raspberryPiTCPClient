@@ -3,7 +3,7 @@ from kivy.uix.widget import Widget
 from kivy.config import Config
 from kivy.lang import Builder
 
-Clock_screen = Builder.load_file("../clock/clock.kv")
+Clock_screen = Builder.load_file("../clock/clock.py")
 
 
 
