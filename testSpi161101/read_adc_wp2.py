@@ -22,7 +22,7 @@ wp.pinMode(LED_PIN, wp.GPIO.OUTPUT)
 
 while True:
     buffer = 0x6800
-    buffer = buffer.to_bytes(2,byteorder='big')
+    #buffer = buffer.to_bytes(2,byteorder='big')
     wp.wiringPiSPIDataRW(SPI_CH, buffer)
     value = (buffer[0]*256+buffer[1]) & 0x3ff
     print (value)
