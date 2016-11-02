@@ -4,8 +4,8 @@ import wiringpi2 as wp
 import time
 
 # SPI channel (0 or 1)
-SPI_CH = 0
-#SPI_CH = 1
+#SPI_CH = 0
+SPI_CH = 1
 
 # SPI speed (hz)
 SPI_SPEED = 1000000
