@@ -6,6 +6,6 @@ GPIO.setup(25,GPIO.OUT)
 
 GPIO.output(25,GPIO.HIGH)
 
-import spi
+import spy.py
 
 GPIO.cleanup()
