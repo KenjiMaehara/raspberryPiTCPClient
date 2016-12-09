@@ -26,6 +26,7 @@ u32	Os_GetTime_for_DoorOpen_Resettimeout=0;
 #define CMD_WAIT	1
 #define CMD_READ	2
 #define CMD_WRITE	3
+#define CMD_DATA_SEND	4
 
 #define M16_EXBOARD_INPUT_SIG_STATUS                       0x00
 
@@ -65,6 +66,7 @@ void EventTask(void *p_arg)
 			{
 				case CMD_WAIT:
 				
+					//dummy = SPIF.DATA;
 					
 					if(!(rxdata & 0x40))
 					{
@@ -80,9 +82,9 @@ void EventTask(void *p_arg)
 				case CMD_WRITE:
 				
 					test = rxdata;
-					SPIF.DATA = 0x55;
-					while(!(SPIF.STATUS & 0x80));
-					
+					//SPIF.DATA = 0x55;
+					//while(!(SPIF.STATUS & 0x80));
+					//dummy = SPIF.DATA;
 					state = CMD_WAIT;
 									
 					break;
@@ -96,15 +98,22 @@ void EventTask(void *p_arg)
 						
 					}
 					
+					state = CMD_WAIT;
+					
 					
 					//WAIT_EORX();
 					SPIF.DATA = get_ch18_Input();
 					while(!(SPIF.STATUS & 0x80));
+					dummy = SPIF.DATA;
 					//WAIT_EORX();
-					
-					
-					state = CMD_WAIT;
 				
+					break;
+				case CMD_DATA_SEND:
+				
+					SPIF.DATA = get_ch18_Input();
+					while(!(SPIF.STATUS & 0x80));
+					dummy = SPIF.DATA;
+					state = CMD_WAIT;
 					break;
 				default:
 					state = CMD_WAIT;
@@ -118,6 +127,9 @@ void EventTask(void *p_arg)
 
 		
 		test=1;
+		//OSTimeDlyHMSM(0,0,0,10);
+		
+		
 		
 	}
 
