@@ -25,10 +25,15 @@ while True:
         print "writing data"
         #hello spi (ASCII)
         #data = [104, 101, 108, 111, 32]
-        data = [0x40,0x00]
+        data = [0x40]
         #resp = spi.xfer2(data)
-        print ">>>" + str(spi.xfer2(data))
-        #time.sleep(0.1)
+        str(spi.xfer2(data))
+        time.sleep(0.1)
+	data = [0x00]
+	str(spi.xfer2(data))
+	time.sleep(0.1)
+	data = [0x00]
+	print "CH18  >>>" + str(spi.xfer2(data))
         #data = [0x00]
         #print ">>>" + str(spi.xfer2([0x00]))
 
@@ -44,7 +49,7 @@ while True:
         #counter += 1
         #if counter > 4:
             #break
-        time.sleep(0.1)
+        time.sleep(0.5)
     #except(keyboardInterrupt, SystemExit):
         #spi.close()
         #raise
