@@ -31,8 +31,8 @@ while True:
         time.sleep(0.1)
 	data = [0x00]
 	str(spi.xfer2(data))
-	time.sleep(0.1)
-	data = [0x00]
+	#time.sleep(0.1)
+	data = [0x00,0x00,0x00,0x00]
 	print "CH18  >>>" + str(spi.xfer2(data))
         #data = [0x00]
         #print ">>>" + str(spi.xfer2([0x00]))
@@ -49,7 +49,7 @@ while True:
         #counter += 1
         #if counter > 4:
             #break
-        time.sleep(0.5)
+        time.sleep(0.1)
     #except(keyboardInterrupt, SystemExit):
         #spi.close()
         #raise
