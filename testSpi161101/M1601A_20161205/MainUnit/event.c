@@ -81,6 +81,7 @@ void EventTask(void *p_arg)
 				
 					test = rxdata;
 					SPIF.DATA = 0x55;
+					while(!(SPIF.STATUS & 0x80));
 					
 					state = CMD_WAIT;
 									
@@ -98,6 +99,7 @@ void EventTask(void *p_arg)
 					
 					//WAIT_EORX();
 					SPIF.DATA = get_ch18_Input();
+					while(!(SPIF.STATUS & 0x80));
 					//WAIT_EORX();
 					
 					
@@ -109,7 +111,7 @@ void EventTask(void *p_arg)
 			}
 			
 			
-			dummy = SPIF.DATA;
+			//dummy = SPIF.DATA;
 			
 		}
 		
