@@ -30,6 +30,9 @@ void port_init_direction(void)
 	PORTQ.DIR = PIN0_bm | PIN1_bm | PIN2_bm | PIN3_bm;
 	
 	PORTE.PIN2CTRL = 0x18; // pullup , both edge
+	
+	PORTF.PIN5CTRL = 0x18;  // pullup , both edge
+	PORTF.PIN6CTRL = 0x18;  // pullup , both edge
 	//PORTE.REMAP  |= PORT_SPI_bm;
 	//PORTE.REMAP |= PORT_SPI_bm;
 	//PORTE.reserved_0x0E |= 0x20;	

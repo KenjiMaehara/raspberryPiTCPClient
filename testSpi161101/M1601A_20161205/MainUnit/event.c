@@ -17,7 +17,11 @@
 #include "spi.h"
 
 
-
+#define WAIT_EORX() while (! (SPIF.STATUS & SPI_IF_bm)){}
+#define	SPIE_BIT_ENABLE	6
+#define SPIE_BIT_MASTER 4
+#define	SPIF_BIT_ENABLE	6
+#define SPIF_BIT_MASTER 4
 
 
 u32	Os_GetTime_for_DoorOpen_Resettimeout=0;
@@ -74,6 +78,10 @@ void EventTask(void *p_arg)
 	volatile u8 cmd_data[20];
 	volatile u8 test=0;
 	volatile u8 rxdata=0;
+	volatile u8 txdata=0;
+	volatile u8 txdata02[20];
+	u8 testtest;
+	
 	u8 state = CMD_WAIT;
 	int cnt = 0;
 	u8 dummy;
@@ -115,6 +123,41 @@ void EventTask(void *p_arg)
 					
 					cnt=0;			
 					
+				}
+				else if(cmd_data[0]==CMD_READ)
+				{
+					switch(cmd_data[1])
+					{
+						case REG_M16_EXBOARD_INPUT_ALL_SIG_STATUS:
+							break;
+						case INPUT_CH1:
+							txdata = get_ch1_Input();
+							break;
+						case INPUT_CH18:
+							testtest = get_ch18_Input();
+							
+							if(testtest==0)
+							{
+								txdata=0x55;
+							}
+							else
+							{
+								txdata=0xaa;
+							}
+							break;
+							
+					}
+					dummy = SPIF.DATA;
+					//SPIF.CTRL |= (1<<SPIF_BIT_MASTER);
+					spi_write_single(txdata);
+					//SPIF.CTRL &= ~(1<<SPIF_BIT_MASTER);
+					//SPIF.CTRL |= (1<<SPIF_BIT_MASTER);
+					//SPIF.DATA = txdata;
+					//while(!(SPIF.STATUS & 0x80));
+					dummy = SPIF.DATA;
+					//SPIF.CTRL &= ~(1<<SPIF_BIT_MASTER);
+					
+					cnt=0;		
 				}
 				
 			}
