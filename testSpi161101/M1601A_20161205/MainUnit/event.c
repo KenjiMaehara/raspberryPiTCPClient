@@ -149,11 +149,11 @@ void EventTask(void *p_arg)
 					}
 					dummy = SPIF.DATA;
 					//SPIF.CTRL |= (1<<SPIF_BIT_MASTER);
-					spi_write_single(txdata);
+					//spi_write_single(txdata);
 					//SPIF.CTRL &= ~(1<<SPIF_BIT_MASTER);
 					//SPIF.CTRL |= (1<<SPIF_BIT_MASTER);
-					//SPIF.DATA = txdata;
-					//while(!(SPIF.STATUS & 0x80));
+					SPIF.DATA = txdata;
+					while(!(SPIF.STATUS & 0x80));
 					dummy = SPIF.DATA;
 					//SPIF.CTRL &= ~(1<<SPIF_BIT_MASTER);
 					
