@@ -154,10 +154,11 @@ void EventTask(void *p_arg)
 					//SPIF.CTRL |= (1<<SPIF_BIT_MASTER);
 					SPIF.DATA = txdata;
 					while(!(SPIF.STATUS & 0x80));
-					dummy = SPIF.DATA;
+					//WAIT_EORX();
+					//dummy = SPIF.DATA;
 					//SPIF.CTRL &= ~(1<<SPIF_BIT_MASTER);
 					
-					cnt=0;		
+					//cnt=0;		
 				}
 				
 			}
