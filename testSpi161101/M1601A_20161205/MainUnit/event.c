@@ -7,6 +7,7 @@
 
 #include <avr/io.h>
 #include <includes.h>
+#include <string.h>
 #include "port.h"
 #include "env.h"
 #include "event.h"
@@ -32,31 +33,32 @@ u32	Os_GetTime_for_DoorOpen_Resettimeout=0;
 #define CMD_WRITE	3
 #define CMD_DATA_SEND	4
 
-#define REG_M16_EXBOARD_INPUT_ALL_SIG_STATUS			0x00
-#define REG_RELAY_1										0x01
-#define REG_RELAY_2										0x02
-#define REG_RELAY_3										0x03
-#define REG_RELAY_4										0x04
+#define REG_RELAY_1										0x00
+#define REG_RELAY_2										0x01
+#define REG_RELAY_3										0x02
+#define REG_RELAY_4										0x03
 #define REG_RELAY_5										0x04
-#define INPUT_CH1										0x05
-#define INPUT_CH2										0x06
-#define INPUT_CH3										0x07
-#define INPUT_CH4										0x08
-#define INPUT_CH5										0x09
-#define INPUT_CH6										0x0A
-#define INPUT_CH7										0x0B
-#define INPUT_CH8										0x0C
-#define INPUT_CH9										0x0D
-#define INPUT_CH10										0x0E
-#define INPUT_CH11										0x0F
-#define INPUT_CH12										0x10
-#define INPUT_CH13										0x11
-#define INPUT_CH14										0x12
-#define INPUT_CH15										0x13
-#define INPUT_CH16										0x14
-#define INPUT_CH17										0x15
-#define INPUT_CH18										0x16
-#define INPUT_SR										0x17
+#define INPUT_IF										0x05
+#define REG_M16_EXBOARD_INPUT_ALL_SIG_STATUS			0x06
+#define INPUT_CH1										0x07
+#define INPUT_CH2										0x08
+#define INPUT_CH3										0x09
+#define INPUT_CH4										0x0A
+#define INPUT_CH5										0x0B
+#define INPUT_CH6										0x0C
+#define INPUT_CH7										0x0D
+#define INPUT_CH8										0x0E
+#define INPUT_CH9										0x0F
+#define INPUT_CH10										0x10
+#define INPUT_CH11										0x11
+#define INPUT_CH12										0x12
+#define INPUT_CH13										0x13
+#define INPUT_CH14										0x14
+#define INPUT_CH15										0x15
+#define INPUT_CH16										0x16
+#define INPUT_CH17										0x17
+#define INPUT_CH18										0x18
+#define INPUT_SR										0x19
 
 
 
@@ -80,12 +82,13 @@ void EventTask(void *p_arg)
 	volatile u8 rxdata=0;
 	volatile u8 txdata=0;
 	volatile u8 txdata02[20];
-	u8 testtest;
+	volatile u8 testtest=0;
 	
 	u8 state = CMD_WAIT;
 	volatile int cnt = 0;
 	u8 dummy;
-
+	volatile char *id,*cmd, *opt, *data;
+	//volatile char *test_cmd;
 	while(1)
 	{
 	
@@ -102,10 +105,40 @@ void EventTask(void *p_arg)
 			{
 				cnt = 0;
 			}
-			
-			if(cmd_data[cnt]==0x0d)
+			else if(cnt == 1)
 			{
+				if(cmd_data[0] != 'M')
+				{
+					cnt = 0;
+				}
+			}
+			else if(cnt == 2)
+			{
+				if(cmd_data[1] != 'E')
+				{
+					cnt = 0;
+				}
+			}
+			
+
+			
+			if(cnt > 2 && cmd_data[cnt]==0x0d)
+			{
+				id = strtok(cmd_data, ",");
+				cmd = strtok(NULL, ",");
+				opt = strtok(NULL, ",");
+				data = strtok(NULL, ",");
+			
 				cnt = 0;
+				
+				char test_cmd[] = "rd";
+				
+				if(strcmp(cmd,test_cmd)==0)
+				{
+					testtest++;
+				}
+				
+				
 			}
 			
 			
