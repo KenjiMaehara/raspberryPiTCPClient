@@ -37,7 +37,7 @@ u8 spi_write_single(u8 byte)
 		; 
 	}	
 	WAIT_EORX();
-	dummy = SPIF.DATA;
+	//dummy = SPIF.DATA;
 	return dummy;
 }
 
