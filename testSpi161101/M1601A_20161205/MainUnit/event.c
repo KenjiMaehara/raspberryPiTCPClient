@@ -97,6 +97,8 @@ void EventTask(void *p_arg)
 
 			cmd_data[cnt++] = rxdata;
 			
+			
+			#if 0
 			if(cnt > 2)
 			{
 				if(cmd_data[0]==CMD_WRITE)
@@ -172,7 +174,7 @@ void EventTask(void *p_arg)
 				cnt=0;
 			}
 
-			
+			#endif
 			
 			
 			#if 0
