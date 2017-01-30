@@ -32,7 +32,7 @@ u32	Os_GetTime_for_DoorOpen_Resettimeout=0;
 #define CMD_WRITE	3
 #define CMD_DATA_SEND	4
 
-#define REG_reserve0									0x00
+#define REG_M16_EXBOARD_INPUT_ALL_SIG_STATUS			0x00
 #define REG_RELAY_1										0x01
 #define REG_RELAY_2										0x02
 #define REG_RELAY_3										0x03
@@ -56,15 +56,7 @@ u32	Os_GetTime_for_DoorOpen_Resettimeout=0;
 #define INPUT_CH16										0x14
 #define INPUT_CH17										0x15
 #define INPUT_CH18										0x16
-#define INPUT_SR_KEY									0x17
-#define TAMPA_SW										0x18
-#define BATTLOW											0x19
-#define POWERBLACKOUT									0x1A
-#define BATTFULL										0x1B
-#define ROUTER_RESET									0x1C
-#define ESP_RESET										0x1D
-
-
+#define INPUT_SR										0x17
 
 
 
@@ -141,76 +133,27 @@ void EventTask(void *p_arg)
 						case INPUT_CH1:
 							txdata = get_ch1_Input();
 							break;
-						case INPUT_CH2:
-							txdata = get_ch2_Input();
-							break;
-						case INPUT_CH3:
-							txdata = get_ch3_Input();
-							break;
-						case INPUT_CH4:
-							txdata = get_ch4_Input();
-							break;
-						case INPUT_CH5:
-							txdata = get_ch5_Input();
-							break;
-						case INPUT_CH6:
-							txdata = get_ch6_Input();
-							break;
-						case INPUT_CH7:
-							txdata = get_ch7_Input();
-							break;
-						case INPUT_CH8:
-							txdata = get_ch8_Input();
-							break;
-						case INPUT_CH9:
-							txdata = get_ch9_Input();
-							break;
-						case INPUT_CH10:
-							txdata = get_ch10_Input();
-							break;
-						case INPUT_CH11:
-							txdata = get_ch11_Input();
-							break;
-						case INPUT_CH12:
-							txdata = get_ch12_Input();
-							break;
-						case INPUT_CH13:
-							txdata = get_ch13_Input();
-							break;
-						case INPUT_CH14:
-							txdata = get_ch14_Input();
-							break;
-						case INPUT_CH15:
-							txdata = get_ch15_Input();
-							break;
-						case INPUT_CH16:
-							txdata = get_ch16_Input();
-							break;
-						case INPUT_CH17:
-							txdata = get_ch17_Input();
-							break;
 						case INPUT_CH18:
 							testtest = get_ch18_Input();
+							
+							if(testtest==0)
+							{
+								txdata=0x55;
+							}
+							else
+							{
+								txdata=0xaa;
+							}
 							break;
+							
 					}
-
-
-					if(testtest==0)
-					{
-						txdata=0x55;
-					}
-					else
-					{
-						txdata=0xaa;
-					}				
-					
 					dummy = SPIF.DATA;
 					//SPIF.CTRL |= (1<<SPIF_BIT_MASTER);
-					spi_write_single(txdata);
+					//spi_write_single(txdata);
 					//SPIF.CTRL &= ~(1<<SPIF_BIT_MASTER);
 					//SPIF.CTRL |= (1<<SPIF_BIT_MASTER);
-					//SPIF.DATA = txdata;
-					//while(!(SPIF.STATUS & 0x80));
+					SPIF.DATA = txdata;
+					while(!(SPIF.STATUS & 0x80));
 					//WAIT_EORX();
 					//dummy = SPIF.DATA;
 					//SPIF.CTRL &= ~(1<<SPIF_BIT_MASTER);
