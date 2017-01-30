@@ -25,10 +25,11 @@ while True:
         print "writing data"
         #hello spi (ASCII)
         #data = [104, 101, 108, 111, 32]
-        #data = [a,b,c,d,e,f,g]
-        data = [0x20]
+        data = "abcdefg"
+        #data = [0x20]
 	#resp = spi.xfer2(data)
-        str(spi.xfer2(data))
+	spi.xfer2(data)
+        #str(spi.xfer2(data))
 	spi.xfer2(data)
 	#spi.xfer2(data)
         time.sleep(0.1)
