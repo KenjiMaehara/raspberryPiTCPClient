@@ -83,7 +83,7 @@ void EventTask(void *p_arg)
 	u8 testtest;
 	
 	u8 state = CMD_WAIT;
-	int cnt = 0;
+	volatile int cnt = 0;
 	u8 dummy;
 
 	while(1)
@@ -96,6 +96,13 @@ void EventTask(void *p_arg)
 			rxdata = SPIF.DATA;
 
 			cmd_data[cnt++] = rxdata;
+			
+			
+			if(cnt > 20)
+			{
+				cnt=0;
+			}
+			
 			
 			
 			#if 0
