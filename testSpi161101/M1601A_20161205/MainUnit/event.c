@@ -100,9 +100,13 @@ void EventTask(void *p_arg)
 			
 			if(cnt > 20)
 			{
-				cnt=0;
+				cnt = 0;
 			}
 			
+			if(cmd_data[cnt]==0x0d)
+			{
+				cnt = 0;
+			}
 			
 			
 			#if 0
