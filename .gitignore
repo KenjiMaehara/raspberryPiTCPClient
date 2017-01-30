@@ -1,0 +1,7 @@
+*.atsuo
+*.o
+*.lss
+*.srec
+testSpi161101/M1601A_20161205/MainUnit/Debug/Makefile
+*.elf
+*.map
