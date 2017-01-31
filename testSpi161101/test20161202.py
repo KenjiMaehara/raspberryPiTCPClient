@@ -20,46 +20,18 @@ GPIO.output(16, GPIO.HIGH)
 time.sleep(0.1)
 GPIO.output(16, GPIO.LOW)
 
-while True:
-    #try:
-        print "writing data"
-        #hello spi (ASCII)
-        #data = [104, 101, 108, 111, 32]
-        data = b"abcdefg"
-        #data = [0x20]
-	#resp = spi.xfer2(data)
-	spi.xfer2(data)
-        #str(spi.xfer2(data))
-	#spi.xfer2(data)
-	#spi.xfer2(data)
-        time.sleep(0.1)
-	#data = [0x16]
-	#str(spi.xfer2(data))
-	#time.sleep(0.1)
-	#data = [0x00]
-	#data = [0x0d]
-	#str(spi.xfer2(data))
-	#data = [0x00]
-	#print "CH18  >>>" + str(spi.xfer2(data))
-        #data = [0x00]
-        #print ">>>" + str(spi.xfer2([0x00]))
-
-        #time.sleep(0.1)
-        #n = 0
-        # while n < 10:
-        #         print ">>>" + str(spi.xfer2([0x00]))
-        #         n += 1
-        #else:
-        #         print "END"
-
-        #time.sleep(1)
-        #counter += 1
-        #if counter > 4:
-            #break
-        time.sleep(0.1)
-    #except(keyboardInterrupt, SystemExit):
-        #spi.close()
-        #raise
+#while True:
+#try:
+print "writing data"
+data = b"abcdefg"
+str(spi.xfer2(data))
+time.sleep(0.1)
+#except(keyboardInterrupt, SystemExit):
+spi.close()
+#raise
 #spi.close()
+
+
+
 print "done"
 
