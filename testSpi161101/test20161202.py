@@ -25,22 +25,22 @@ while True:
         print "writing data"
         #hello spi (ASCII)
         #data = [104, 101, 108, 111, 32]
-        data = "abcdefg"
+        data = b"abcdefg"
         #data = [0x20]
 	#resp = spi.xfer2(data)
 	spi.xfer2(data)
         #str(spi.xfer2(data))
-	spi.xfer2(data)
+	#spi.xfer2(data)
 	#spi.xfer2(data)
         time.sleep(0.1)
-	data = [0x16]
-	str(spi.xfer2(data))
+	#data = [0x16]
+	#str(spi.xfer2(data))
 	#time.sleep(0.1)
 	#data = [0x00]
-	data = [0x0d]
-	str(spi.xfer2(data))
-	data = [0x00]
-	print "CH18  >>>" + str(spi.xfer2(data))
+	#data = [0x0d]
+	#str(spi.xfer2(data))
+	#data = [0x00]
+	#print "CH18  >>>" + str(spi.xfer2(data))
         #data = [0x00]
         #print ">>>" + str(spi.xfer2([0x00]))
 
