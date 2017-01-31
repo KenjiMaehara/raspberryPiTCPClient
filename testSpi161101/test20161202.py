@@ -5,6 +5,8 @@ import RPi.GPIO as GPIO
 import time
 #import spi.max_speed_hz = 50000000
 
+#GPIO.cleanup()
+#while True:
 
 spi = spidev.SpiDev()
 spi.open(1,0)
@@ -20,6 +22,9 @@ GPIO.output(16, GPIO.HIGH)
 time.sleep(0.1)
 GPIO.output(16, GPIO.LOW)
 
+
+
+
 #while True:
 #try:
 print "writing data"
@@ -30,7 +35,7 @@ time.sleep(0.1)
 spi.close()
 #raise
 #spi.close()
-
+GPIO.cleanup()
 
 
 print "done"
