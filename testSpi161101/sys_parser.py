@@ -52,8 +52,8 @@ def parser():
 	arguments.pop(0)
 	# 引数として与えられたfile名
 	fname = arguments[0]
-	if fname.startswith('-'):
-	    return usage
+	#if fname.startswith('-'):
+	#    return usage
 	# - で始まるoption
 	options = [option for option in arguments if option.startswith('-')]
 	
