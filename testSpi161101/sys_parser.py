@@ -67,6 +67,7 @@ def parser():
 	    another_file = arguments[cat_position + 1]
 	    return 'concatnated: {}{}'.format(fname, another_file)
 	if '-ia' in options or '--inputall' in options:
+		commSpi()
 		return 'testtest0201!!!'
 	return 'input is {}'.format(fname)
 
