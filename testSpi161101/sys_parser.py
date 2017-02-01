@@ -66,6 +66,8 @@ def parser():
 	            if '-c' in options else arguments.index('--cat')
 	    another_file = arguments[cat_position + 1]
 	    return 'concatnated: {}{}'.format(fname, another_file)
+	if '-ia' in options or '--inputall' in options:
+		return 'testtest0201!!!'
 	return 'input is {}'.format(fname)
 
 if __name__ == '__main__':
