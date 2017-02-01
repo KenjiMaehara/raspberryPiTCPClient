@@ -8,7 +8,7 @@ import sys
 
 #GPIO.cleanup()
 
-der commSpi():
+def commSpi():
 	spi = spidev.SpiDev()
 	spi.open(1,0)
 	counter = 0
