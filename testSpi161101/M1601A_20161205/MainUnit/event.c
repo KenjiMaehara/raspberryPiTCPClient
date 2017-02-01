@@ -78,11 +78,14 @@ void EventTask(void *p_arg)
 	volatile testCount=0;
 	volatile u8 testCharacter[100];
 	volatile u8 cmd_data[20];
+	volatile u8 reverse_data[20];
 	volatile u8 test=0;
 	volatile u8 rxdata=0;
 	volatile u8 txdata=0;
 	volatile u8 txdata02[20];
 	volatile u8 testtest=0;
+	
+	volatile int cntRevData=0;
 	
 	u8 state = CMD_WAIT;
 	volatile int cnt = 0;
@@ -100,187 +103,80 @@ void EventTask(void *p_arg)
 
 			cmd_data[cnt++] = rxdata;
 			
-			
-			if(cnt > 20)
-			{
-				cnt = 0;
-			}
-			else if(cnt == 1)
-			{
-				if(cmd_data[0] != 'M')
-				{
-					cnt = 0;
-				}
-			}
-			else if(cnt == 2)
-			{
-				if(cmd_data[1] != 'E')
-				{
-					cnt = 0;
-				}
-			}
-			
 
-			
-			if(cnt > 2 && cmd_data[cnt]==0x0d)
+			if(cntRevData == 0)
 			{
-				id = strtok(cmd_data, ",");
-				cmd = strtok(NULL, ",");
-				opt = strtok(NULL, ",");
-				data = strtok(NULL, ",");
-			
-				cnt = 0;
 				
-				char test_cmd[] = "rd";
-				
-				if(strcmp(cmd,test_cmd)==0)
+				if(cnt > 20)
 				{
-					testtest++;
+					cnt = 0;
 				}
-				
-				
-			}
-			
-			
-			#if 0
-			if(cnt > 2)
-			{
-				if(cmd_data[0]==CMD_WRITE)
+				else if(cnt == 1)
 				{
-					switch(cmd_data[1])
+					if(cmd_data[0] != 'M')
 					{
-						case REG_RELAY_1:
-							set_Relay1(cmd_data[2]);
-							break;
-						case REG_RELAY_2:
-							set_Relay2(cmd_data[2]);
-							break;
-						case REG_RELAY_3:
-							set_Relay3(cmd_data[2]);
-							break;
-						case REG_RELAY_4:
-							set_Relay4(cmd_data[2]);
-							break;
-						default:
-						
 						cnt = 0;
-						
-					}		
-					
-					cnt=0;			
-					
+					}
 				}
-				else if(cmd_data[0]==CMD_READ)
+				else if(cnt == 2)
 				{
-					switch(cmd_data[1])
+					if(cmd_data[1] != 'E')
 					{
-						case REG_M16_EXBOARD_INPUT_ALL_SIG_STATUS:
-							break;
-						case INPUT_CH1:
-							txdata = get_ch1_Input();
-							break;
-						case INPUT_CH18:
-							testtest = get_ch18_Input();
-							
-							if(testtest==0)
-							{
-								txdata=0x55;
-							}
-							else
-							{
-								txdata=0xaa;
-							}
-							break;
-							
+						cnt = 0;
 					}
-					dummy = SPIF.DATA;
-					//SPIF.CTRL |= (1<<SPIF_BIT_MASTER);
-					//spi_write_single(txdata);
-					//SPIF.CTRL &= ~(1<<SPIF_BIT_MASTER);
-					//SPIF.CTRL |= (1<<SPIF_BIT_MASTER);
-					SPIF.DATA = txdata;
-					while(!(SPIF.STATUS & 0x80));
-					//WAIT_EORX();
-					//dummy = SPIF.DATA;
-					//SPIF.CTRL &= ~(1<<SPIF_BIT_MASTER);
-					
-					//cnt=0;		
 				}
 				
-			}
-			else if (cnt > 3)
-			{
-				cnt=0;
-			}
-			
-			if(cmd_data[0] != CMD_WRITE && cmd_data[0] != CMD_READ)
-			{
-				cnt=0;
-			}
 
-			#endif
-			
-			
-			#if 0
-			switch(state)
-			{
-				case CMD_WAIT:
 				
-					//dummy = SPIF.DATA;
+				if(cnt > 2 && cmd_data[cnt]==0x0d)
+				{
+					id = strtok(cmd_data, ",");
+					cmd = strtok(NULL, ",");
+					opt = strtok(NULL, ",");
+					data = strtok(NULL, ",");
+				
+					cnt = 0;
 					
-					if(rxdata & 0x40)
-					{
-						state = CMD_READ;
-					}
-					else if(rxdata & 0x80)
-					{
-						state = CMD_WRITE;
-					}
-				
-					break;
-				case CMD_WRITE:
-				
-					switch(state_reg)
-					{
-						case REG_RELAY_1:
-						
-						
-						
-						
-						
-					}
-
-
-					state = CMD_WAIT;
-									
-					break;
-				case CMD_READ:
+					char test_cmd[] = "rd";
 					
-					if(rxdata == M16_EXBOARD_INPUT_SIG_STATUS)
+					if(strcmp(cmd,test_cmd)==0)
 					{
+						testtest++;
+						
+						char test_cmd[] = 0x31;			//input all data
+						if(strcmp(opt,test_cmd)==0)
+						{
+							reverse_data[0] = 'M';
+							reverse_data[1] = 'E';
+							reverse_data[2] = ',';
+							
+							reverse_data[3] = 0;
+							reverse_data[3] |= get_ch8_Input() << 7;
+							reverse_data[3] |= get_ch7_Input() << 6;
+							reverse_data[3] |= get_ch6_Input() << 5;
+							reverse_data[3] |= get_ch5_Input() << 4;
+							reverse_data[3] |= get_ch4_Input() << 3;
+							reverse_data[3] |= get_ch3_Input() << 2;
+							reverse_data[3] |= get_ch2_Input() << 1;
+							reverse_data[3] |= get_ch1_Input();
+							
+							reverse_data[4] = 0x0d;
+							
+							cntRevData = 4;
+						}
 						
 					}
 					
-					state = CMD_WAIT;
 					
-					
-					//WAIT_EORX();
-					SPIF.DATA = get_ch18_Input();
-					while(!(SPIF.STATUS & 0x80));
-					dummy = SPIF.DATA;
-					//WAIT_EORX();
-				
-					break;
-				default:
-					state = CMD_WAIT;
+				}
 			}
-			
-			
-			//dummy = SPIF.DATA;
-			#endif
+			else
+			{
+				
+				cntRevData--;
+				
+			}
 		}
-		
-
 		
 		test=1;
 		//OSTimeDlyHMSM(0,0,0,10);
