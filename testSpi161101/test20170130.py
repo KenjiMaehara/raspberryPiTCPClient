@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 import time
 #import spi.max_speed_hz = 50000000
 
-
+GPIO.cleanup()
 
 spi = spidev.SpiDev()
 spi.open(1,0)
