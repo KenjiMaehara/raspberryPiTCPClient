@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 import time
 #import spi.max_speed_hz = 50000000
 
-GPIO.cleanup()
+#GPIO.cleanup()
 
 spi = spidev.SpiDev()
 spi.open(1,0)
@@ -27,8 +27,8 @@ print "writing data"
 #hello spi (ASCII)
 
 #data = [0x61,0x62,0x63,0x64,0x65,0x66,0x67]
-data = b"abcdefg"
-
+#data = b"abcdefg"
+data = [0x4d,0x45,0x2c,0x72,0x64,0x2c,0x01,0x0d]
 
 str(spi.xfer2(data))
 
