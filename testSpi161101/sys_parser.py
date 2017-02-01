@@ -37,6 +37,20 @@ def commSpi():
 	time.sleep(0.1)
 	#data = [0x16]
 	
+	i=0
+	while i < 10:
+		data = [0x00]
+		data2 = str(spi.xfer2(data))
+		
+		if data2 == 0x0d:
+			break
+		else:
+			print data2
+		
+		i += 1
+
+
+
 	spi.close()
 	print "done"
 	
