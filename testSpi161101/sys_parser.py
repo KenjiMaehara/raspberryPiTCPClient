@@ -13,7 +13,7 @@ def commSpi():
 	spi.open(1,0)
 	counter = 0
 	#spi.max_speed_hz = 4000000
-	spi.max_speed_hz = 500000
+	spi.max_speed_hz = 3000000
 	
 	GPIO.setmode(GPIO.BCM)
 	# GPIOを稼動させます。
@@ -49,11 +49,12 @@ def commSpi():
 		data = [0x00]
 		#print str(spi.xfer2(data))
 		#print spi.xfer2(data)
-		list01.insert(i,str(spi.xfer2(data)))
+		#list01.insert(i,str(spi.xfer2(data)))
+		list01.insert(i,spi.xfer2(data)[0])
 		i += 1
 
 	
-	print list01
+	print str(list01)
 
 	spi.close()
 	print "done"
