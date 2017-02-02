@@ -89,9 +89,14 @@ void EventTask(void *p_arg)
 	
 	u8 state = CMD_WAIT;
 	volatile int cnt = 0;
+	volatile int cnt02 = 0;
 	u8 dummy;
-	volatile char *id,*cmd, *opt, *data;
+	char *id,*cmd,*opt,*data;
 	//volatile char *test_cmd;
+	char test_cmd1[] = "rd";
+	char test_cmd2[] = "01";
+	
+	
 	while(1)
 	{
 	
@@ -106,6 +111,12 @@ void EventTask(void *p_arg)
 
 			if(cntRevData == 0)
 			{
+				
+				if(cnt02 != 0)
+				{
+					cnt02 = 0;
+				}
+				
 				
 				if(cnt > 20)
 				{
@@ -128,7 +139,7 @@ void EventTask(void *p_arg)
 				
 
 				
-				if(cnt > 2 && cmd_data[cnt]==0x0d)
+				if(cnt > 2 && cmd_data[cnt-1]==0x0d)
 				{
 					id = strtok(cmd_data, ",");
 					cmd = strtok(NULL, ",");
@@ -137,20 +148,24 @@ void EventTask(void *p_arg)
 				
 					cnt = 0;
 					
-					char test_cmd[] = "rd";
+					//test_cmd1 = "rd";
 					
-					if(strcmp(cmd,test_cmd)==0)
+					if(strcmp(cmd,test_cmd1) == 0)
 					{
 						testtest++;
 						
-						char test_cmd[] = 0x31;			//input all data
-						if(strcmp(opt,test_cmd)==0)
+						//test_cmd = "1";			//input all data
+						
+						if(strcmp(opt,test_cmd2) == 0)
 						{
-							reverse_data[0] = 'M';
-							reverse_data[1] = 'E';
-							reverse_data[2] = ',';
+							reverse_data[0] = 0x88;
+							reverse_data[1] = 0x88;
+							reverse_data[2] = 0x88;
 							
-							reverse_data[3] = 0;
+							reverse_data[3] = 0x88;
+							
+							
+							#if 0
 							reverse_data[3] |= get_ch8_Input() << 7;
 							reverse_data[3] |= get_ch7_Input() << 6;
 							reverse_data[3] |= get_ch6_Input() << 5;
@@ -159,10 +174,16 @@ void EventTask(void *p_arg)
 							reverse_data[3] |= get_ch3_Input() << 2;
 							reverse_data[3] |= get_ch2_Input() << 1;
 							reverse_data[3] |= get_ch1_Input();
+							#endif
+							
 							
 							reverse_data[4] = 0x0d;
 							
 							cntRevData = 4;
+						}
+						else
+						{
+							testtest++;
 						}
 						
 					}
@@ -172,9 +193,16 @@ void EventTask(void *p_arg)
 			}
 			else
 			{
-				
-				cntRevData--;
-				
+				if(cnt02 < cntRevData)
+				{
+					spi_write_single(reverse_data[cnt02]);
+					cnt02++;
+				}
+				else
+				{
+					cnt02 = 0;
+					cntRevData = 0;
+				}
 			}
 		}
 		
