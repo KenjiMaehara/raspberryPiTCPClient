@@ -318,6 +318,7 @@ int main(void)
 	port_init();
 	spi_init();
 	
+
 	lcd_start();
 	lcd_init();
 	
