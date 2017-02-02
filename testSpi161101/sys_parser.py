@@ -42,13 +42,18 @@ def commSpi():
 	#print str(spi.xfer2(data))
 
 
+	list01 = list()
+	list01 = []
 	i=0
-	while i < 10:
+	while i < 15:
 		data = [0x00]
-		print str(spi.xfer2(data))
+		#print str(spi.xfer2(data))
+		#print spi.xfer2(data)
+		list01.insert(i,str(spi.xfer2(data)))
 		i += 1
 
-
+	
+	print list01
 
 	spi.close()
 	print "done"
