@@ -91,10 +91,10 @@ void EventTask(void *p_arg)
 	volatile int cnt = 0;
 	volatile int cnt02 = 0;
 	u8 dummy;
-	char *id,*cmd,*opt,*data;
+	 char *id,*cmd,*opt,*data;
 	//volatile char *test_cmd;
-	char test_cmd1[] = "rd";
-	char test_cmd2[] = "01";
+	char *test_cmd1;
+	char *test_cmd2;
 	
 	
 	while(1)
@@ -148,19 +148,19 @@ void EventTask(void *p_arg)
 				
 					cnt = 0;
 					
-					//test_cmd1 = "rd";
+					test_cmd1 = "rd";
 					
 					if(strcmp(cmd,test_cmd1) == 0)
 					{
 						testtest++;
 						
-						//test_cmd = "1";			//input all data
+						test_cmd2 = "01";			//input all data
 						
 						if(strcmp(opt,test_cmd2) == 0)
 						{
-							reverse_data[0] = 0x88;
-							reverse_data[1] = 0x88;
-							reverse_data[2] = 0x88;
+							reverse_data[0] = 0x12;
+							reverse_data[1] = 0x34;
+							reverse_data[2] = 0x56;
 							
 							reverse_data[3] = 0x88;
 							
@@ -179,7 +179,7 @@ void EventTask(void *p_arg)
 							
 							reverse_data[4] = 0x0d;
 							
-							cntRevData = 4;
+							cntRevData = 5;
 						}
 						else
 						{
@@ -193,9 +193,14 @@ void EventTask(void *p_arg)
 			}
 			else
 			{
+
+				
 				if(cnt02 < cntRevData)
 				{
-					spi_write_single(reverse_data[cnt02]);
+					dummy = SPIF.DATA;
+					SPIF.DATA = reverse_data[cnt02];
+					while(!(SPIF.STATUS & 0x80));
+					//spi_write_single(reverse_data[cnt02]);
 					cnt02++;
 				}
 				else

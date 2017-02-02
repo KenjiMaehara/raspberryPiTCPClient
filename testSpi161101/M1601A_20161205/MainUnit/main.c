@@ -319,6 +319,7 @@ int main(void)
 	spi_init();
 	
 
+
 	lcd_start();
 	lcd_init();
 	
