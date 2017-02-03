@@ -7,8 +7,10 @@ import sys
 #import spi.max_speed_hz = 50000000
 
 #GPIO.cleanup()
+#data03 = "test"
 
-def commSpi():
+
+def commSpi(data03):
 	spi = spidev.SpiDev()
 	spi.open(1,0)
 	counter = 0
@@ -29,8 +31,8 @@ def commSpi():
 	list0203 = list()
 	list0203 = []
 
-	data03 = "ME,rd,01,abc,\r"
-	print data03 
+	#data03 = "ME,rd,01,abc,\r"
+	#print data03 
 
 	i = 0
 
@@ -48,7 +50,7 @@ def commSpi():
 	
 	print "\n"
 
-	data = [0x00,0x00,0x4d,0x45,0x2c,0x72,0x64,0x2c,0x30,0x31,0x2c,0x61,0x62,0x63,0x2c,0x0d,0x00,0x00]
+	#data = [0x00,0x00,0x4d,0x45,0x2c,0x72,0x64,0x2c,0x30,0x31,0x2c,0x61,0x62,0x63,0x2c,0x0d,0x00,0x00]
 	
 	print "data :      ",
 	i=0
@@ -59,7 +61,7 @@ def commSpi():
 
 	print "\n"
 
-	str(spi.xfer2(data))
+	str(spi.xfer2(list0203))
 	
 	time.sleep(0.3)
 
@@ -134,7 +136,9 @@ def parser():
 	    another_file = arguments[cat_position + 1]
 	    return 'concatnated: {}{}'.format(fname, another_file)
 	if '-ia' in options or '--inputall' in options:
-		commSpi()
+		data03 = "ME,rd,01,abc,\r"
+		print data03
+		commSpi(data03)
 		return 'testtest0201!!!'
 	return 'input is {}'.format(fname)
 
