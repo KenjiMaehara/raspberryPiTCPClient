@@ -7,8 +7,6 @@ import sys
 #import spi.max_speed_hz = 50000000
 
 #GPIO.cleanup()
-#data03 = "test"
-
 
 def commSpi(data03):
 	spi = spidev.SpiDev()
@@ -25,22 +23,17 @@ def commSpi(data03):
 	GPIO.output(16, GPIO.HIGH)
 	time.sleep(0.1)
 	GPIO.output(16, GPIO.LOW)
-	
-
 
 	list0203 = list()
 	list0203 = []
 
-	#data03 = "ME,rd,01,abc,\r"
-	#print data03 
-
 	i = 0
-
 	for x in data03:
 		list0203.insert(i,ord(x))
-		i += 1	
+		i += 1
 
 
+	##################   for debug 20170203   ###################################################
 	#print "list0203 :  ",
 	#i = 0
 	#while i < len(list0203):
@@ -60,6 +53,7 @@ def commSpi(data03):
 
 
 	#print "\n"
+	##################   for debug 20170203   ###################################################
 
 	str(spi.xfer2(list0203))
 	
@@ -74,30 +68,15 @@ def commSpi(data03):
 		list01.insert(i,spi.xfer2(data)[0])
 		i += 1
 
-
-
-
 	i=0
 	while i < len(list01):
 		print hex(list01[i]),
 		i += 1
 
 
-	#i=0
-	#while i < 10:
-	#	a = chr(list01[i])
-	#	print a
-	#	i += 1
-
-
-
-
-	#print hex(list01[0])
-	#print(list01.find('ME'))
-	#print '%s' % list01
 
 	spi.close()
-	print "done"
+	#print "done"
 	
 	GPIO.cleanup()
 	return list01
