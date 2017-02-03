@@ -90,17 +90,7 @@ def commSpi(data03):
 	#	i += 1
 
 
-	i=0
-	while i < len(list01):
-		if list01[i] == 0x4d and list01[i+1] == 0x45:
-			print "\n address:",
-			print chr(list01[i+3]),
-			print chr(list01[i+4])     ,
-			print "ch8～1 : ",
-			print format(list01[i+6], 'b'),
-			print "   ch16～9 : ",
-			print format(list01[i+7], 'b')
-		i += 1
+
 
 	#print hex(list01[0])
 	#print(list01.find('ME'))
@@ -110,6 +100,7 @@ def commSpi(data03):
 	print "done"
 	
 	GPIO.cleanup()
+	return list01
 
 def parser():
 	usage = 'Usage: python {} FILE [--verbose] [--cat <file>] [--help]'\
@@ -137,8 +128,20 @@ def parser():
 	    return 'concatnated: {}{}'.format(fname, another_file)
 	if '-ia' in options or '--inputall' in options:
 		data03 = "ME,rd,01,abc,\r"
-		print data03
-		commSpi(data03)
+		list01 = commSpi(data03)
+		i=0
+		while i < len(list01):
+			if list01[i] == 0x4d and list01[i+1] == 0x45:
+				print "\n address:",
+				print chr(list01[i+3]),
+				print chr(list01[i+4])     ,
+				print "ch8～1 : ",
+				print format(list01[i+6], 'b'),
+				print "   ch16～9 : ",
+				print format(list01[i+7], 'b')
+			i += 1
+
+
 		return 'testtest0201!!!'
 	return 'input is {}'.format(fname)
 
