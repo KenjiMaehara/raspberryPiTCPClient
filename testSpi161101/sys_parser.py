@@ -13,7 +13,7 @@ def commSpi():
 	spi.open(1,0)
 	counter = 0
 	#spi.max_speed_hz = 4000000
-	spi.max_speed_hz = 3000000
+	spi.max_speed_hz = 1000000
 	
 	GPIO.setmode(GPIO.BCM)
 	# GPIOを稼動させます。
@@ -26,7 +26,7 @@ def commSpi():
 	
 	#while True:
 	#try:
-	print "writing data"
+	#print "writing data"
 	#hello spi (ASCII)
 	
 	#data = [0x61,0x62,0x63,0x64,0x65,0x66,0x67]
@@ -51,10 +51,38 @@ def commSpi():
 		#print spi.xfer2(data)
 		#list01.insert(i,str(spi.xfer2(data)))
 		list01.insert(i,spi.xfer2(data)[0])
+		#list01.insert(i,str(spi.xfer2(data)[0]))
 		i += 1
 
-	
-	print str(list01)
+
+	i=0
+	while i < 10:
+		print hex(list01[i]),
+		i += 1
+
+
+	#i=0
+	#while i < 10:
+	#	a = chr(list01[i])
+	#	print a
+	#	i += 1
+
+
+	i=0
+	while i < 10:
+		if list01[i] == 0x4d and list01[i+1] == 0x45:
+			print "\n address:",
+			print chr(list01[i+3]),
+			print chr(list01[i+4])     ,
+			print "ch8～1 : ",
+			print format(list01[i+6], 'b'),
+			print "   ch16～9 : ",
+			print format(list01[i+7], 'b')
+		i += 1
+
+	#print hex(list01[0])
+	#print(list01.find('ME'))
+	#print '%s' % list01
 
 	spi.close()
 	print "done"
