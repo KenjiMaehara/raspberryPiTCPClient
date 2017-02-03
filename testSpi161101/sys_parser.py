@@ -24,22 +24,16 @@ def commSpi():
 	time.sleep(0.1)
 	GPIO.output(16, GPIO.LOW)
 	
-	#while True:
-	#try:
-	#print "writing data"
-	#hello spi (ASCII)
-	
-	#data = [0x61,0x62,0x63,0x64,0x65,0x66,0x67]
-	#data = b"abcdefg"
+
 
 	list0203 = list()
 	list0203 = []
 
 	data03 = "ME,rd,01,abc,\r"
 	print data03 
-	#list0203 = list(ord(data03))
+
 	i = 0
-	#for x in "ME,rd,01,abc,\n":
+
 	for x in data03:
 		list0203.insert(i,ord(x))
 		i += 1	
@@ -58,8 +52,8 @@ def commSpi():
 	
 	print "data :      ",
 	i=0
-	while i < len(data):
-		print hex(data[i]),
+	while i < len(list0203):
+		print hex(list0203[i]),
 		i += 1
 
 
@@ -68,10 +62,6 @@ def commSpi():
 	str(spi.xfer2(data))
 	
 	time.sleep(0.3)
-	#data = [0x16]
-	
-	#data = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]	
-	#print str(spi.xfer2(data))
 
 
 	list01 = list()
@@ -79,11 +69,7 @@ def commSpi():
 	i=0
 	while i < 10:
 		data = [0x00]
-		#print str(spi.xfer2(data))
-		#print spi.xfer2(data)
-		#list01.insert(i,str(spi.xfer2(data)))
 		list01.insert(i,spi.xfer2(data)[0])
-		#list01.insert(i,str(spi.xfer2(data)[0]))
 		i += 1
 
 
