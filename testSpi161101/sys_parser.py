@@ -47,7 +47,7 @@ def commSpi():
 
 	print "list0203 :  ",
 	i = 0
-	while i < 14:
+	while i < len(list0203):
 		print hex(list0203[i]),
 		i += 1
 
@@ -58,7 +58,7 @@ def commSpi():
 	
 	print "data :      ",
 	i=0
-	while i < 18:
+	while i < len(data):
 		print hex(data[i]),
 		i += 1
 
@@ -70,14 +70,14 @@ def commSpi():
 	time.sleep(0.3)
 	#data = [0x16]
 	
-	data = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]	
+	#data = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]	
 	#print str(spi.xfer2(data))
 
 
 	list01 = list()
 	list01 = []
 	i=0
-	while i < 15:
+	while i < 10:
 		data = [0x00]
 		#print str(spi.xfer2(data))
 		#print spi.xfer2(data)
@@ -87,8 +87,10 @@ def commSpi():
 		i += 1
 
 
+
+
 	i=0
-	while i < 10:
+	while i < len(list01):
 		print hex(list01[i]),
 		i += 1
 
@@ -101,7 +103,7 @@ def commSpi():
 
 
 	i=0
-	while i < 10:
+	while i < len(list01):
 		if list01[i] == 0x4d and list01[i+1] == 0x45:
 			print "\n address:",
 			print chr(list01[i+3]),
