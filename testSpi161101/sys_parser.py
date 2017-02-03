@@ -39,7 +39,8 @@ def commSpi():
 	print data03 
 	#list0203 = list(ord(data03))
 	i = 0
-	for x in "ME,rd,01,abc,\n":
+	#for x in "ME,rd,01,abc,\n":
+	for x in data03:
 		list0203.insert(i,ord(x))
 		i += 1	
 
