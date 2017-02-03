@@ -35,7 +35,7 @@ def commSpi():
 	list0203 = list()
 	list0203 = []
 
-	data03 = "ME,rd,01,abc,\n"
+	data03 = "ME,rd,01,abc,\r"
 	print data03 
 	#list0203 = list(ord(data03))
 	i = 0
