@@ -31,8 +31,39 @@ def commSpi():
 	
 	#data = [0x61,0x62,0x63,0x64,0x65,0x66,0x67]
 	#data = b"abcdefg"
+
+	list0203 = list()
+	list0203 = []
+
+	data03 = "ME,rd,01,abc,\n"
+	print data03 
+	#list0203 = list(ord(data03))
+	i = 0
+	for x in "ME,rd,01,abc,\n":
+		list0203.insert(i,ord(x))
+		i += 1	
+
+
+	print "list0203 :  ",
+	i = 0
+	while i < 14:
+		print hex(list0203[i]),
+		i += 1
+
+	
+	print "\n"
+
 	data = [0x4d,0x45,0x2c,0x72,0x64,0x2c,0x30,0x31,0x2c,0x61,0x62,0x63,0x2c,0x0d]
 	
+	print "data :      ",
+	i=0
+	while i < 14:
+		print hex(data[i]),
+		i += 1
+
+
+	print "\n"
+
 	str(spi.xfer2(data))
 	
 	time.sleep(0.3)
