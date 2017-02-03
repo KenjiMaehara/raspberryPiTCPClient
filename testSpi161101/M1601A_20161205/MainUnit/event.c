@@ -226,6 +226,7 @@ void EventTask(void *p_arg)
 				{
 					cnt02 = 0;
 					cntRevData = 0;
+					cnt = 0;
 				}
 			}
 		}
