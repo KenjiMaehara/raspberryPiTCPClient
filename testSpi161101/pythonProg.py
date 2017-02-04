@@ -26,4 +26,4 @@ elif args.sum:
 else:
 	print args.x
 	print args.y
-	print "{}+{}+{} == {}".format(args.x, args.y, args.z, answer)
+	print "{}+{}+{} == {}".format(args.x, args.y, answer)
