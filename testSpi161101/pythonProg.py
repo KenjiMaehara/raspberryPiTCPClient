@@ -16,4 +16,6 @@ if args.quiet:
 elif args.verbose:
 	print "{} to the power {} equals {}".format(args.x, args.y, answer)
 else:
+	print args.x
+	print args.y
 	print "{}^{} == {}".format(args.x, args.y, answer)
