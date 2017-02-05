@@ -9,7 +9,8 @@ parser.add_argument("x", type=int, help="the base")
 parser.add_argument("y", type=int, help="the exponent")
 parser.add_argument("z", type=int, help="the exponent")
 args = parser.parse_args()
-answer = args.x+args.y+args.z
+answer = args.x+args.y
+answer02 = args.x+args.y+args.z
 
 if args.quiet:
 	print x
@@ -20,10 +21,11 @@ elif args.verbose:
 elif args.sum:
 	print args.x
 	print args.y
-	print args.z
-	print "{}+{}+{} == {}".format(args.x, args.y, args.z, answer)
+	#print args.z
+	print "{}+{} == {}".format(args.x, args.y, answer)
 	#print "{} to the power {} equals {}".format(args.x, args.y, answer)
 else:
 	print args.x
 	print args.y
-	print "{}+{} == {}".format(args.x, args.y, answer)
+	print args.z
+	print "{}+{}+{} == {}".format(args.x, args.y, args.z, answer02)

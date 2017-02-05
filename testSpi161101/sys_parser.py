@@ -96,6 +96,8 @@ def parser():
 	# - で始まるoption
 	options = [option for option in arguments if option.startswith('-')]
 	
+	print options
+	
 	if '-h' in options or '--help' in options:
 	    return usage
 	if '-v' in options or '--verbose' in options:
