@@ -22,7 +22,7 @@ elif args.sum:
 	print args.x
 	print args.y
 	print args.z
-	print "{}+{}+{} == {}".format(args.x, args.y,args.z, answer)
+	print "{}+{}+{} == {}".format(args.x, args.y,args.z, answer02)
 	#print "{} to the power {} equals {}".format(args.x, args.y, answer)
 else:
 	print args.x
