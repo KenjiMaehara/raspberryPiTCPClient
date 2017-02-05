@@ -21,8 +21,8 @@ elif args.verbose:
 elif args.sum:
 	print args.x
 	print args.y
-	#print args.z
-	print "{}+{} == {}".format(args.x, args.y, answer)
+	print args.z
+	print "{}+{}+{} == {}".format(args.x, args.y,args.z, answer)
 	#print "{} to the power {} equals {}".format(args.x, args.y, answer)
 else:
 	print args.x
