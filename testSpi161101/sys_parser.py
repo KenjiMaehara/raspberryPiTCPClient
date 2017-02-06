@@ -4,6 +4,7 @@ import spidev
 import RPi.GPIO as GPIO
 import time
 import sys
+import argparse
 #import spi.max_speed_hz = 50000000
 
 #GPIO.cleanup()
@@ -82,32 +83,14 @@ def commSpi(data03):
 	return list01
 
 def parser():
-	usage = 'Usage: python {} FILE [--verbose] [--cat <file>] [--help]'\
-	        .format(__file__)
-	arguments = sys.argv
-	if len(arguments) == 1:
-	    return usage
-	# ファイル自身を指す最初の引数を除去
-	arguments.pop(0)
-	# 引数として与えられたfile名
-	fname = arguments[0]
-	#if fname.startswith('-'):
-	#    return usage
-	# - で始まるoption
-	options = [option for option in arguments if option.startswith('-')]
-	
-	print options
-	
-	if '-h' in options or '--help' in options:
-	    return usage
-	if '-v' in options or '--verbose' in options:
-	    return 'your input is {}!!!'.format(fname)
-	if '-c' in options or '--cat' in options:
-	    cat_position = arguments.index('-c') \
-	            if '-c' in options else arguments.index('--cat')
-	    another_file = arguments[cat_position + 1]
-	    return 'concatnated: {}{}'.format(fname, another_file)
-	if '-ia' in options or '--inputall' in options:
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--inputAll', nargs=2)	
+	parser.add_argument('--foo', nargs=2)
+	parser.add_argument('--bar', nargs=1)
+	args = parser.parse_args()
+
+	if args.inputAll
 		data03 = "ME,rd,01,abc,\r"
 		list01 = commSpi(data03)
 		i=0
@@ -121,10 +104,7 @@ def parser():
 				print "   ch16～9 : ",
 				print format(list01[i+7], 'b')
 			i += 1
-
-
 		return 'testtest0201!!!'
-	return 'input is {}'.format(fname)
 
 if __name__ == '__main__':
     result = parser()
