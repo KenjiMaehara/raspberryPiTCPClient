@@ -154,13 +154,10 @@ void EventTask(void *p_arg)
 					
 					test_cmd1 = "rd";
 					
-					if(strstr(&cmd,"rd") != NULL)
+					if(strstr(cmd,"rd") != NULL)
 					{
-						//testtest++;
-						
-						test_cmd2 = "inputall";			//input all data
-						
-						if(strstr(&opt,"inputall") != NULL)
+
+						if(strstr(opt,"inputall") != NULL)
 						{
 							#if 0
 							reverse_data[0] = 0x12;
@@ -212,60 +209,55 @@ void EventTask(void *p_arg)
 						
 						}
 					
+					}
+					else if(strstr(cmd,"wr") != NULL)
+					{
 					
-					
-						if(strstr(&cmd,"wr") != NULL)
+						if(strstr(opt,"relayCtl") != NULL)	//relayCtl
 						{
-						
-							if(strstr(&opt,"relayCtl") != NULL)	//relayCtl
+							if(strstr(data,"ch1") != NULL)
 							{
-								if(strstr(&data,"ch1") != NULL)
-								{
-									if(strstr(&data2,"on") != NULL)
-									{								
-										set_Relay1(true);
-									}
-								
-									if(strstr(&data2,"off") != NULL)
-									{								
-										set_Relay1(false);
-									}								
+								if(strstr(data2,"on") != NULL)
+								{								
+									set_Relay1(true);
 								}
 							
-							
-							
-							
-							
-						
+								if(strstr(data2,"off") != NULL)
+								{								
+									set_Relay1(false);
+								}								
 							}
-							
-						}
+						
+						
+						
+						
+						
 					
-					}
-				}
-				else
-				{
-
-				
-					if(cnt02 < cntRevData)
-					{
-						dummy = SPIF.DATA;
-						SPIF.DATA = reverse_data[cnt02];
-						while(!(SPIF.STATUS & 0x80));
-						//spi_write_single(reverse_data[cnt02]);
-						cnt02++;
-					}
-					else
-					{
-						cnt02 = 0;
-						cntRevData = 0;
-						cnt = 0;
+						}
 					}
 				}
 			}
+			else
+			{
+
+				if(cnt02 < cntRevData)
+				{
+					dummy = SPIF.DATA;
+					SPIF.DATA = reverse_data[cnt02];
+					while(!(SPIF.STATUS & 0x80));
+					//spi_write_single(reverse_data[cnt02]);
+					cnt02++;
+				}
+				else
+				{
+					cnt02 = 0;
+					cntRevData = 0;
+					cnt = 0;
+				}
+			}
 		
-		test=1;
-		//OSTimeDlyHMSM(0,0,0,10);
+			test=1;
+			//OSTimeDlyHMSM(0,0,0,10);
 		
 		}
 	}		
