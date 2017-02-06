@@ -85,7 +85,8 @@ def commSpi(data03):
 def parser():
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--inputAll')	
+	parser.add_argument('--inputAll')
+	parser.add_argument('--relayCtl', nargs=2)
 	parser.add_argument('--foo', nargs=2)
 	parser.add_argument('--bar', nargs=1)
 	args = parser.parse_args()
@@ -121,6 +122,12 @@ def parser():
 
 
 		return 'testtest0201!!!'
+	
+	if args.relayCtl:
+		data03 = "ME,wr," + args.relayCtl[0] + "," * args.relayCtl[1] + ",\r"
+		list01 = commSpi(data03)
+
+		return "test020106!"
 
 if __name__ == '__main__':
     result = parser()
