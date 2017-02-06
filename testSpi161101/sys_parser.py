@@ -35,14 +35,14 @@ def commSpi(data03):
 
 
 	##################   for debug 20170203   ###################################################
-	#print "list0203 :  ",
-	#i = 0
-	#while i < len(list0203):
-	#	print hex(list0203[i]),
-	#	i += 1
+	print "list0203 :  ",
+	i = 0
+	while i < len(list0203):
+		print hex(list0203[i]),
+		i += 1
 
 	
-	#print "\n"
+	print "\n"
 
 	#data = [0x00,0x00,0x4d,0x45,0x2c,0x72,0x64,0x2c,0x30,0x31,0x2c,0x61,0x62,0x63,0x2c,0x0d,0x00,0x00]
 	
@@ -124,7 +124,9 @@ def parser():
 		return 'testtest0201!!!'
 	
 	if args.relayCtl:
-		data03 = "ME,wr," + args.relayCtl[0] + "," * args.relayCtl[1] + ",\r"
+		data03 = "ME,wr,relayCtl," + args.relayCtl[0] + "," + args.relayCtl[1] + ",\r"
+		print data03
+
 		list01 = commSpi(data03)
 
 		return "test020106!"
