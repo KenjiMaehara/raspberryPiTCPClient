@@ -64,7 +64,7 @@ def commSpi(data03):
 	list01 = list()
 	list01 = []
 	i=0
-	while i < 10:
+	while i < 30:
 		data = [0x00]
 		list01.insert(i,spi.xfer2(data)[0])
 		i += 1
@@ -85,25 +85,41 @@ def commSpi(data03):
 def parser():
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--inputAll', nargs=2)	
+	parser.add_argument('--inputAll')	
 	parser.add_argument('--foo', nargs=2)
 	parser.add_argument('--bar', nargs=1)
 	args = parser.parse_args()
 
 	if args.inputAll:
-		data03 = "ME,rd,01,abc,\r"
+		data03 = "ME,rd,inputall,abc,\r"
 		list01 = commSpi(data03)
 		i=0
 		while i < len(list01):
 			if list01[i] == 0x4d and list01[i+1] == 0x45:
+				indexes = [j for j,x in enumerate(list01) if x==0x2c]
+				print(indexes)
 				print "\n address:",
-				print chr(list01[i+3]),
-				print chr(list01[i+4])     ,
+				addrLen = indexes[1] - indexes[0]
+				k=0
+				while k < addrLen:
+					print chr(list01[indexes[0]+1+k]),
+					k += 1
+				print "   "
 				print "ch8～1 : ",
-				print format(list01[i+6], 'b'),
+				print format(list01[indexes[1]+1], 'b'),
 				print "   ch16～9 : ",
-				print format(list01[i+7], 'b')
+				print format(list01[indexes[1]+2], 'b')
 			i += 1
+
+		i=0
+		while i < len(list01):
+			print chr(list01[i]),
+			i += 1
+			if list01[i] == 0x0d:
+				break
+
+
+
 		return 'testtest0201!!!'
 
 if __name__ == '__main__':
