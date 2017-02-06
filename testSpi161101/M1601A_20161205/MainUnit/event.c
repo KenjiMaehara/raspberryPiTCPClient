@@ -154,7 +154,7 @@ void EventTask(void *p_arg)
 					{
 						testtest++;
 						
-						test_cmd2 = "01";			//input all data
+						test_cmd2 = "inputall";			//input all data
 						
 						if(strcmp(opt,test_cmd2) == 0)
 						{
@@ -168,37 +168,43 @@ void EventTask(void *p_arg)
 							reverse_data[0] = 'M';
 							reverse_data[1] = 'E';
 							reverse_data[2] = ',';
-							reverse_data[3] = '0';
-							reverse_data[4] = '1';
-							reverse_data[5] = ',';
+							reverse_data[3] = 'i';
+							reverse_data[4] = 'n';
+							reverse_data[5] = 'p';
+							reverse_data[6] = 'u';
+							reverse_data[7] = 't';
+							reverse_data[8] = 'a';
+							reverse_data[9] = 'l';
+							reverse_data[10] = 'l';
+							reverse_data[11] = ',';
 							
 
 							#if 1
-							reverse_data[6] = 0;
-							reverse_data[6] |= get_ch8_Input() << 7;
-							reverse_data[6] |= get_ch7_Input() << 6;
-							reverse_data[6] |= get_ch6_Input() << 5;
-							reverse_data[6] |= get_ch5_Input() << 4;
-							reverse_data[6] |= get_ch4_Input() << 3;
-							reverse_data[6] |= get_ch3_Input() << 2;
-							reverse_data[6] |= get_ch2_Input() << 1;
-							reverse_data[6] |= get_ch1_Input();
+							reverse_data[12] = 0;
+							reverse_data[12] |= get_ch8_Input() << 7;
+							reverse_data[12] |= get_ch7_Input() << 6;
+							reverse_data[12] |= get_ch6_Input() << 5;
+							reverse_data[12] |= get_ch5_Input() << 4;
+							reverse_data[12] |= get_ch4_Input() << 3;
+							reverse_data[12] |= get_ch3_Input() << 2;
+							reverse_data[12] |= get_ch2_Input() << 1;
+							reverse_data[12] |= get_ch1_Input();
 							
-							reverse_data[7] = 0;
-							reverse_data[7] |= get_ch16_Input() << 7;
-							reverse_data[7] |= get_ch15_Input() << 6;
-							reverse_data[7] |= get_ch14_Input() << 5;
-							reverse_data[7] |= get_ch13_Input() << 4;
-							reverse_data[7] |= get_ch12_Input() << 3;
-							reverse_data[7] |= get_ch11_Input() << 2;
-							reverse_data[7] |= get_ch10_Input() << 1;
-							reverse_data[7] |= get_ch9_Input();							
+							reverse_data[13] = 0;
+							reverse_data[13] |= get_ch16_Input() << 7;
+							reverse_data[13] |= get_ch15_Input() << 6;
+							reverse_data[13] |= get_ch14_Input() << 5;
+							reverse_data[13] |= get_ch13_Input() << 4;
+							reverse_data[13] |= get_ch12_Input() << 3;
+							reverse_data[13] |= get_ch11_Input() << 2;
+							reverse_data[13] |= get_ch10_Input() << 1;
+							reverse_data[13] |= get_ch9_Input();							
 							#endif
 							
 							
-							reverse_data[8] = 0x0d;
+							reverse_data[14] = 0x0d;
 							
-							cntRevData = 9;
+							cntRevData = 15;
 						}
 						else
 						{
