@@ -152,7 +152,6 @@ void EventTask(void *p_arg)
 				
 					cnt = 0;
 					
-					test_cmd1 = "rd";
 					
 					if(strstr(cmd,"rd") != NULL)
 					{
@@ -228,11 +227,45 @@ void EventTask(void *p_arg)
 								}								
 							}
 						
+							if(strstr(data,"ch2") != NULL)
+							{
+								if(strstr(data2,"on") != NULL)
+								{
+									set_Relay2(true);
+								}
+								
+								if(strstr(data2,"off") != NULL)
+								{
+									set_Relay2(false);
+								}
+							}
 						
+							if(strstr(data,"ch3") != NULL)
+							{
+								if(strstr(data2,"on") != NULL)
+								{
+									set_Relay3(true);
+								}
+								
+								if(strstr(data2,"off") != NULL)
+								{
+									set_Relay3(false);
+								}
+							}
 						
-						
-						
-					
+							if(strstr(data,"ch4") != NULL)
+							{
+								if(strstr(data2,"on") != NULL)
+								{
+									set_Relay4(true);
+								}
+								
+								if(strstr(data2,"off") != NULL)
+								{
+									set_Relay4(false);
+								}
+							}
+									
 						}
 					}
 				}
