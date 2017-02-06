@@ -265,6 +265,27 @@ void EventTask(void *p_arg)
 									set_Relay4(false);
 								}
 							}
+							
+							
+							reverse_data[0] = 'M';
+							reverse_data[1] = 'E';
+							reverse_data[2] = ',';
+							reverse_data[3] = 'r';
+							reverse_data[4] = 'e';
+							reverse_data[5] = 'l';
+							reverse_data[6] = 'a';
+							reverse_data[7] = 'y';
+							reverse_data[8] = 'C';
+							reverse_data[9] = 't';
+							reverse_data[10] = 'l';
+							reverse_data[11] = ',';
+							reverse_data[12] = 'o';
+							reverse_data[13] = 'k';
+							reverse_data[14] = ',';
+							reverse_data[15] = 0x0d;
+							
+							cntRevData = 16;
+							
 									
 						}
 					}
