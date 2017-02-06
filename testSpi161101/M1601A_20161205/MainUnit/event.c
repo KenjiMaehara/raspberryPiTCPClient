@@ -77,7 +77,7 @@ void EventTask(void *p_arg)
 {
 	volatile testCount=0;
 	volatile u8 testCharacter[100];
-	volatile u8 cmd_data[20];
+	volatile u8 cmd_data[30];
 	volatile u8 reverse_data[20];
 	volatile u8 test=0;
 	volatile u8 rxdata=0;
@@ -91,10 +91,12 @@ void EventTask(void *p_arg)
 	volatile int cnt = 0;
 	volatile int cnt02 = 0;
 	u8 dummy;
-	 char *id,*cmd,*opt,*data;
+	 char *id,*cmd,*opt,*data,*data2,*data3;
 	//volatile char *test_cmd;
-	char *test_cmd1;
-	char *test_cmd2;
+	volatile char *test_cmd1;
+	volatile char *test_cmd2;
+	volatile char *test_cmd3;
+	volatile char *test_cmd4;
 	
 	
 	while(1)
@@ -145,6 +147,8 @@ void EventTask(void *p_arg)
 					cmd = strtok(NULL, ",");
 					opt = strtok(NULL, ",");
 					data = strtok(NULL, ",");
+					data2 = strtok(NULL, ",");
+					data3 = strtok(NULL, ",");
 				
 					cnt = 0;
 					
@@ -152,7 +156,7 @@ void EventTask(void *p_arg)
 					
 					if(strcmp(cmd,test_cmd1) == 0)
 					{
-						testtest++;
+						//testtest++;
 						
 						test_cmd2 = "inputall";			//input all data
 						
@@ -213,6 +217,39 @@ void EventTask(void *p_arg)
 						
 					}
 					
+					
+					test_cmd1 = "wr";
+					
+					if(strcmp(cmd,test_cmd1) == 0)
+					{
+						
+						test_cmd2 = "relayCtl";			//relayCtl
+						if(strcmp(opt,test_cmd2) == 0)
+						{
+							test_cmd3 = "ch1";
+							if(strcmp(data,test_cmd3) == 0)
+							{
+								test_cmd4 = "on";
+								if(strcmp(data2,test_cmd4) == 0)
+								{								
+									set_Relay1(true);
+								}
+								
+								test_cmd4 = "off";
+								if(strcmp(data2,test_cmd4) == 0)
+								{								
+									set_Relay1(false);
+								}								
+							}
+							
+							
+							
+							
+							
+						
+						}
+						
+					}
 					
 				}
 			}
