@@ -120,7 +120,7 @@ void EventTask(void *p_arg)
 				}
 				
 				
-				if(cnt > 20)
+				if(cnt > 30)
 				{
 					cnt = 0;
 				}
@@ -154,13 +154,13 @@ void EventTask(void *p_arg)
 					
 					test_cmd1 = "rd";
 					
-					if(strcmp(cmd,test_cmd1) == 0)
+					if(strstr(&cmd,"rd") != NULL)
 					{
 						//testtest++;
 						
 						test_cmd2 = "inputall";			//input all data
 						
-						if(strcmp(opt,test_cmd2) == 0)
+						if(strstr(&opt,"inputall") != NULL)
 						{
 							#if 0
 							reverse_data[0] = 0x12;
@@ -209,79 +209,64 @@ void EventTask(void *p_arg)
 							reverse_data[14] = 0x0d;
 							
 							cntRevData = 15;
-						}
-						else
-						{
-							testtest++;
-						}
 						
-					}
+						}
 					
 					
-					test_cmd1 = "wr";
 					
-					if(strcmp(cmd,test_cmd1) == 0)
-					{
-						
-						test_cmd2 = "relayCtl";			//relayCtl
-						if(strcmp(opt,test_cmd2) == 0)
+						if(strstr(&cmd,"wr") != NULL)
 						{
-							test_cmd3 = "ch1";
-							if(strcmp(data,test_cmd3) == 0)
+						
+							if(strstr(&opt,"relayCtl") != NULL)	//relayCtl
 							{
-								test_cmd4 = "on";
-								if(strcmp(data2,test_cmd4) == 0)
-								{								
-									set_Relay1(true);
-								}
+								if(strstr(&data,"ch1") != NULL)
+								{
+									if(strstr(&data2,"on") != NULL)
+									{								
+										set_Relay1(true);
+									}
 								
-								test_cmd4 = "off";
-								if(strcmp(data2,test_cmd4) == 0)
-								{								
-									set_Relay1(false);
-								}								
+									if(strstr(&data2,"off") != NULL)
+									{								
+										set_Relay1(false);
+									}								
+								}
+							
+							
+							
+							
+							
+						
 							}
 							
-							
-							
-							
-							
-						
 						}
-						
-					}
 					
-				}
-			}
-			else
-			{
-
-				
-				if(cnt02 < cntRevData)
-				{
-					dummy = SPIF.DATA;
-					SPIF.DATA = reverse_data[cnt02];
-					while(!(SPIF.STATUS & 0x80));
-					//spi_write_single(reverse_data[cnt02]);
-					cnt02++;
+					}
 				}
 				else
 				{
-					cnt02 = 0;
-					cntRevData = 0;
-					cnt = 0;
+
+				
+					if(cnt02 < cntRevData)
+					{
+						dummy = SPIF.DATA;
+						SPIF.DATA = reverse_data[cnt02];
+						while(!(SPIF.STATUS & 0x80));
+						//spi_write_single(reverse_data[cnt02]);
+						cnt02++;
+					}
+					else
+					{
+						cnt02 = 0;
+						cntRevData = 0;
+						cnt = 0;
+					}
 				}
 			}
-		}
 		
 		test=1;
 		//OSTimeDlyHMSM(0,0,0,10);
 		
-		
-		
-	}
-
-
-
+		}
+	}		
 }
-
