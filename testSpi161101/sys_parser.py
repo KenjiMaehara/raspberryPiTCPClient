@@ -90,7 +90,7 @@ def parser():
 	parser.add_argument('--bar', nargs=1)
 	args = parser.parse_args()
 
-	if args.inputAll
+	if args.inputAll:
 		data03 = "ME,rd,01,abc,\r"
 		list01 = commSpi(data03)
 		i=0
