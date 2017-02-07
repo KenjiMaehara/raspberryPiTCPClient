@@ -128,6 +128,14 @@ def parser():
 		print data03
 
 		list01 = commSpi(data03)
+		
+		i=0
+		while i < len(list01):
+			print chr(list01[i]),
+			i += 1
+			if list01[i] == 0x0d:
+				break
+
 
 		return "test020106!"
 
