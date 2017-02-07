@@ -96,6 +96,17 @@ void uart_init(void)
 }
 
 
+void putstr(u8 * data)
+{
+	int i =0 ;
+
+	for( i = 0 ;i < 50 ; i++)
+	{
+		//putc_(data[i]);
+		sendChar(data[i]);
+		if(data[i] == 0x0d || data[i] == 0x00) break;
+	}
+}
 
 
 void sendChar(char c)

@@ -292,6 +292,12 @@ void EventTask(void *p_arg)
 							
 									
 						}
+						else if(strstr(opt,"wSensor") != NULL)
+						{
+							putstr(&data3);
+							
+							
+						}
 					}
 				}
 			}
