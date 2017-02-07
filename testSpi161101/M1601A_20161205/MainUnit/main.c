@@ -308,7 +308,7 @@ void TaskStartCreateTasks(void)
 } 
 
 
-//void uart_init(void);
+void uart_init(void);
 void SoundPlay(u8 number);
 
 
@@ -327,6 +327,8 @@ int main(void)
 	lcd_position(0,0);
 	lcd_prString("ウンテンセキトビラ");
 	//uart_init();
+	uart_init();
+	
 	
 	//set_mp3_active(true);
 	//sendChar(0xef);					//sound stop	

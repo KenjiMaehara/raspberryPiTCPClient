@@ -102,6 +102,10 @@ void EventTask(void *p_arg)
 	while(1)
 	{
 	
+		sendChar(0x31);
+		sendChar(0x32);	
+		sendChar(0x33);
+		sendChar(0x34);
 	
 		if(SPIF.STATUS & 0x80)
 		{
