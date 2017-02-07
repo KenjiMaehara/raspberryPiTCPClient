@@ -87,6 +87,7 @@ def parser():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--inputAll')
 	parser.add_argument('--relayCtl', nargs=2)
+	parser.add_argument('--wSensor', nargs=5)
 	parser.add_argument('--foo', nargs=2)
 	parser.add_argument('--bar', nargs=1)
 	args = parser.parse_args()
@@ -138,6 +139,13 @@ def parser():
 
 
 		return "test020106!"
+
+	if args.wsensor:
+		data03 = "ME,wr,wsensor," + args.wsensor[0] + "," + args.wsensor[1] + "," + args.wsensor[2] + "," + args.wsensor[3] + "," + args.wsensor[4] + ",\r"
+
+		list01 = commSpi(data03)
+
+		return "test0207"
 
 if __name__ == '__main__':
     result = parser()
