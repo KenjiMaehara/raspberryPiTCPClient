@@ -140,9 +140,9 @@ def parser():
 
 		return "test020106!"
 
-	if args.wsensor:
-		data03 = "ME,wr,wsensor," + args.wsensor[0] + "," + args.wsensor[1] + "," + args.wsensor[2] + "," + args.wsensor[3] + "," + args.wsensor[4] + ",\r"
-
+	if args.wSensor:
+		data03 = "ME,wr,wSensor," + args.wSensor[0] + "," + args.wSensor[1] + "," + args.wSensor[2] + "," + args.wSensor[3] + "," + args.wSensor[4] + ",\r"
+		print data03
 		list01 = commSpi(data03)
 
 		return "test0207"
