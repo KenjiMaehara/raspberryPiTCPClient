@@ -77,7 +77,7 @@ void EventTask(void *p_arg)
 {
 	volatile testCount=0;
 	volatile u8 testCharacter[100];
-	volatile u8 cmd_data[30];
+	volatile u8 cmd_data[50];
 	volatile u8 reverse_data[20];
 	volatile u8 test=0;
 	volatile u8 rxdata=0;
@@ -91,7 +91,7 @@ void EventTask(void *p_arg)
 	volatile int cnt = 0;
 	volatile int cnt02 = 0;
 	u8 dummy;
-	 char *id,*cmd,*opt,*data,*data2,*data3;
+	 char *id,*cmd,*opt,*data,*data2,*data3,*data4,*data5,*data6;
 	//volatile char *test_cmd;
 	volatile char *test_cmd1;
 	volatile char *test_cmd2;
@@ -102,10 +102,10 @@ void EventTask(void *p_arg)
 	while(1)
 	{
 	
-		sendChar(0x31);
-		sendChar(0x32);	
-		sendChar(0x33);
-		sendChar(0x34);
+		//sendChar(0x31);
+		//sendChar(0x32);	
+		//sendChar(0x33);
+		//sendChar(0x34);
 	
 		if(SPIF.STATUS & 0x80)
 		{
@@ -124,7 +124,7 @@ void EventTask(void *p_arg)
 				}
 				
 				
-				if(cnt > 30)
+				if(cnt > 50)
 				{
 					cnt = 0;
 				}
@@ -153,6 +153,9 @@ void EventTask(void *p_arg)
 					data = strtok(NULL, ",");
 					data2 = strtok(NULL, ",");
 					data3 = strtok(NULL, ",");
+					data4 = strtok(NULL, ",");
+					data5 = strtok(NULL, ",");
+					data6 = strtok(NULL, ",");
 				
 					cnt = 0;
 					
@@ -294,7 +297,18 @@ void EventTask(void *p_arg)
 						}
 						else if(strstr(opt,"wSensor") != NULL)
 						{
-							putstr(&data3);
+							putstr(data);
+							sendChar(0x20);
+							putstr(data2);
+							sendChar(0x20);
+							putstr(data3);
+							sendChar(0x20);
+							putstr(data4);
+							sendChar(0x20);
+							putstr(data5);
+							sendChar(0x20);
+							putstr(data6);
+							sendChar(0x0d);
 							
 							
 						}
