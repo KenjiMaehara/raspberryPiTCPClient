@@ -116,16 +116,16 @@ def parser():
 
 
 
-		i=0
-		while i < len(list01):
+		#i=0
+		#while i < len(list01):
 		#	print chr(list01[i]),
-			print hex(list01[i]),
-			i += 1
+		#	print hex(list01[i]),
+		#	i += 1
 		#	if list01[i] == 0x0d:
 		#		break
 		
 
-		print ' '.join(list01)
+		print ''.join(chr(x) for x in list01)
 
 
 		return 'testtest0201!!!'
