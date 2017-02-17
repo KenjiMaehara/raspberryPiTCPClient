@@ -69,15 +69,7 @@ def commSpi(data03):
 		list01.insert(i,spi.xfer2(data)[0])
 		i += 1
 
-	#i=0
-	#while i < len(list01):
-	#	print hex(list01[i]),
-	#	i += 1
-
-
-
 	spi.close()
-	#print "done"
 	
 	GPIO.cleanup()
 	return list01
@@ -96,17 +88,6 @@ def parser():
 		data03 = "ME,rd,inputall,abc,\r"
 		list01 = commSpi(data03)
 
-		#i=0
-		#while i < len(list01):
-		#	print chr(list01[i]),
-		#	print hex(list01[i]),
-		#	i += 1
-		#	if list01[i] == 0x0d:
-		#		break
-		
-
-		#print ''.join(chr(x) for x in list01)
-		
 		mojiretsu = ''.join(chr(x) for x in list01)
 		print mojiretsu
 		listRcvData = mojiretsu.split(",")
@@ -126,13 +107,15 @@ def parser():
 		print data03
 
 		list01 = commSpi(data03)
+
+
 		
-		i=0
-		while i < len(list01):
-			print chr(list01[i]),
-			i += 1
-			if list01[i] == 0x0d:
-				break
+		#i=0
+		#while i < len(list01):
+		#	print chr(list01[i]),
+		#	i += 1
+		#	if list01[i] == 0x0d:
+		#		break
 
 
 		return "test020106!"
