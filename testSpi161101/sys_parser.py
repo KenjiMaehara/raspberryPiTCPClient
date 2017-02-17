@@ -104,7 +104,10 @@ def parser():
 	
 	if args.relayCtl:
 		data03 = "ME,wr,relayCtl," + args.relayCtl[0] + "," + args.relayCtl[1] + ",\r"
-		print data03
+		#############################################
+		#	option 2:	ch1 --- ch5					#
+		#	option 3:	on or off					#
+		#############################################
 
 		list01 = commSpi(data03)
 
