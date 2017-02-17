@@ -95,26 +95,6 @@ def parser():
 	if args.inputAll:
 		data03 = "ME,rd,inputall,abc,\r"
 		list01 = commSpi(data03)
-		i=0
-		while i < len(list01):
-			if list01[i] == 0x4d and list01[i+1] == 0x45:
-				indexes = [j for j,x in enumerate(list01) if x==0x2c]
-				print(indexes)
-				print "\n address:",
-				addrLen = indexes[1] - indexes[0]
-				k=0
-				while k < addrLen:
-					print chr(list01[indexes[0]+1+k]),
-					k += 1
-				print "   "
-				print "ch8～1 : ",
-				print format(list01[indexes[1]+1], 'b'),
-				print "   ch16～9 : ",
-				print format(list01[indexes[1]+2], 'b')
-			i += 1
-
-
-
 
 		#i=0
 		#while i < len(list01):
@@ -125,7 +105,18 @@ def parser():
 		#		break
 		
 
-		print ''.join(chr(x) for x in list01)
+		#print ''.join(chr(x) for x in list01)
+		
+		mojiretsu = ''.join(chr(x) for x in list01)
+		print mojiretsu
+		listRcvData = mojiretsu.split(",")
+		print type(listRcvData)
+
+
+		i=0
+		while i < len(listRcvData):
+			print listRcvData[i]
+			i += 1
 
 
 		return 'testtest0201!!!'
