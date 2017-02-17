@@ -63,6 +63,15 @@ u32	Os_GetTime_for_DoorOpen_Resettimeout=0;
 
 
 
+char hex_to_asc(u8 hex)
+{
+	char da;
+	da = hex & 0x0f;
+	if((da >= 0) && (da <= 9)) return ('0' + da);
+	else return ('a' + da - 0x0a);
+}
+
+
 u8 chInputStatus1(void)
 {
 	
@@ -192,31 +201,41 @@ void EventTask(void *p_arg)
 
 							#if 1
 							makeData = 0;
-							reverse_data[12] |= get_ch8_Input() << 7;
-							reverse_data[12] |= get_ch7_Input() << 6;
-							reverse_data[12] |= get_ch6_Input() << 5;
-							reverse_data[12] |= get_ch5_Input() << 4;
-							reverse_data[12] |= get_ch4_Input() << 3;
-							reverse_data[12] |= get_ch3_Input() << 2;
-							reverse_data[12] |= get_ch2_Input() << 1;
-							reverse_data[12] |= get_ch1_Input();
-							hexToAsc(tSlave2.serial[0],(u8 *)&reverse_data[i]);
+							makeData |= get_ch8_Input() << 7;
+							makeData |= get_ch7_Input() << 6;
+							makeData |= get_ch6_Input() << 5;
+							makeData |= get_ch5_Input() << 4;
+							makeData |= get_ch4_Input() << 3;
+							makeData |= get_ch3_Input() << 2;
+							makeData |= get_ch2_Input() << 1;
+							makeData |= get_ch1_Input();
+							//hexToAsc(tSlave2.serial[0],(u8 *)&reverse_data[i]);
+							reverse_data[i++] = hex_to_asc((makeData >> 4)&0x0f);
+							reverse_data[i++] = hex_to_asc((makeData >> 0)&0x0f);
+							reverse_data[i++] = ',';
 							
-							reverse_data[13] = 0;
-							reverse_data[13] |= get_ch16_Input() << 7;
-							reverse_data[13] |= get_ch15_Input() << 6;
-							reverse_data[13] |= get_ch14_Input() << 5;
-							reverse_data[13] |= get_ch13_Input() << 4;
-							reverse_data[13] |= get_ch12_Input() << 3;
-							reverse_data[13] |= get_ch11_Input() << 2;
-							reverse_data[13] |= get_ch10_Input() << 1;
-							reverse_data[13] |= get_ch9_Input();							
+							
+							makeData = 0;
+							makeData |= get_ch16_Input() << 7;
+							makeData |= get_ch15_Input() << 6;
+							makeData |= get_ch14_Input() << 5;
+							makeData |= get_ch13_Input() << 4;
+							makeData |= get_ch12_Input() << 3;
+							makeData |= get_ch11_Input() << 2;
+							makeData |= get_ch10_Input() << 1;
+							makeData |= get_ch9_Input();
+							
+							reverse_data[i++] = hex_to_asc((makeData >> 4)&0x0f);
+							reverse_data[i++] = hex_to_asc((makeData >> 0)&0x0f);
+							reverse_data[i++] = ',';
 							#endif
 							
 							
-							reverse_data[14] = 0x0d;
 							
-							cntRevData = 15;
+							
+							reverse_data[i++] = 0x0d;
+							
+							cntRevData = i;
 						
 						}
 					
