@@ -108,15 +108,17 @@ def parser():
 
 		list01 = commSpi(data03)
 
+		mojiretsu = ''.join(chr(x) for x in list01)
+		print mojiretsu
+		listRcvData = mojiretsu.split(",")
+		print type(listRcvData)
 
+
+		i=0
+		while i < len(listRcvData):
+			print listRcvData[i]
+			i += 1
 		
-		#i=0
-		#while i < len(list01):
-		#	print chr(list01[i]),
-		#	i += 1
-		#	if list01[i] == 0x0d:
-		#		break
-
 
 		return "test020106!"
 
