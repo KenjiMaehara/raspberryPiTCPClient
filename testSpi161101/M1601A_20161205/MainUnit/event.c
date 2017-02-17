@@ -172,22 +172,26 @@ void EventTask(void *p_arg)
 							reverse_data[3] = 0x88;
 							#endif
 							
-							reverse_data[0] = 'M';
-							reverse_data[1] = 'E';
-							reverse_data[2] = ',';
-							reverse_data[3] = 'i';
-							reverse_data[4] = 'n';
-							reverse_data[5] = 'p';
-							reverse_data[6] = 'u';
-							reverse_data[7] = 't';
-							reverse_data[8] = 'a';
-							reverse_data[9] = 'l';
-							reverse_data[10] = 'l';
-							reverse_data[11] = ',';
+							int i=0;
+												
+							reverse_data[i++] = 'M';
+							reverse_data[i++] = 'E';
+							reverse_data[i++] = ',';
+							reverse_data[i++] = 'i';
+							reverse_data[i++] = 'n';
+							reverse_data[i++] = 'p';
+							reverse_data[i++] = 'u';
+							reverse_data[i++] = 't';
+							reverse_data[i++] = 'a';
+							reverse_data[i++] = 'l';
+							reverse_data[i++] = 'l';
+							reverse_data[i++] = ',';
 							
+							
+							u8 makeData;
 
 							#if 1
-							reverse_data[12] = 0;
+							makeData = 0;
 							reverse_data[12] |= get_ch8_Input() << 7;
 							reverse_data[12] |= get_ch7_Input() << 6;
 							reverse_data[12] |= get_ch6_Input() << 5;
@@ -196,6 +200,7 @@ void EventTask(void *p_arg)
 							reverse_data[12] |= get_ch3_Input() << 2;
 							reverse_data[12] |= get_ch2_Input() << 1;
 							reverse_data[12] |= get_ch1_Input();
+							hexToAsc(tSlave2.serial[0],(u8 *)&reverse_data[i]);
 							
 							reverse_data[13] = 0;
 							reverse_data[13] |= get_ch16_Input() << 7;
