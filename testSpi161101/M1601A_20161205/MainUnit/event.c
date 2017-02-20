@@ -6,6 +6,7 @@
  */
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <includes.h>
 #include <string.h>
 #include "port.h"
@@ -76,6 +77,14 @@ u8 chInputStatus1(void)
 {
 	
 	
+	
+}
+
+
+
+
+ISR(SPIF_INT_vect)
+{
 	
 }
 
@@ -333,6 +342,7 @@ void EventTask(void *p_arg)
 							sendChar(0x20);
 							putstr(data6);
 							sendChar(0x0d);
+							sendChar(0x0a);
 							
 							
 						}
