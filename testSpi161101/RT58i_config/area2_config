@@ -1,0 +1,164 @@
+#9 1 51 0
+ip route default gateway pp 1
+ip route 192.168.30.0/24 gateway tunnel 3
+ip lan1 address 192.168.1.1/24
+ip lan1 proxyarp on
+ip lan1 secure filter in 100000 100001 100099
+provider type isdn-network
+provider lan1 name LAN:
+provider lan2 name PPPoE/0/3/5/0/0/0:
+pp disable all
+pp select 1
+ pp name PRV/1/3/5/0/0/0:
+ pp keepalive interval 30 retry-interval=30 count=12
+ pp always-on on
+ pppoe use lan2
+ pppoe auto disconnect off
+ pppoe call prohibit auth-error count off
+ pp auth accept pap chap
+ pp auth myname ********@********* *********
+ ppp lcp mru on 1454
+ ppp ipcp msext on
+ ppp ccp type none
+ ip pp secure filter in 200003 200004 200030 200032 200080 200081 200082 200083 200084 200085 200099
+ ip pp secure filter out 200004 200013 200026 200027 200080 200081 200082 200083 200096 200097 200099 dynamic 200080 200081 200082 200083 200084 200098 200099
+ ip pp nat descriptor 1 2 3 4 1000
+ pp enable 1
+provider set 1
+ provider dns server pp 1 1
+ provider select 1
+pp select 2
+ pp name WAN/VPN:kamomeVPN
+ pp bind tunnel3
+ pp always-on on
+ pp auth request mschap
+ pp auth username ******* ********
+ ppp ipcp ipaddress on
+ ppp ccp type mppe-any
+ ppp ipv6cp use off
+ pptp service type server
+ pp enable 2
+pp select anonymous
+ pp name RAS/VPN:
+ pp bind tunnel1-tunnel2
+ pp auth request mschap-v2
+ pp auth username ******* ********
+ pp auth username ******* ********
+ ppp ipcp ipaddress on
+ ppp ccp type mppe-any
+ ppp ipv6cp use off
+ ip pp remote address pool dhcp
+ pptp service type server
+ pp enable anonymous
+tunnel disable all
+tunnel select 1
+ tunnel encapsulation pptp
+ pptp tunnel disconnect time off
+ tunnel enable 1
+tunnel select 2
+ tunnel encapsulation pptp
+ pptp tunnel disconnect time off
+ tunnel enable 2
+tunnel select 3
+ tunnel encapsulation pptp
+ tunnel endpoint address ***.***.***.179
+ pptp tunnel disconnect time off
+ tunnel enable 3
+ip filter 100000 reject * * udp,tcp 135 *
+ip filter 100001 reject * * udp,tcp * 135
+ip filter 100002 reject * * udp,tcp netbios_ns-netbios_dgm *
+ip filter 100003 reject * * udp,tcp * netbios_ns-netbios_dgm
+ip filter 100004 reject * * udp,tcp netbios_ssn *
+ip filter 100005 reject * * udp,tcp * netbios_ssn
+ip filter 100006 reject * * udp,tcp 445 *
+ip filter 100007 reject * * udp,tcp * 445
+ip filter 100099 pass * * * * *
+ip filter 200000 reject 10.0.0.0/8 * * * *
+ip filter 200001 reject 172.16.0.0/12 * * * *
+ip filter 200002 reject 192.168.0.0/16 * * * *
+ip filter 200003 reject 192.168.1.0/24 * * * *
+ip filter 200004 pass * * * * 6112
+ip filter 200005 pass * * * * *
+ip filter 200010 reject * 10.0.0.0/8 * * *
+ip filter 200011 reject * 172.16.0.0/12 * * *
+ip filter 200012 reject * 192.168.0.0/16 * * *
+ip filter 200013 reject * 192.168.1.0/24 * * *
+ip filter 200020 reject * * udp,tcp 135 *
+ip filter 200021 reject * * udp,tcp * 135
+ip filter 200022 reject * * udp,tcp netbios_ns-netbios_ssn *
+ip filter 200023 reject * * udp,tcp * netbios_ns-netbios_ssn
+ip filter 200024 reject * * udp,tcp 445 *
+ip filter 200025 reject * * udp,tcp * 445
+ip filter 200026 restrict * * tcpfin * www,21,nntp
+ip filter 200027 restrict * * tcprst * www,21,nntp
+ip filter 200030 pass * 192.168.1.0/24 icmp * *
+ip filter 200031 pass * 192.168.1.0/24 established * *
+ip filter 200032 pass * 192.168.1.0/24 tcp * ident
+ip filter 200033 pass * 192.168.1.0/24 tcp ftpdata *
+ip filter 200034 pass * 192.168.1.0/24 tcp,udp * domain
+ip filter 200035 pass * 192.168.1.0/24 udp domain *
+ip filter 200036 pass * 192.168.1.0/24 udp * ntp
+ip filter 200037 pass * 192.168.1.0/24 udp ntp *
+ip filter 200080 pass * 192.168.1.1 tcp * 1723
+ip filter 200081 pass * * gre * *
+ip filter 200082 pass * * * * 513
+ip filter 200083 pass * * * * 514
+ip filter 200084 pass-log * * * * 5000-5001
+ip filter 200085 pass * * * * 5002-5017
+ip filter 200096 pass-log * * * * 5004
+ip filter 200097 pass * * * * 21,smtp,domain,www,pop3,https,587,1723,5000,5001
+ip filter 200098 reject-nolog * * established
+ip filter 200099 pass * * * * *
+ip filter 500000 restrict * * * * *
+ip filter dynamic 200080 * * ftp
+ip filter dynamic 200081 * * domain
+ip filter dynamic 200082 * * www
+ip filter dynamic 200083 * * smtp
+ip filter dynamic 200084 * * pop3
+ip filter dynamic 200098 * * tcp
+ip filter dynamic 200099 * * udp
+nat descriptor type 1 masquerade
+nat descriptor address outer 1 ***.***.***.146
+nat descriptor address inner 1 192.168.1.149 192.168.1.150
+nat descriptor masquerade static 1 1 192.168.1.149 tcp login
+nat descriptor masquerade static 1 2 192.168.1.150 tcp 514
+nat descriptor type 2 masquerade
+nat descriptor address outer 2 ***.***.***.147
+nat descriptor address inner 2 192.168.1.151
+nat descriptor masquerade static 2 1 192.168.1.151 tcp 5000-5017
+nat descriptor masquerade static 2 2 192.168.1.151 tcp 7000-7020
+nat descriptor type 3 masquerade
+nat descriptor address outer 3 ***.***.***.149
+nat descriptor address inner 3 192.168.1.152 192.168.1.153 192.168.1.154 192.168.1.155
+nat descriptor masquerade static 3 1 192.168.1.152 tcp login
+nat descriptor masquerade static 3 2 192.168.1.153 tcp 514
+nat descriptor masquerade static 3 3 192.168.1.154 tcp 5000-5017
+nat descriptor masquerade static 3 4 192.168.1.155 tcp 7000-7017
+nat descriptor type 4 masquerade
+nat descriptor address outer 4 ***.***.***.150
+nat descriptor address inner 4 192.168.1.156 192.168.1.157 192.168.1.158 192.168.1.159
+nat descriptor masquerade static 4 1 192.168.1.156 tcp login
+nat descriptor masquerade static 4 2 192.168.1.157 tcp 514
+nat descriptor masquerade static 4 3 192.168.1.158 tcp 5000-5017
+nat descriptor masquerade static 4 4 192.168.1.159 tcp 7000-7017
+nat descriptor type 1000 masquerade
+nat descriptor address outer 1000 ***.***.***.145
+nat descriptor address inner 1000 192.168.1.1-192.168.1.254
+nat descriptor masquerade static 1000 1 192.168.1.1 tcp 1723
+nat descriptor masquerade static 1000 2 192.168.1.1 gre
+syslog notice off
+syslog info on
+syslog debug on
+dhcp service server
+dhcp server rfc2131 compliant except remain-silent
+dhcp scope 1 192.168.1.40-192.168.1.120/24
+dns server pp 1
+dns private address spoof on
+dns private name setup.netvolante.jp
+pptp service on
+upnp use on
+usbhost syslog filename usb1:testlog20120904
+##ANALOG
+analog supplementary-service pseudo call-waiting
+analog extension dial prefix line
+analog extension dial prefix sip prefix="9#"
