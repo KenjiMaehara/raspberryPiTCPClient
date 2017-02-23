@@ -1,6 +1,5 @@
 #9 1 51 0
 ip route default gateway pp 1
-ip route 192.168.30.0/24 gateway tunnel 3
 ip lan1 address 192.168.1.1/24
 ip lan1 proxyarp on
 ip lan1 secure filter in 100000 100001 100099
@@ -11,39 +10,27 @@ pp disable all
 pp select 1
  pp name PRV/1/3/5/0/0/0:
  pp keepalive interval 30 retry-interval=30 count=12
- pp always-on on
  pppoe use lan2
  pppoe auto disconnect off
  pppoe call prohibit auth-error count off
  pp auth accept pap chap
- pp auth myname ********@********* *********
+ pp auth myname *******@******* *******
  ppp lcp mru on 1454
  ppp ipcp msext on
  ppp ccp type none
- ip pp secure filter in 200003 200004 200030 200032 200080 200081 200082 200083 200084 200085 200099
- ip pp secure filter out 200004 200013 200026 200027 200080 200081 200082 200083 200096 200097 200099 dynamic 200080 200081 200082 200083 200084 200098 200099
+ ip pp secure filter in 200003 200004 200005 200020 200021 200022 200023 200024 200025 200030 200032 200080 200081 200082 200083 200084 200085
+ ip pp secure filter out 200004 200005 200013 200020 200021 200022 200023 200024 200025 200026 200027 200080 200081 200082 200083 200096 200097 200099 dynamic 200080 200081 200082 200083 200084 200098 200099
  ip pp nat descriptor 1 2 3 4 1000
  pp enable 1
 provider set 1
  provider dns server pp 1 1
  provider select 1
-pp select 2
- pp name WAN/VPN:kamomeVPN
- pp bind tunnel3
- pp always-on on
- pp auth request mschap
- pp auth username ******* ********
- ppp ipcp ipaddress on
- ppp ccp type mppe-any
- ppp ipv6cp use off
- pptp service type server
- pp enable 2
 pp select anonymous
  pp name RAS/VPN:
  pp bind tunnel1-tunnel2
  pp auth request mschap-v2
- pp auth username ******* ********
- pp auth username ******* ********
+ pp auth username ******* *******
+ pp auth username ******* *******
  ppp ipcp ipaddress on
  ppp ccp type mppe-any
  ppp ipv6cp use off
@@ -59,11 +46,6 @@ tunnel select 2
  tunnel encapsulation pptp
  pptp tunnel disconnect time off
  tunnel enable 2
-tunnel select 3
- tunnel encapsulation pptp
- tunnel endpoint address ***.***.***.179
- pptp tunnel disconnect time off
- tunnel enable 3
 ip filter 100000 reject * * udp,tcp 135 *
 ip filter 100001 reject * * udp,tcp * 135
 ip filter 100002 reject * * udp,tcp netbios_ns-netbios_dgm *
@@ -126,7 +108,6 @@ nat descriptor type 2 masquerade
 nat descriptor address outer 2 ***.***.***.147
 nat descriptor address inner 2 192.168.1.151
 nat descriptor masquerade static 2 1 192.168.1.151 tcp 5000-5017
-nat descriptor masquerade static 2 2 192.168.1.151 tcp 7000-7020
 nat descriptor type 3 masquerade
 nat descriptor address outer 3 ***.***.***.149
 nat descriptor address inner 3 192.168.1.152 192.168.1.153 192.168.1.154 192.168.1.155
