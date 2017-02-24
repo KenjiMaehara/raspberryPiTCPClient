@@ -2,7 +2,7 @@
 administrator password admin
 ip route default gateway tunnel 1 metric 1
 ip route 192.168.1.0/24 gateway tunnel 2
-ip route 202.216.19.145 gateway pp 1
+ip route ***.***.***.145 gateway pp 1
 ip lan1 address 192.168.30.1/24
 ip lan1 proxyarp on
 ip lan1 secure filter in 100000 100001 100099
