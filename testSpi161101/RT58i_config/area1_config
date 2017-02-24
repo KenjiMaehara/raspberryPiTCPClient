@@ -1,7 +1,8 @@
 #9 1 51 0
 administrator password admin
-ip route default gateway pp 1 filter 500000 gateway pp 1
+ip route default gateway tunnel 1 metric 1
 ip route 192.168.1.0/24 gateway tunnel 2
+ip route 202.216.19.145 gateway pp 1
 ip lan1 address 192.168.30.1/24
 ip lan1 proxyarp on
 ip lan1 secure filter in 100000 100001 100099
@@ -35,17 +36,18 @@ pp select 2
  pp bind tunnel2
  pp always-on on
  pp auth accept mschap
- pp auth myname ****** ********
+ pp auth myname ******** ********
  ppp ipcp ipaddress on
  ppp ccp type mppe-any
  ppp ipv6cp use off
+ ip pp nat descriptor 2000
  pptp service type client
  pp enable 2
 pp select anonymous
  pp name RAS/VPN:
  pp bind tunnel1
  pp auth request mschap-v2
- pp auth username ****** ********
+ pp auth username ******** ********
  ppp ipcp ipaddress on
  ppp ccp type mppe-any
  ppp ipv6cp use off
@@ -55,6 +57,7 @@ pp select anonymous
 tunnel disable all
 tunnel select 1
  tunnel encapsulation pptp
+ ip tunnel nat descriptor 2000
  tunnel enable 1
 tunnel select 2
  tunnel encapsulation pptp
@@ -134,11 +137,13 @@ nat descriptor masquerade static 1000 4 192.168.30.155 tcp 5002-5017
 nat descriptor masquerade static 1000 5 192.168.30.152 tcp login
 nat descriptor masquerade static 1000 6 192.168.30.153 tcp 514
 nat descriptor masquerade static 1000 7 192.168.30.151 tcp 7000
+nat descriptor type 2000 masquerade
 syslog notice off
 syslog debug off
 dhcp service server
 dhcp server rfc2131 compliant except remain-silent
 dhcp scope 1 192.168.30.200-192.168.30.253/24
+dns server 203.141.128.35 203.141.128.33
 dns server pp 1
 dns server select 500001 pp 1 any . restrict pp 1
 dns private address spoof on
