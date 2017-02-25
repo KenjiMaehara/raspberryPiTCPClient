@@ -1,9 +1,7 @@
 #9 1 51 0
 administrator password admin
-ip route default gateway tunnel 1 metric 1
-ip route 192.168.1.0/24 gateway tunnel 2
-ip route ***.***.***.145 gateway pp 1
-ip lan1 address 192.168.30.1/24
+ip route default gateway pp 1 filter 500000 gateway pp 1
+ip lan1 address 192.168.30.1/16
 ip lan1 proxyarp on
 ip lan1 secure filter in 100000 100001 100099
 provider type isdn-terminal
@@ -19,13 +17,13 @@ pp select 1
  pppoe auto disconnect off
  pppoe call prohibit auth-error count off
  pp auth accept pap chap
- pp auth myname ********@******** ********
+ pp auth myname ********@a******* *******
  ppp lcp mru on 1454
  ppp ipcp ipaddress on
  ppp ipcp msext on
  ppp ccp type none
- ip pp secure filter in 200003 200030 200032 200078 200080 200081 200082 200083 200084 200085 200096 200099
- ip pp secure filter out 200013 200026 200027 200079 200081 200086 200088 200090 200092 200093 200094 200095 200096 200099 dynamic 200080 200081 200082 200083 200084 200098 200099
+ ip pp secure filter in 200003 200024 200025 200030 200032 200080 200081 200099
+ ip pp secure filter out 200013 200024 200025 200026 200027 200099 dynamic 200080 200081 200082 200083 200084 200098 200099
  ip pp nat descriptor 1000
  pp enable 1
 provider set 1 Guard_center
@@ -36,18 +34,17 @@ pp select 2
  pp bind tunnel2
  pp always-on on
  pp auth accept mschap
- pp auth myname ******** ********
+ pp auth myname ******* *******
  ppp ipcp ipaddress on
  ppp ccp type mppe-any
  ppp ipv6cp use off
- ip pp nat descriptor 2000
  pptp service type client
  pp enable 2
 pp select anonymous
  pp name RAS/VPN:
  pp bind tunnel1
  pp auth request mschap-v2
- pp auth username ******** ********
+ pp auth username ******* *******
  ppp ipcp ipaddress on
  ppp ccp type mppe-any
  ppp ipv6cp use off
@@ -57,7 +54,6 @@ pp select anonymous
 tunnel disable all
 tunnel select 1
  tunnel encapsulation pptp
- ip tunnel nat descriptor 2000
  tunnel enable 1
 tunnel select 2
  tunnel encapsulation pptp
@@ -77,11 +73,11 @@ ip filter 100099 pass * * * * *
 ip filter 200000 reject 10.0.0.0/8 * * * *
 ip filter 200001 reject 172.16.0.0/12 * * * *
 ip filter 200002 reject 192.168.0.0/16 * * * *
-ip filter 200003 reject 192.168.30.0/24 * * * *
+ip filter 200003 reject 192.168.0.0/16 * * * *
 ip filter 200010 reject * 10.0.0.0/8 * * *
 ip filter 200011 reject * 172.16.0.0/12 * * *
 ip filter 200012 reject * 192.168.0.0/16 * * *
-ip filter 200013 reject * 192.168.30.0/24 * * *
+ip filter 200013 reject * 192.168.0.0/16 * * *
 ip filter 200020 reject * * udp,tcp 135 *
 ip filter 200021 reject * * udp,tcp * 135
 ip filter 200022 reject * * udp,tcp netbios_ns-netbios_ssn *
@@ -90,33 +86,16 @@ ip filter 200024 reject * * udp,tcp 445 *
 ip filter 200025 reject * * udp,tcp * 445
 ip filter 200026 restrict * * tcpfin * www,21,nntp
 ip filter 200027 restrict * * tcprst * www,21,nntp
-ip filter 200030 pass * 192.168.30.0/24 icmp * *
-ip filter 200031 pass * 192.168.30.0/24 established * *
-ip filter 200032 pass * 192.168.30.0/24 tcp * ident
-ip filter 200033 pass * 192.168.30.0/24 tcp ftpdata *
-ip filter 200034 pass * 192.168.30.0/24 tcp,udp * domain
-ip filter 200035 pass * 192.168.30.0/24 udp domain *
-ip filter 200036 pass * 192.168.30.0/24 udp * ntp
-ip filter 200037 pass * 192.168.30.0/24 udp ntp *
-ip filter 200078 pass * 192.168.30.151 * * 7000
-ip filter 200079 pass 192.168.30.1 * tcp 1723 *
+ip filter 200030 pass * 192.168.0.0/16 icmp * *
+ip filter 200031 pass * 192.168.0.0/16 established * *
+ip filter 200032 pass * 192.168.0.0/16 tcp * ident
+ip filter 200033 pass * 192.168.0.0/16 tcp ftpdata *
+ip filter 200034 pass * 192.168.0.0/16 tcp,udp * domain
+ip filter 200035 pass * 192.168.0.0/16 udp domain *
+ip filter 200036 pass * 192.168.0.0/16 udp * ntp
+ip filter 200037 pass * 192.168.0.0/16 udp ntp *
 ip filter 200080 pass * 192.168.30.1 tcp * 1723
-ip filter 200081 pass * * gre * *
-ip filter 200082 pass * 192.168.30.154 tcp * 5000-5001
-ip filter 200083 pass * 192.168.30.155 tcp * 5002-5017
-ip filter 200084 pass * 192.168.30.152 tcp * login
-ip filter 200085 pass * 192.168.30.153 tcp * 514
-ip filter 200086 pass 192.168.30.154 * tcp 5000-5001 *
-ip filter 200087 pass * * * * ntp,5000-5017
-ip filter 200088 pass 192.168.30.236-192.168.30.238 * * * *
-ip filter 200089 pass 192.168.30.240-192.168.30.250 * * * smtp,www,pop3,https,587,1723,5000-5017
-ip filter 200090 pass 192.168.30.1 * * * domain
-ip filter 200091 reject-nolog 192.168.30.154,192.168.30.155 * tcp * www,https
-ip filter 200092 pass 192.168.30.152 * tcp login *
-ip filter 200093 pass 192.168.30.153 * tcp 514 *
-ip filter 200094 pass * * tcp * smtp,domain,www,pop3,ntp,https,587,5000-5017
-ip filter 200095 pass 192.168.30.155 * tcp 5002-5017 *
-ip filter 200096 pass * * tcp * 1723
+ip filter 200081 pass * 192.168.30.1 gre * *
 ip filter 200098 reject-nolog * * established
 ip filter 200099 pass * * * * *
 ip filter 500000 restrict * * * * *
@@ -137,13 +116,11 @@ nat descriptor masquerade static 1000 4 192.168.30.155 tcp 5002-5017
 nat descriptor masquerade static 1000 5 192.168.30.152 tcp login
 nat descriptor masquerade static 1000 6 192.168.30.153 tcp 514
 nat descriptor masquerade static 1000 7 192.168.30.151 tcp 7000
-nat descriptor type 2000 masquerade
 syslog notice off
 syslog debug off
 dhcp service server
 dhcp server rfc2131 compliant except remain-silent
-dhcp scope 1 192.168.30.200-192.168.30.253/24
-dns server 203.141.128.35 203.141.128.33
+dhcp scope 1 192.168.30.200-192.168.30.253/16
 dns server pp 1
 dns server select 500001 pp 1 any . restrict pp 1
 dns private address spoof on
