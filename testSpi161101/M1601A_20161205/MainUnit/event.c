@@ -63,6 +63,10 @@ u32	Os_GetTime_for_DoorOpen_Resettimeout=0;
 
 
 
+u8 cmd_data02[50];
+int cnt03 = 0;
+
+
 
 char hex_to_asc(u8 hex)
 {
@@ -82,12 +86,39 @@ u8 chInputStatus1(void)
 
 
 
+#if 1
+void spif_int(void)
+{
+	volatile u8 rxdata=0;
+	
+	rxdata = SPIF.DATA;
+
+	cmd_data02[cnt03++] = rxdata;
+	
+	if(cmd_data02[cnt03]==0x0d)
+	{
+		cnt03 = 0;
+	}
+	                                                                                    
+}
+#else
 
 ISR(SPIF_INT_vect)
 {
+	u8 rxdata=0;
 	
+	rxdata = SPIF.DATA;
+
+	cmd_data02[cnt03++] = rxdata;
+	
+	if(cmd_data02[cnt03]==0x0d)
+	{
+		cnt03 = 0;
+	}
 }
 
+
+#endif
 
 
 
@@ -126,6 +157,13 @@ void EventTask(void *p_arg)
 		//sendChar(0x34);
 	
 		if(SPIF.STATUS & 0x80)
+		{
+			cnt02++;
+		}
+	
+	
+	
+		if(SPIF.STATUS & 0x00)
 		{
 
 			rxdata = SPIF.DATA;

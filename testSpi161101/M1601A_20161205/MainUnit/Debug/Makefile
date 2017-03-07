@@ -57,6 +57,7 @@ C_SRCS +=  \
 ../RTOS/os_task.c \
 ../RTOS/os_time.c \
 ../port.c \
+../SoundPlay.c \
 ../spi.c \
 ../TWI_I2CMaster.c
 
@@ -93,6 +94,7 @@ RTOS/os_sem.o \
 RTOS/os_task.o \
 RTOS/os_time.o \
 port.o \
+SoundPlay.o \
 spi.o \
 TWI_I2CMaster.o
 
@@ -119,6 +121,7 @@ RTOS/os_sem.o \
 RTOS/os_task.o \
 RTOS/os_time.o \
 port.o \
+SoundPlay.o \
 spi.o \
 TWI_I2CMaster.o
 
@@ -145,6 +148,7 @@ RTOS/os_sem.d \
 RTOS/os_task.d \
 RTOS/os_time.d \
 port.d \
+SoundPlay.d \
 spi.d \
 TWI_I2CMaster.d
 
@@ -171,6 +175,7 @@ RTOS/os_sem.d \
 RTOS/os_task.d \
 RTOS/os_time.d \
 port.d \
+SoundPlay.d \
 spi.d \
 TWI_I2CMaster.d
 
@@ -188,6 +193,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
