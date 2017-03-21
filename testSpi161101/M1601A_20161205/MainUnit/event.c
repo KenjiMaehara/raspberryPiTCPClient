@@ -152,7 +152,7 @@ void EventTask(void *p_arg)
 	while(1)
 	{
 	
-		if(flagSpi1Rx == true)
+		if(flagSpifRx == true)
 		{
 			id = strtok(cmd_data, ",");
 			cmd = strtok(NULL, ",");

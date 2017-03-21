@@ -22,7 +22,7 @@
 
 
 u8 cmd_data[50];
-u8 flagSpi1Rx;
+u8 flagSpifRx;
 
 
 void uartRxTask(void *p_arg)
@@ -30,12 +30,12 @@ void uartRxTask(void *p_arg)
 	u8 rxdata=0;
 	int cnt=0;
 	
-	flagSpi1Rx = false;
+	flagSpifRx = false;
 	
 	while(1)
 	{
 		
-		if(SPIF.STATUS & 0x00 && flagSpi1Rx == false)
+		if(SPIF.STATUS & 0x00 && flagSpifRx == false)
 		{
 			
 			rxdata = SPIF.DATA;
@@ -63,7 +63,7 @@ void uartRxTask(void *p_arg)
 
 			if(cnt > 2 && cmd_data[cnt-1]==0x0d)
 			{
-				flagSpi1Rx=true;
+				flagSpifRx=true;
 				cnt = 0;
 			}
 

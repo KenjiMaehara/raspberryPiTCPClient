@@ -11,7 +11,7 @@
 
 
 extern u8 cmd_data[50];
-extern u8 flagSpi1Rx;
+extern u8 flagSpifRx;
 
 
 #endif /* UARTRX_H_ */
