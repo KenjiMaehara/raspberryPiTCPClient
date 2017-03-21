@@ -26,6 +26,9 @@ void RFRecvTask(void *p_arg);
 void OperTask(void *p_arg);
 void EventTask(void *p_arg);
 void SoundPlayTask(void *p_arg);
+void uartRxTask(void *p_arg);
+
+
 
 KEY_DATA	stKey;
 OS_EVENT    *KeyWait;
@@ -305,6 +308,18 @@ void TaskStartCreateTasks(void)
 	(INT16U          )(OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR));
 	#endif 
 	
+	#if 1
+	// Task2: PRIORITY=7
+	OSTaskCreateExt((void (*)(void *)) uartRxTask,
+	(void           *) 0,
+	(OS_STK         *)&TaskStk[4][APP_CFG_TASK_STK_SIZE - 1],
+	(INT8U           ) 7,
+	(INT16U          ) 7,
+	(OS_STK         *)&TaskStk[4][0],
+	(INT32U          ) APP_CFG_TASK_STK_SIZE,
+	(void           *) 0,
+	(INT16U          )(OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR));
+	#endif
 } 
 
 
