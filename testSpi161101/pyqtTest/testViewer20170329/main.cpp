@@ -30,6 +30,14 @@ int main(int argc, char *argv[])
 #endif
 
 
+    QApplication app(argc,argv);
+    QLabel* label = new QLabel("こんにちはQt");
+    label->show();
+    return app.exec();
+
+
+
+
 
     //return a.exec();
 }
