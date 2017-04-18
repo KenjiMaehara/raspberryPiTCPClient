@@ -54,7 +54,8 @@ class PiTft(ui.Scene):
         #elif btn.text == '4 off':
             #GPIO.output(4, True)
  
-ui.init('Raspberry Pi UI', (320, 240))
+#ui.init('Raspberry Pi UI', (320, 240))
+ui.init('Raspberry Pi UI', (1024, 640))
 pygame.mouse.set_visible(False)
 ui.scene.push(PiTft())
 ui.run()
