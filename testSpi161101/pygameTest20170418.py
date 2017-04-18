@@ -45,14 +45,14 @@ class PiTft(ui.Scene):
     def gpi_button(self, btn, mbtn):
         logger.info(btn.text)
          
-        if btn.text == '17 on':
-            GPIO.output(17, False)
-        elif btn.text == '4 on':
-            GPIO.output(4, False)
-        elif btn.text == '17 off':
-            GPIO.output(17, True)
-        elif btn.text == '4 off':
-            GPIO.output(4, True)
+        #if btn.text == '17 on':
+            #GPIO.output(17, False)
+        #elif btn.text == '4 on':
+            #GPIO.output(4, False)
+        #elif btn.text == '17 off':
+            #GPIO.output(17, True)
+        #elif btn.text == '4 off':
+            #GPIO.output(4, True)
  
 ui.init('Raspberry Pi UI', (320, 240))
 pygame.mouse.set_visible(False)
