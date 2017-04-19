@@ -1,0 +1,162 @@
+Xsession: X session started for pi at Wed 18 Jan 04:07:26 UTC 2017
+localuser:pi being added to access control list
+
+SSH is enabled and the default password for the 'pi' user has not been changed.
+This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
+
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Wed 18 Jan 04:09:38 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+
+SSH is enabled and the default password for the 'pi' user has not been changed.
+This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
+
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Wed 29 Mar 06:35:10 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+
+SSH is enabled and the default password for the 'pi' user has not been changed.
+This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
+
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Thu 30 Mar 00:41:30 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Mon 17 Apr 08:34:20 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Mon 17 Apr 08:37:52 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":2".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Mon 17 Apr 08:47:39 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Tue 18 Apr 01:19:16 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Tue 18 Apr 02:28:27 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Tue 18 Apr 05:25:28 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Tue 18 Apr 07:50:39 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Tue 18 Apr 07:59:39 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
+Xsession: X session started for pi at Tue 18 Apr 08:41:23 UTC 2017
+X Error of failed request:  BadValue (integer parameter out of range for operation)
+  Major opcode of failed request:  109 (X_ChangeHosts)
+  Value in failed request:  0x5
+  Serial number of failed request:  6
+  Current serial number in output stream:  8
+localuser:pi being added to access control list
+** Message: main.vala:99: Session is LXDE-pi
+** Message: main.vala:100: DE is LXDE
+Xlib:  extension "RANDR" missing on display ":1".
+** Message: main.vala:131: log directory: /home/pi/.cache/lxsession/LXDE-pi
+** Message: main.vala:132: log path: /home/pi/.cache/lxsession/LXDE-pi/run.log
