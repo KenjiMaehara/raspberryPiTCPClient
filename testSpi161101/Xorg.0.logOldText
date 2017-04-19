@@ -1,0 +1,189 @@
+[    30.032] 
+X.Org X Server 1.18.4
+Release Date: 2016-07-19
+[    30.033] X Protocol Version 11, Revision 0
+[    30.033] Build Operating System: Linux 4.4.26-v7+ armv7l Raspbian
+[    30.033] Current Operating System: Linux raspberrypi 4.9.22-v7+ #987 SMP Fri Apr 14 23:23:05 BST 2017 armv7l
+[    30.033] Kernel command line: 8250.nr_uarts=1 bcm2708_fb.fbwidth=1024 bcm2708_fb.fbheight=600 bcm2708_fb.fbswap=1 vc_mem.mem_base=0x3dc00000 vc_mem.mem_size=0x3f000000  dwc_otg.lpm_enable=0 console=ttyS0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
+[    30.033] Build Date: 11 November 2016  11:59:59AM
+[    30.033] xorg-server 2:1.18.4-2+rpi1 (https://www.debian.org/support) 
+[    30.033] Current version of pixman: 0.33.3
+[    30.033] 	Before reporting problems, check http://wiki.x.org
+	to make sure that you have the latest version.
+[    30.033] Markers: (--) probed, (**) from config file, (==) default setting,
+	(++) from command line, (!!) notice, (II) informational,
+	(WW) warning, (EE) error, (NI) not implemented, (??) unknown.
+[    30.033] (==) Log file: "/var/log/Xorg.0.log", Time: Wed Apr 19 01:24:23 2017
+[    30.034] (==) Using system config directory "/usr/share/X11/xorg.conf.d"
+[    30.034] (==) No Layout section.  Using the first Screen section.
+[    30.034] (==) No screen section available. Using defaults.
+[    30.034] (**) |-->Screen "Default Screen Section" (0)
+[    30.034] (**) |   |-->Monitor "<default monitor>"
+[    30.035] (==) No device specified for screen "Default Screen Section".
+	Using the first device section listed.
+[    30.035] (**) |   |-->Device "Allwinner A10/A13 FBDEV"
+[    30.035] (==) No monitor specified for screen "Default Screen Section".
+	Using a default monitor configuration.
+[    30.035] (==) Automatically adding devices
+[    30.035] (==) Automatically enabling devices
+[    30.035] (==) Automatically adding GPU devices
+[    30.035] (==) Max clients allowed: 256, resource mask: 0x1fffff
+[    30.035] (WW) The directory "/usr/share/fonts/X11/cyrillic" does not exist.
+[    30.035] 	Entry deleted from font path.
+[    30.035] (WW) The directory "/usr/share/fonts/X11/75dpi/" does not exist.
+[    30.035] 	Entry deleted from font path.
+[    30.035] (WW) The directory "/usr/share/fonts/X11/75dpi" does not exist.
+[    30.035] 	Entry deleted from font path.
+[    30.035] (==) FontPath set to:
+	/usr/share/fonts/X11/misc,
+	/usr/share/fonts/X11/100dpi/:unscaled,
+	/usr/share/fonts/X11/Type1,
+	/usr/share/fonts/X11/100dpi,
+	built-ins
+[    30.035] (==) ModulePath set to "/usr/lib/xorg/modules"
+[    30.035] (II) The server relies on udev to provide the list of input devices.
+	If no devices become available, reconfigure udev or disable AutoAddDevices.
+[    30.035] (II) Loader magic: 0x54cf6f20
+[    30.035] (II) Module ABI versions:
+[    30.035] 	X.Org ANSI C Emulation: 0.4
+[    30.035] 	X.Org Video Driver: 20.0
+[    30.035] 	X.Org XInput driver : 22.1
+[    30.035] 	X.Org Server Extension : 9.0
+[    30.037] (++) using VT number 7
+
+[    30.037] (II) systemd-logind: logind integration requires -keeptty and -keeptty was not provided, disabling logind integration
+[    30.038] (II) no primary bus or device found
+[    30.038] (II) LoadModule: "glx"
+[    30.038] (II) Loading /usr/lib/xorg/modules/extensions/libglx.so
+[    30.042] (II) Module glx: vendor="X.Org Foundation"
+[    30.043] 	compiled for 1.18.4, module version = 1.0.0
+[    30.043] 	ABI class: X.Org Server Extension, version 9.0
+[    30.043] (==) AIGLX enabled
+[    30.043] (II) LoadModule: "fbturbo"
+[    30.043] (II) Loading /usr/lib/xorg/modules/drivers/fbturbo_drv.so
+[    30.043] (II) Module fbturbo: vendor="X.Org Foundation"
+[    30.043] 	compiled for 1.18.4, module version = 0.5.1
+[    30.043] 	Module class: X.Org Video Driver
+[    30.043] 	ABI class: X.Org Video Driver, version 20.0
+[    30.043] (II) FBTURBO: driver for framebuffer: fbturbo
+[    30.044] (WW) Falling back to old probe method for fbturbo
+[    30.044] (II) Loading sub module "fbdevhw"
+[    30.044] (II) LoadModule: "fbdevhw"
+[    30.044] (II) Loading /usr/lib/xorg/modules/libfbdevhw.so
+[    30.044] (II) Module fbdevhw: vendor="X.Org Foundation"
+[    30.044] 	compiled for 1.18.4, module version = 0.0.2
+[    30.044] 	ABI class: X.Org Video Driver, version 20.0
+[    30.044] (II) FBTURBO(0): using /dev/fb0
+[    30.044] (WW) VGA arbiter: cannot open kernel arbiter, no multi-card support
+[    30.044] (II) FBTURBO(0): Creating default Display subsection in Screen section
+	"Default Screen Section" for depth/fbbpp 24/32
+[    30.044] (==) FBTURBO(0): Depth 24, (==) framebuffer bpp 32
+[    30.044] (==) FBTURBO(0): RGB weight 888
+[    30.044] (==) FBTURBO(0): Default visual is TrueColor
+[    30.044] (==) FBTURBO(0): Using gamma correction (1.0, 1.0, 1.0)
+[    30.044] (II) FBTURBO(0): hardware: BCM2708 FB (video memory: 2400kB)
+[    30.045] (**) FBTURBO(0): Option "fbdev" "/dev/fb0"
+[    30.045] (**) FBTURBO(0): Option "SwapbuffersWait" "true"
+[    30.045] (II) FBTURBO(0): processor: Unknown
+[    30.045] (II) FBTURBO(0): checking modes against framebuffer device...
+[    30.045] (II) FBTURBO(0): checking modes against monitor...
+[    30.045] (--) FBTURBO(0): Virtual size is 1024x600 (pitch 1024)
+[    30.045] (**) FBTURBO(0):  Built-in mode "current"
+[    30.045] (==) FBTURBO(0): DPI set to (96, 96)
+[    30.045] (II) Loading sub module "fb"
+[    30.045] (II) LoadModule: "fb"
+[    30.045] (II) Loading /usr/lib/xorg/modules/libfb.so
+[    30.046] (II) Module fb: vendor="X.Org Foundation"
+[    30.046] 	compiled for 1.18.4, module version = 1.0.0
+[    30.046] 	ABI class: X.Org ANSI C Emulation, version 0.4
+[    30.046] (==) Depth 24 pixmap format is 32 bpp
+[    30.047] (II) FBTURBO(0): using backing store heuristics
+[    30.052] (II) FBTURBO(0): can't load 'g2d_23' kernel module
+[    30.052] (II) FBTURBO(0): failed to enable the use of sunxi display controller
+[    30.052] (II) FBTURBO(0): No sunxi-g2d hardware detected (check /dev/disp and /dev/g2d)
+[    30.052] (II) FBTURBO(0): G2D hardware acceleration can't be enabled
+[    30.052] (II) FBTURBO(0): enabled fbdev copyarea acceleration
+[    30.052] (==) FBTURBO(0): Backing store enabled
+[    30.053] (==) FBTURBO(0): DPMS enabled
+[    30.053] (II) FBTURBO(0): failed to enable hardware cursor
+[    30.053] (II) FBTURBO(0): no 3D acceleration because the driver has been compiled without libUMP
+[    30.053] (II) FBTURBO(0): if this is wrong and needs to be fixed, please check ./configure log
+[    30.053] (==) RandR enabled
+[    30.075] (II) SELinux: Disabled on system
+[    30.078] (II) AIGLX: Screen 0 is not DRI2 capable
+[    30.078] (EE) AIGLX: reverting to software rendering
+[    30.131] (II) AIGLX: enabled GLX_MESA_copy_sub_buffer
+[    30.133] (II) AIGLX: Loaded and initialized swrast
+[    30.133] (II) GLX: Initialized DRISWRAST GL provider for screen 0
+[    30.330] (II) config/udev: Adding input device BYZHYYZHY By ZH851 (/dev/input/event2)
+[    30.330] (**) BYZHYYZHY By ZH851: Applying InputClass "evdev touchscreen catchall"
+[    30.330] (II) LoadModule: "evdev"
+[    30.330] (II) Loading /usr/lib/xorg/modules/input/evdev_drv.so
+[    30.331] (II) Module evdev: vendor="X.Org Foundation"
+[    30.331] 	compiled for 1.18.4, module version = 2.10.3
+[    30.331] 	Module class: X.Org XInput Driver
+[    30.331] 	ABI class: X.Org XInput driver, version 22.1
+[    30.331] (II) Using input driver 'evdev' for 'BYZHYYZHY By ZH851'
+[    30.331] (**) BYZHYYZHY By ZH851: always reports core events
+[    30.332] (**) evdev: BYZHYYZHY By ZH851: Device: "/dev/input/event2"
+[    30.332] (--) evdev: BYZHYYZHY By ZH851: Vendor 0xeef Product 0x5
+[    30.332] (--) evdev: BYZHYYZHY By ZH851: Found absolute axes
+[    30.332] (--) evdev: BYZHYYZHY By ZH851: Found absolute multitouch axes
+[    30.332] (II) evdev: BYZHYYZHY By ZH851: No buttons found, faking one.
+[    30.332] (--) evdev: BYZHYYZHY By ZH851: Found x and y absolute axes
+[    30.332] (--) evdev: BYZHYYZHY By ZH851: Found absolute touchscreen
+[    30.332] (II) evdev: BYZHYYZHY By ZH851: Configuring as touchscreen
+[    30.332] (**) evdev: BYZHYYZHY By ZH851: YAxisMapping: buttons 4 and 5
+[    30.332] (**) evdev: BYZHYYZHY By ZH851: EmulateWheelButton: 4, EmulateWheelInertia: 10, EmulateWheelTimeout: 200
+[    30.332] (**) Option "config_info" "udev:/sys/devices/platform/soc/3f980000.usb/usb1/1-1/1-1.3/1-1.3:1.0/0003:0EEF:0005.0001/input/input2/event2"
+[    30.332] (II) XINPUT: Adding extended input device "BYZHYYZHY By ZH851" (type: TOUCHSCREEN, id 6)
+[    30.332] (II) evdev: BYZHYYZHY By ZH851: initialized for absolute axes.
+[    30.333] (**) BYZHYYZHY By ZH851: (accel) keeping acceleration scheme 1
+[    30.333] (**) BYZHYYZHY By ZH851: (accel) acceleration profile 0
+[    30.333] (**) BYZHYYZHY By ZH851: (accel) acceleration factor: 2.000
+[    30.333] (**) BYZHYYZHY By ZH851: (accel) acceleration threshold: 4
+[    30.334] (II) config/udev: Adding input device BYZHYYZHY By ZH851 (/dev/input/mouse0)
+[    30.334] (II) No input driver specified, ignoring this device.
+[    30.334] (II) This device may have been added with another device file.
+[    30.335] (II) config/udev: Adding input device SEM USB Keyboard (/dev/input/event0)
+[    30.335] (**) SEM USB Keyboard: Applying InputClass "evdev keyboard catchall"
+[    30.336] (II) Using input driver 'evdev' for 'SEM USB Keyboard'
+[    30.336] (**) SEM USB Keyboard: always reports core events
+[    30.336] (**) evdev: SEM USB Keyboard: Device: "/dev/input/event0"
+[    30.336] (--) evdev: SEM USB Keyboard: Vendor 0x1a2c Product 0x2124
+[    30.336] (--) evdev: SEM USB Keyboard: Found keys
+[    30.336] (II) evdev: SEM USB Keyboard: Configuring as keyboard
+[    30.336] (**) Option "config_info" "udev:/sys/devices/platform/soc/3f980000.usb/usb1/1-1/1-1.5/1-1.5:1.0/0003:1A2C:2124.0002/input/input0/event0"
+[    30.336] (II) XINPUT: Adding extended input device "SEM USB Keyboard" (type: KEYBOARD, id 7)
+[    30.336] (**) Option "xkb_rules" "evdev"
+[    30.336] (**) Option "xkb_model" "pc105"
+[    30.336] (**) Option "xkb_layout" "gb"
+[    30.405] (II) config/udev: Adding input device SEM USB Keyboard (/dev/input/event1)
+[    30.405] (**) SEM USB Keyboard: Applying InputClass "evdev keyboard catchall"
+[    30.405] (II) Using input driver 'evdev' for 'SEM USB Keyboard'
+[    30.405] (**) SEM USB Keyboard: always reports core events
+[    30.405] (**) evdev: SEM USB Keyboard: Device: "/dev/input/event1"
+[    30.405] (--) evdev: SEM USB Keyboard: Vendor 0x1a2c Product 0x2124
+[    30.405] (--) evdev: SEM USB Keyboard: Found 1 mouse buttons
+[    30.405] (--) evdev: SEM USB Keyboard: Found scroll wheel(s)
+[    30.405] (--) evdev: SEM USB Keyboard: Found relative axes
+[    30.405] (II) evdev: SEM USB Keyboard: Forcing relative x/y axes to exist.
+[    30.405] (--) evdev: SEM USB Keyboard: Found absolute axes
+[    30.405] (II) evdev: SEM USB Keyboard: Forcing absolute x/y axes to exist.
+[    30.405] (--) evdev: SEM USB Keyboard: Found keys
+[    30.405] (II) evdev: SEM USB Keyboard: Configuring as mouse
+[    30.406] (II) evdev: SEM USB Keyboard: Configuring as keyboard
+[    30.406] (II) evdev: SEM USB Keyboard: Adding scrollwheel support
+[    30.406] (**) evdev: SEM USB Keyboard: YAxisMapping: buttons 4 and 5
+[    30.406] (**) evdev: SEM USB Keyboard: EmulateWheelButton: 4, EmulateWheelInertia: 10, EmulateWheelTimeout: 200
+[    30.406] (**) Option "config_info" "udev:/sys/devices/platform/soc/3f980000.usb/usb1/1-1/1-1.5/1-1.5:1.1/0003:1A2C:2124.0003/input/input1/event1"
+[    30.406] (II) XINPUT: Adding extended input device "SEM USB Keyboard" (type: KEYBOARD, id 8)
+[    30.406] (**) Option "xkb_rules" "evdev"
+[    30.406] (**) Option "xkb_model" "pc105"
+[    30.406] (**) Option "xkb_layout" "gb"
+[    30.407] (II) evdev: SEM USB Keyboard: initialized for relative axes.
+[    30.407] (WW) evdev: SEM USB Keyboard: ignoring absolute axes.
+[    30.407] (**) SEM USB Keyboard: (accel) keeping acceleration scheme 1
+[    30.407] (**) SEM USB Keyboard: (accel) acceleration profile 0
+[    30.407] (**) SEM USB Keyboard: (accel) acceleration factor: 2.000
+[    30.407] (**) SEM USB Keyboard: (accel) acceleration threshold: 4
