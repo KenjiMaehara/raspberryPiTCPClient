@@ -48,7 +48,6 @@ def press_callback(obj):
 			#GPIO.output(ledPin, GPIO.LOW)
 
 def buzzer_off(dt):
-	
 	#GPIO.output(beepPin, GPIO.LOW)
 
 # Toggle the flashing LED according to the speed global
