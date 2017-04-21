@@ -111,7 +111,7 @@ class MyApp(App):
 		no1Button = Button(text="1",font_size = "48sp", font_name = 'MTLmr3m.ttf')
 		noAstaButton = Button(text="*",font_size = "48sp", font_name = 'MTLmr3m.ttf')
 		no0Button = Button(text="0",font_size = "48sp", font_name = 'MTLmr3m.ttf')
-		noSharpButton = Button(text="#",font_size = "48sp", font_name = .'MTLmr3m.ttf')
+		noSharpButton = Button(text="#",font_size = "48sp", font_name = 'MTLmr3m.ttf')
 		# Add the UI elements to the layout:
 		#layout.add_widget(wimg)
 		#layout.add_widget(inputDisplay)
