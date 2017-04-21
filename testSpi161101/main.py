@@ -75,7 +75,7 @@ class MyApp(App):
 
 	def build(self):
 		# Set up the layout:
-		layout = GridLayout(cols=5, spacing=30, padding=30, row_default_height=5)
+		layout = GridLayout(cols=3, spacing=30, padding=30, row_default_height=150)
 
 		# Make the background gray:
 		with layout.canvas.before:
@@ -98,12 +98,32 @@ class MyApp(App):
 		speedSlider = Slider(orientation='vertical', min=1, max=30, value=speed)
 		speedSlider.bind(on_touch_down=update_speed, on_touch_move=update_speed)
 
+		no9Button = Button(text="9")
+		no8Button = Button(text="8")
+		no7Button = Button(text="7")
+		no6Button = Button(text="6")
+		no5Button = Button(text="5")
+		no4Button = Button(text="4")
+		no3Button = Button(text="3")
+		no2Button = Button(text="2")
+		no1Button = Button(text="1")
 		# Add the UI elements to the layout:
 		#layout.add_widget(wimg)
 		#layout.add_widget(inputDisplay)
-		layout.add_widget(outputControl)
-		layout.add_widget(beepButton)
-		layout.add_widget(speedSlider)
+		#layout.add_widget(outputControl)
+		#layout.add_widget(beepButton)
+		#layout.add_widget(speedSlider)
+
+		layout.add_widget(no9Button)
+		layout.add_widget(no8Button)
+		layout.add_widget(no7Button)
+		layout.add_widget(no6Button)
+		layout.add_widget(no5Button)
+		layout.add_widget(no4Button)
+		layout.add_widget(no3Button)
+		layout.add_widget(no2Button)
+		layout.add_widget(no1Button)
+
 
 		# Start flashing the LED
 		Clock.schedule_once(flash, 1.0/speed)
