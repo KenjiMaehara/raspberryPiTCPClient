@@ -107,6 +107,9 @@ class MyApp(App):
 		no3Button = Button(text="3")
 		no2Button = Button(text="2")
 		no1Button = Button(text="1")
+		noAstaButton = Button(text="*")
+		no0Button = Button(text="0")
+		noSharpButton = Button(text="#")
 		# Add the UI elements to the layout:
 		#layout.add_widget(wimg)
 		#layout.add_widget(inputDisplay)
@@ -123,7 +126,9 @@ class MyApp(App):
 		layout.add_widget(no3Button)
 		layout.add_widget(no2Button)
 		layout.add_widget(no1Button)
-
+		layout.add_widget(noAstaButton)
+		layout.add_widget(no0Button)
+		layout.add_widget(noSharpButton)
 
 		# Start flashing the LED
 		Clock.schedule_once(flash, 1.0/speed)
