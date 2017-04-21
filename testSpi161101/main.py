@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import kivy
 kivy.require('1.0.6') # replace with your current kivy version !
 
@@ -98,18 +100,18 @@ class MyApp(App):
 		speedSlider = Slider(orientation='vertical', min=1, max=30, value=speed)
 		speedSlider.bind(on_touch_down=update_speed, on_touch_move=update_speed)
 
-		no9Button = Button(text="9")
-		no8Button = Button(text="8")
-		no7Button = Button(text="7")
-		no6Button = Button(text="6")
-		no5Button = Button(text="5")
-		no4Button = Button(text="4")
-		no3Button = Button(text="3")
-		no2Button = Button(text="2")
-		no1Button = Button(text="1")
-		noAstaButton = Button(text="*")
-		no0Button = Button(text="0")
-		noSharpButton = Button(text="#")
+		no9Button = Button(text="9",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		no8Button = Button(text="8",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		no7Button = Button(text="7",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		no6Button = Button(text="6",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		no5Button = Button(text="5",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		no4Button = Button(text="4",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		no3Button = Button(text="3",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		no2Button = Button(text="2",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		no1Button = Button(text="1",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		noAstaButton = Button(text="*",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		no0Button = Button(text="0",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
+		noSharpButton = Button(text="#",font_size = "48sp", font_name = 'IPAexfont00201/ipaexm.ttf')
 		# Add the UI elements to the layout:
 		#layout.add_widget(wimg)
 		#layout.add_widget(inputDisplay)
