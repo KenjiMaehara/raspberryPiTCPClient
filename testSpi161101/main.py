@@ -80,7 +80,8 @@ class MyApp(App):
 		# Make the background gray:
 		with layout.canvas.before:
 			Color(.2,.2,.2,1)
-			self.rect = Rectangle(size=(800,600), pos=layout.pos)
+			#self.rect = Rectangle(size=(800,600), pos=layout.pos)
+			self.rect = Rectangle(size=(1024,600), pos=layout.pos)
 
 		# Instantiate the first UI object (the GPIO input indicator):
 		#inputDisplay = InputButton(text="Input")
