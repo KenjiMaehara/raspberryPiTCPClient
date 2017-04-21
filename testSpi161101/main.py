@@ -100,7 +100,7 @@ class MyApp(App):
 		speedSlider = Slider(orientation='vertical', min=1, max=30, value=speed)
 		speedSlider.bind(on_touch_down=update_speed, on_touch_move=update_speed)
 
-		no9Button = Button(text="9",font_size = "48sp")
+		no9Button = Button(text="あいう",font_size = "48sp")
 		no8Button = Button(text="8",font_size = "48sp")
 		no7Button = Button(text="7",font_size = "48sp")
 		no6Button = Button(text="6",font_size = "48sp")
