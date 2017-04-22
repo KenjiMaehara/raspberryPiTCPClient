@@ -15,6 +15,10 @@ RootWidget:
         Label:
             text: 'screen-2'
 
+        Button:
+            size_hint: 0.2, 1
+            text: 'CH1'
+
         BoxLayout:
             orientation: 'horizontal'
             padding: 0
@@ -27,6 +31,3 @@ RootWidget:
                 text: 'next'
                 on_release: app.next_screen('3')
 
-            Button:
-                size_hint: 0.2, 1
-                text: 'next'
