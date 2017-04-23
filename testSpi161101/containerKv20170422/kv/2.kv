@@ -15,17 +15,21 @@ RootWidget:
         Label:
             text: 'EREA01 sensors status'
 
-        Button:
-            #size_hint: 0.2, 1
-            text: 'CH1'
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 0
+            spacing: 1
+            size_hint: 1, 0.7
+            #size_hint: 0.2,1
+            #size_hint: 1, 0.4
 
-        Button:
-            #size_hint: 0.2, 1
-            text: 'CH2'
+            Button:
+                #size_hint: 1, 1
+                text: 'CH1'
 
-        Button:
-            #size_hint: 0.2, 1
-            text: 'CH3'
+            Label:
+                #size_hint: 1, 1
+                text: 'CH2'
 
 
 
@@ -33,9 +37,9 @@ RootWidget:
             orientation: 'horizontal'
             padding: 0
             spacing: 1
-            #size_hint: 1, 0.1
+            size_hint: 1, 0.1
             #size_hint: 0.2,1
-            size_hint: 1, 0.4
+            #size_hint: 1, 0.4
 
             # weiter button
             Button:
