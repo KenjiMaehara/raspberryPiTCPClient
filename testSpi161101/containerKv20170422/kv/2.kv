@@ -76,26 +76,40 @@ RootWidget:
                     #background_color: (0.0, 10.0, 0.0, 1.0)      #green
                     font_size:  40
 
-            Button:
-                #size_hint: 1, 1
-                text: '1F-2'
-                #background_color: (1.0, 0.0, 0.0, 1.0)     #red
-                background_color: (0.0, 7.0, 0.0, 1.0)      #green
-                font_size:  30
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 0
+                spacing: 3
+                size_hint: 0.5, 1
 
-            Button:
-                #size_hint: 1, 1
-                text: '1F-3'
-                #background_color: (1.0, 0.0, 0.0, 1.0)     #red
-                background_color: (0.0, 4.0, 0.0, 1.0)      #green
-                font_size:  30
-
-            Button:
-                #size_hint: 1, 1
-                text: '2F'
-                #background_color: (1.0, 0.0, 0.0, 1.0)     #red
-                background_color: (0.0, 4.0, 0.0, 1.0)      #green
-                font_size:  30
+                BoxLayout:
+                    orientation: 'horizontal'
+                    padding: 20
+                    spacing: 20
+                    size_hint: 1, 0.2
+                    #size_hint: 0.2,1
+                    #size_hint: 1, 0.4
+                    
+                    Button:
+                        #size_hint: 1, 1
+                        text: '1F-2'
+                        #background_color: (1.0, 0.0, 0.0, 1.0)     #red
+                        background_color: (0.0, 7.0, 0.0, 1.0)      #green
+                        font_size:  30
+        
+                    Button:
+                        #size_hint: 1, 1
+                        text: '1F-3'
+                        #background_color: (1.0, 0.0, 0.0, 1.0)     #red
+                        background_color: (0.0, 4.0, 0.0, 1.0)      #green
+                        font_size:  30
+        
+                    Button:
+                        #size_hint: 1, 1
+                        text: '2F'
+                        #background_color: (1.0, 0.0, 0.0, 1.0)     #red
+                        background_color: (0.0, 4.0, 0.0, 1.0)      #green
+                        font_size:  30
 
         BoxLayout:
             orientation: 'horizontal'
