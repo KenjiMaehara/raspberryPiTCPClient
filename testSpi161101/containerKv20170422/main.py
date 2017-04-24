@@ -48,7 +48,9 @@ class EzsApp(App):
         :type screen: str
         :rtype: none
     '''
-    
+        if screen == null:
+            app.next_screen('1')
+
 
         filename = screen + '.kv'
         # unload the content of the .kv file
