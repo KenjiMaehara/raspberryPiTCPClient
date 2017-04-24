@@ -13,9 +13,26 @@ RootWidget:
         spacing: 3
 
         Label:
-            text: '異常はありません'
+            text: 'エリア1の状態'
             font_size:  40
             size_hint: 1, 0.2
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 20
+            spacing: 20
+            size_hint: 1, 1
+            #size_hint: 0.2,1
+            #size_hint: 1, 0.4
+
+            label:
+                #size_hint: 1, 1
+                #text: 'erea1'
+                text: '異常はありません。'
+                #background_color: (1.0, 0.0, 0.0, 1.0)     #red
+                #background_color: (0.0, 10.0, 0.0, 1.0)      #green
+                font_size:  40
+                #on_release: app.next_screen('area1')
 
 
         BoxLayout:
