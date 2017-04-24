@@ -1,4 +1,4 @@
-# -*- coding: shift-jis -*-
+# -*- coding: utf-8 -*-
 
 '''
 Container Example
@@ -16,7 +16,7 @@ from kivy.properties import ObjectProperty
 import kivy
 kivy.require('1.8.0')
 
-LabelBase.register(DEFAULT_FONT, 'VL-Gothic-Regular.ttf')
+LabelBase.register(DEFAULT_FONT, 'VLGothic/VL-Gothic-Regular.ttf')
 
 
 class RootWidget(BoxLayout):
