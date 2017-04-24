@@ -19,6 +19,8 @@ kivy.require('1.8.0')
 
 LabelBase.register(DEFAULT_FONT, 'VLGothic/VL-Gothic-Regular.ttf')
 
+startVal = 0
+
 
 class RootWidget(BoxLayout):
     '''Create a controller that receives a custom widget from the kv lang file.
@@ -40,6 +42,14 @@ class EzsApp(App):
         # loading the content of root.kv
         self.root = Builder.load_file('kv/root.kv')
 
+        if startVal == 0:
+            filename = screen + '.kv'
+            startVal = 1;
+            screen = Builder.load_file('kv/' + filename)
+            # add the content of the .kv file to the container
+            self.root.container.add_widget(screen)
+
+
     def next_screen(self, screen):
         '''Clear container and load the given screen object from file in kv
         folder.
@@ -48,10 +58,6 @@ class EzsApp(App):
         :type screen: str
         :rtype: none
     '''
-
-        if startVal == 0:
-            screen = '1'
-            startVal = 1;
 
 
         filename = screen + '.kv'
