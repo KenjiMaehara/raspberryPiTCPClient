@@ -26,20 +26,33 @@ RootWidget:
             #size_hint: 0.2,1
             #size_hint: 1, 0.4
 
-            Label:
-                size_hint: 1, 0.5
-                text: '共有部'
-                #background_color: (1.0, 0.0, 0.0, 1.0)     #red
-                #background_color: (0.0, 10.0, 0.0, 1.0)      #green
-                font_size:  20
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 0
+                spacing: 3
+                size_hint: 0.5, 1
+            
+                Label:
+                    size_hint: 1, 0.5
+                    text: '共有部'
+                    #background_color: (1.0, 0.0, 0.0, 1.0)     #red
+                    #background_color: (0.0, 10.0, 0.0, 1.0)      #green
+                    font_size:  20
 
-            Button:
-                #size_hint: 1, 1
-                text: '共有部'
-                #background_color: (1.0, 0.0, 0.0, 1.0)     #red
-                background_color: (0.0, 10.0, 0.0, 1.0)      #green
-                font_size:  30
-                on_release: app.next_screen('zone1')
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 0
+                spacing: 3
+                size_hint: 0.5, 1
+
+                Button:
+                    #size_hint: 1, 1
+                    text: '共有部'
+                    #background_color: (1.0, 0.0, 0.0, 1.0)     #red
+                    background_color: (0.0, 10.0, 0.0, 1.0)      #green
+                    font_size:  30
+                    on_release: app.next_screen('zone1')
 
         BoxLayout:
             orientation: 'horizontal'
