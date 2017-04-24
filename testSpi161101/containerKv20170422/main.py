@@ -13,9 +13,10 @@ from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
 #LabelBase.register(DEFAULT_FONT, 'IPAexfont00301/ipaexg.ttf')
-
 import kivy
 kivy.require('1.8.0')
+
+LabelBase.register(DEFAULT_FONT, 'VL-Gothic-Regular.ttf')
 
 
 class RootWidget(BoxLayout):
