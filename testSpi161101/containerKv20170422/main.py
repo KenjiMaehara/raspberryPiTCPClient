@@ -42,12 +42,12 @@ class EzsApp(App):
         # loading the content of root.kv
         self.root = Builder.load_file('kv/root.kv')
 
-        if startVal == 0:
-            filename = screen + '.kv'
-            startVal = 1;
-            screen = Builder.load_file('kv/' + filename)
-            # add the content of the .kv file to the container
-            self.root.container.add_widget(screen)
+        #if startVal == 0:
+        filename = screen + '.kv'
+        startVal = 1;
+        screen = Builder.load_file('kv/' + filename)
+        # add the content of the .kv file to the container
+        self.root.container.add_widget(screen)
 
 
     def next_screen(self, screen):
