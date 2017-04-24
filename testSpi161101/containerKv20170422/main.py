@@ -34,7 +34,7 @@ class EzsApp(App):
 
     '''This is the app itself'''
 
-    def build(self,screen):
+    def build(self):
         '''This method loads the root.kv file automatically
 
         :rtype: none
@@ -42,9 +42,7 @@ class EzsApp(App):
         # loading the content of root.kv
         self.root = Builder.load_file('kv/root.kv')
 
-        screen = Builder.load_file('kv/1.kv' )
-        # add the content of the .kv file to the container
-        self.root.container.add_widget(screen)
+        self.root.container.add_widget(Builder.load_file('kv/1.kv'))
 
 
     def next_screen(self, screen):
