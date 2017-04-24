@@ -9,6 +9,7 @@ A container is simply an empty place on the screen which
 could be filled with any other content from a .kv file.
 '''
 from kivy.app import App
+from kivy.core.text import LabelBase, DEFAULT_FONT
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
