@@ -49,6 +49,10 @@ class EzsApp(App):
         :rtype: none
     '''
 
+        if screen == 0:
+            screen = 1
+
+
         filename = screen + '.kv'
         # unload the content of the .kv file
         # reason: it could have data from previous calls
