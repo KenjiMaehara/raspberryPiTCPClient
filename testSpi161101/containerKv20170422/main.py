@@ -48,8 +48,10 @@ class EzsApp(App):
         :type screen: str
         :rtype: none
     '''
-        if screen == null:
-            app.next_screen('1')
+
+        if startVal == 0:
+            screen = '1'
+            startVal = 1;
 
 
         filename = screen + '.kv'
