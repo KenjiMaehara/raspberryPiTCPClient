@@ -79,9 +79,8 @@ void uart_init(void)
 {
 	//PORTC.PIN3CTRL = PORT_OPC_WIREDANDPULL_gc;
 	
-	//USARTC0_BAUDCTRLB = 0x50;	//BSCALE is 0
-	USARTC0_BAUDCTRLB = 0x40;	//BSCALE is 0	
-	USARTC0_BAUDCTRLA = 12;	//BSEL		9.6khz
+	USARTC0_BAUDCTRLB = 0x50;	//BSCALE is 0
+	USARTC0_BAUDCTRLA = 12;	//BSEL		4.902khz
 	
 
 	//Disable interrupts, just for safety
@@ -96,17 +95,6 @@ void uart_init(void)
 }
 
 
-void putstr(u8 * data)
-{
-	int i =0 ;
-
-	for( i = 0 ;i < 50 ; i++)
-	{
-		//putc_(data[i]);
-		sendChar(data[i]);
-		if(data[i] == 0x0d || data[i] == 0x00) break;
-	}
-}
 
 
 void sendChar(char c)
