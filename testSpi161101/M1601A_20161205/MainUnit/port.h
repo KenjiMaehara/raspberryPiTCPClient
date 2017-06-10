@@ -86,6 +86,30 @@ void set_pstn_DM_SEL(u8 set);
 
 
 
+u8 get_ch1_Input(void);
+u8 get_ch2_Input(void);
+u8 get_ch3_Input(void);
+u8 get_ch4_Input(void);
+u8 get_ch5_Input(void);
+u8 get_ch6_Input(void);
+u8 get_ch7_Input(void);
+u8 get_ch8_Input(void);
+u8 get_ch9_Input(void);
+u8 get_ch10_Input(void);
+u8 get_ch11_Input(void);
+u8 get_ch12_Input(void);
+u8 get_ch13_Input(void);
+u8 get_ch14_Input(void);
+u8 get_ch15_Input(void);
+u8 get_ch16_Input(void);
+u8 get_ch17_Input(void);
+u8 get_ch18_Input(void);
+u8 get_sr_key_sw(void);
+u8 get_tampa_sw(void);
+u8 get_BattLow(void);
+
+
+
 
 
 

@@ -141,8 +141,8 @@
     .global __vector_124
     
 
-    .extern   TickISR
-
+    .extern		TickISR
+	.extern		spif_int
 
 
 ;********************************************************************************************************
@@ -270,7 +270,7 @@ __vector_114:   JMP     __unhandled_interrupt      ;    114       0x01C4       T
 __vector_115:   JMP     __unhandled_interrupt      ;    115       0x01C8       Timer F1 Error
 __vector_116:   JMP     __unhandled_interrupt      ;    116       0x01CC       Timer F1 Compare or Capture A
 __vector_117:   JMP     __unhandled_interrupt      ;    117       0x01D0       Timer F1 Compare or Capture B
-__vector_118:   JMP     __unhandled_interrupt      ;    118       0x01D4       SPI F
+__vector_118:   JMP     spif_int     ;    118       0x01D4       SPI F
 __vector_119:   JMP     __unhandled_interrupt      ;    119       0x01D8       USART F0 Rx  Complete
 __vector_120:   JMP     __unhandled_interrupt      ;    120       0x01DC       USART F0 Data Register Empty
 __vector_121:   JMP     __unhandled_interrupt      ;    121       0x01E0       USART F0 Tx Complete

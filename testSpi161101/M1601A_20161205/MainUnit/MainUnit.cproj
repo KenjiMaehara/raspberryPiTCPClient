@@ -257,6 +257,12 @@
     <Compile Include="port.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="SoundPlay.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SoundPlay.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="spi.c">
       <SubType>compile</SubType>
     </Compile>

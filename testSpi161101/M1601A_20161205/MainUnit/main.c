@@ -26,6 +26,9 @@ void RFRecvTask(void *p_arg);
 void OperTask(void *p_arg);
 void EventTask(void *p_arg);
 void SoundPlayTask(void *p_arg);
+void uartRxTask(void *p_arg);
+
+
 
 KEY_DATA	stKey;
 OS_EVENT    *KeyWait;
@@ -305,10 +308,22 @@ void TaskStartCreateTasks(void)
 	(INT16U          )(OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR));
 	#endif 
 	
+	#if 1
+	// Task2: PRIORITY=7
+	OSTaskCreateExt((void (*)(void *)) uartRxTask,
+	(void           *) 0,
+	(OS_STK         *)&TaskStk[4][APP_CFG_TASK_STK_SIZE - 1],
+	(INT8U           ) 7,
+	(INT16U          ) 7,
+	(OS_STK         *)&TaskStk[4][0],
+	(INT32U          ) APP_CFG_TASK_STK_SIZE,
+	(void           *) 0,
+	(INT16U          )(OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR));
+	#endif
 } 
 
 
-//void uart_init(void);
+void uart_init(void);
 void SoundPlay(u8 number);
 
 
@@ -318,6 +333,8 @@ int main(void)
 	port_init();
 	spi_init();
 	
+
+
 	lcd_start();
 	lcd_init();
 	
@@ -325,6 +342,8 @@ int main(void)
 	lcd_position(0,0);
 	lcd_prString("ウンテンセキトビラ");
 	//uart_init();
+	uart_init();
+	
 	
 	//set_mp3_active(true);
 	//sendChar(0xef);					//sound stop	
