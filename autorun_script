@@ -1,8 +1,0 @@
-#!/bin/sh
-
-python /home/pi/raspberryPiTCPClient/tcp_client1_02.py
-
-#while true
-#do
-#:
-#done
