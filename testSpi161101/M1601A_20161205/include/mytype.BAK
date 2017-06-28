@@ -1,0 +1,136 @@
+#ifndef _MACRO_H_
+#define _MACRO_H_
+#include <stdbool.h>
+
+#define						GFSK_DEF
+#define						PRG_VERSION		0x92
+#define						S3_DELAY		1
+
+typedef unsigned char 	  u8;
+typedef unsigned short 	  u16;
+typedef unsigned long	  u32;
+typedef unsigned char 	  uint8_t;
+
+//extern u8 status;
+//typedef unsigned char 	  bool;
+
+#define false			0
+#define true			1
+
+#define	LOW				0
+#define	HIGH			1
+
+
+
+
+typedef struct _ctl_data_
+{
+	u8 adj_freq;
+	u8 freq_add_sub;
+	u8 serial[3];
+	u8 adj_temper;
+	u8 temper_add_sub;
+}ctl_data;
+
+
+typedef struct _fifo_option_
+{
+	u8 env_data[8];
+	u8 level[7];
+}f_option_t;
+
+
+typedef struct _txfifo_data_ 
+{
+	u8 length;
+	u8 slave_id[6];
+	u8 master_id[3];
+	u8 user_data0;
+	u8 user_data1;
+	u8 bat_val;
+	u8 master_ctl;
+	u8 setup_mode;
+	u8 version_l;
+	u8 rssi;
+	u8 lqi;
+	f_option_t opt;
+}fifo_t;
+
+
+typedef struct _reg_slave_
+{
+	u8 serial[3];
+	u8 slave_ctl_set;
+}reg_slave;
+
+
+typedef struct _reg_cmd_
+{
+	u8 length;
+	u8 cmd[4];
+}reg_cmd;
+
+
+typedef struct _reg_param_
+{
+	u8 length;
+	u8 param[4];
+}reg_param;
+
+
+
+
+
+extern u8 edge_val_gdo0;
+extern u8 edge_val_gdo1;
+
+extern u8 gdo0_status;
+extern u8 gdo1_status;
+
+
+
+
+typedef enum _PAYLOAD_
+{
+	PAYLOAD_SYNC = 0,	
+	
+	
+};
+
+
+typedef struct _PACKET_HDR_
+{
+	u8 length;
+	u32 slave_id;
+	u32 master_id;
+	u8 rssi;
+	u8 lqi;
+	u8 payload;
+}packet_hdr_t;
+
+
+typedef struct _PACKET_
+{
+	packet_hdr_t hdr;
+	u8 payload[16];
+}packet_t;
+
+
+// connect check payload
+typedef struct _SYNC_
+{
+	packet_hdr_t hdr;
+	u8 ver;	
+	u8 reserve[15];
+}sync_t;
+
+
+typedef struct _SET_
+{
+	packet_hdr_t hdr;
+	u8 set;
+	u8 reserve[15];
+	
+}set_t;
+
+#endif
