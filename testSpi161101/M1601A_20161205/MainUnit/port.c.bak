@@ -1,0 +1,472 @@
+﻿/*
+ * 
+ *
+ * 
+ * 
+ */
+
+#include <avr/io.h> 
+#include <mytype.h>
+#include "port.h"
+
+
+void port_init_direction(void)
+{
+	/*in-out setup */
+	PORTA.DIR = 0x5f;
+	//PORTB.DIR = PIN0_bm | PIN1_bm | PIN2_bm | PIN3_bm | PIN4_bm | PIN5_bm | PIN6_bm | PIN7_bm;
+	PORTB.DIR = 0x60;
+	//PORTC.DIR = PIN0_bm |PIN4_bm | PIN5_bm | PIN7_bm;
+	PORTC.DIR = PIN3_bm;
+	PORTD.DIR = PIN4_bm | PIN5_bm;
+	PORTE.DIR = PIN2_bm | PIN4_bm | PIN5_bm | PIN7_bm;
+	PORTF.DIR = PIN5_bm;
+	PORTH.DIR = 0xff;
+	PORTJ.DIR = 0xff;
+	PORTK.DIR = 0xff;
+	
+	PORTE.PIN2CTRL = 0x18; // pullup , both edge
+	PORTE.REMAP  |= PORT_SPI_bm;
+	// adc setup
+	//PORTA.PIN0CTRL = 7;	
+
+	
+}
+
+void port_init_value(void)
+{
+	//PORTA.PIN5CTRL = PORT_ISC_INPUT_DISABLE_gc;
+	#if 0
+	PORTB.OUT = 0x00;
+	
+	PORTC.OUTCLR = PIN0_bm;
+	PORTC.OUTSET = PIN4_bm;
+	PORTC.OUTCLR = PIN5_bm;
+	PORTC.OUTCLR = PIN7_bm;
+
+	PORTD.OUTCLR = PIN0_bm;
+	PORTD.OUTCLR = PIN1_bm;
+	PORTD.OUTCLR = PIN2_bm;
+	PORTD.OUTCLR = PIN3_bm;
+	PORTD.OUTCLR = PIN4_bm;
+	PORTD.OUTCLR = PIN5_bm;
+	#endif
+}
+
+void port_init(void)
+{	
+	port_init_direction();
+	port_init_value();
+}
+
+
+u16 get_key(void)
+{
+	
+	u8 i,j;
+	u16 key=0;	
+	u8	temp_porta;
+
+	//PORTA.OUT = 0x00;
+	temp_porta = PORTA.OUT & 0x40;
+	PORTA.OUT = temp_porta;
+	
+
+	for(i = 0 ; i < 5 ; i++)
+	{
+		PORTA.OUT = ((0x01 << (i)) | (PORTA.OUT & 0x40));
+
+		//for(j = 0 ; j< 100 ; j++) j=j;
+		OSTimeDlyHMSM(0,0,0,1);
+
+		key = (PORTB_IN) & 0x1f;
+		
+		if(key != 0x00)
+		{
+			return (key << 8) + i ;
+		}
+	}	
+	
+	return 0x00;	
+}
+
+
+void set_driver_door_unlock(bool open)
+{
+	if(open == true)
+	{
+		PORTF.OUTSET = PIN5_bm;
+		//PORTA.OUTCLR = PIN6_bm;
+	}
+	else
+	{
+		PORTF.OUTCLR = PIN5_bm;
+		//PORTA.OUTSET = PIN6_bm;
+	}
+}
+
+
+void set_driver_door_lock(bool open)
+{
+	if(open == true)
+	{
+		PORTA.OUTSET = PIN6_bm;
+	}
+	else
+	{
+		PORTA.OUTCLR = PIN6_bm;
+	}
+}
+
+
+
+
+bool get_right_door_switch(void)
+{
+	return (PORTA.IN & PIN7_bm) ? true : false;
+}
+
+
+void set_security_door_unlock(bool open)
+{
+	if(open == true)
+	{
+		PORTB.OUTSET = PIN5_bm;
+	}
+	else
+	{
+		PORTB.OUTCLR = PIN5_bm;
+	}
+}
+
+
+void set_security_door_lock(bool open)
+{
+	if(open == true)
+	{
+		PORTB.OUTSET = PIN6_bm;
+	}
+	else
+	{
+		PORTB.OUTCLR = PIN6_bm;
+	}
+}
+
+
+bool get_left_door_switch(void)
+{
+	return (PORTB.IN & PIN7_bm) ? true: false;
+}
+
+
+bool get_busy()
+{
+	return (PORTC.IN & PIN2_bm) ? false : true;
+}
+
+
+void set_buzzer(bool set)
+{
+	if(set == true)
+		PORTC.OUTSET = PIN0_bm;
+	else
+		PORTC.OUTCLR = PIN0_bm;
+}
+
+
+bool get_ekyp_chek(void)
+{
+	return (PORTD.IN & PIN0_bm) ? false : true;
+}
+
+
+void set_audio_half(bool set)
+{
+	if(set == true)
+	PORTD.OUTSET = PIN1_bm;
+	else
+	PORTD.OUTCLR = PIN1_bm;
+}
+
+
+void set_mute_off(bool set)
+{
+	if(set == true)
+	PORTD.OUTSET = PIN4_bm;
+	else
+	PORTD.OUTCLR = PIN4_bm;
+}
+
+
+
+void set_s_down(bool set)
+{
+	if(set == true)
+	PORTD.OUTSET = PIN5_bm;
+	else
+	PORTD.OUTCLR = PIN5_bm;
+}
+
+
+
+bool get_gdoa(void)
+{
+	return (PORTA.IN & PIN5_bm) ? true : false;
+	//return (PORTA.IN & 0x20) ? true : false;
+}
+
+bool get_gdo2(void)
+{
+	return (PORTE.IN & PIN3_bm) ? true : false;
+	//return (PORTE.IN & 0x08) ? true : false;
+}
+
+void set_spi_ss(bool set)
+{
+	if(set == true)
+		PORTE.OUTSET = PIN4_bm;
+	else
+		PORTE.OUTCLR = PIN4_bm;
+}
+
+bool get_spi_ss(void)
+{
+	return (PORTE.IN & PIN4_bm) ? true : false;
+}
+
+
+void set_spi_mosi(bool set)
+{
+	if(set == true)
+		PORTE.OUTSET = PIN5_bm;
+	else
+		PORTE.OUTCLR = PIN5_bm;
+}
+
+bool get_miso(void)
+{
+	return (PORTE.IN & PIN6_bm) ? false : true;
+}
+
+
+void set_spi_sck(bool set)
+{
+	if(set == true)
+		PORTE.OUTSET = PIN7_bm;
+	else
+		PORTE.OUTCLR = PIN7_bm;
+}
+
+void set_d_emg_led(bool onoff)
+{
+	if(onoff == true)
+		PORTH.OUTSET = PIN0_bm;
+	else
+		PORTH.OUTCLR = PIN0_bm;
+}
+
+void set_g_emg_led(bool onoff)
+{
+	if(onoff == true)
+	PORTH.OUTSET = PIN1_bm;
+	else
+	PORTH.OUTCLR = PIN1_bm;
+}
+
+
+void set_d_mod_led(bool onoff)
+{
+	if(onoff == true)
+	PORTH.OUTSET = PIN2_bm;
+	else
+	PORTH.OUTCLR = PIN2_bm;
+}
+
+void set_w_mod_led(bool onoff)
+{
+	if(onoff == true)
+	PORTH.OUTSET = PIN3_bm;
+	else
+	PORTH.OUTCLR = PIN3_bm;
+}
+
+void set_t_mod_led(bool onoff)
+{
+	if(onoff == true)
+	PORTH.OUTSET = PIN4_bm;
+	else
+	PORTH.OUTCLR = PIN4_bm;
+}
+
+void set_driver_led(bool onoff)
+{
+	if(onoff == true)
+	{
+		PORTH.OUTSET = PIN5_bm;
+		//PORTK.OUTSET = PIN6_bm;	
+	}
+	else
+	{
+		PORTH.OUTCLR = PIN5_bm;
+		//PORTK.OUTCLR = PIN6_bm;	
+	}
+
+}
+
+void set_cavin_led(bool onoff)
+{
+	if(onoff == true)
+	PORTH.OUTSET = PIN6_bm;
+	else
+	PORTH.OUTCLR = PIN6_bm;
+}
+
+
+void set_hed_lmp_drv(bool onoff)
+{
+	if(onoff == true)
+	PORTJ.OUTSET = PIN0_bm;
+	else
+	PORTJ.OUTCLR = PIN0_bm;
+}
+
+void set_hzd_lmp_drv(bool onoff)
+{
+	if(onoff == true)
+	PORTJ.OUTSET = PIN1_bm;
+	else
+	PORTJ.OUTCLR = PIN1_bm;
+}
+
+void set_cel_motor_drv(bool onoff)
+{
+	if(onoff == true)
+	PORTJ.OUTSET = PIN2_bm;
+	else
+	PORTJ.OUTCLR = PIN2_bm;
+}
+
+void set_emg_relay_drv(bool onoff)
+{
+	if(onoff == true)
+	PORTJ.OUTSET = PIN3_bm;
+	else
+	PORTJ.OUTCLR = PIN3_bm;
+}
+
+void set_door_emg_drv(bool onoff)
+{
+	if(onoff == true)
+	PORTJ.OUTSET = PIN4_bm;
+	else
+	PORTJ.OUTCLR = PIN4_bm;
+}
+
+void set_car_check(bool onoff)
+{
+	if(onoff == true)
+	PORTJ.OUTSET = PIN5_bm;
+	else
+	PORTJ.OUTCLR = PIN5_bm;
+}
+
+
+void set_buzzer_drv(bool onoff)
+{
+	if(onoff == true)
+	PORTJ.OUTSET = PIN7_bm;
+	else
+	PORTJ.OUTCLR = PIN7_bm;
+}
+
+
+
+void set_right_door_led(bool onoff)
+{
+	if(onoff == true)
+	PORTK.OUTSET = PIN0_bm;
+	else
+	PORTK.OUTCLR = PIN0_bm;
+}
+
+void set_re_door_led(bool onoff)
+{
+	if(onoff == true)
+	PORTK.OUTSET = PIN1_bm;
+	else
+	PORTK.OUTCLR = PIN1_bm;
+}
+
+void set_ri_door_led(bool onoff)
+{
+	if(onoff == true)
+	PORTK.OUTSET = PIN2_bm;
+	else
+	PORTK.OUTCLR = PIN2_bm;
+}
+
+void set_side_door_led(bool onoff)
+{
+	if(onoff == true)
+	PORTK.OUTSET = PIN3_bm;
+	else
+	PORTK.OUTCLR = PIN3_bm;
+}
+
+void set_se_door_led(bool onoff)
+{
+	if(onoff == true)
+	PORTK.OUTSET = PIN4_bm;
+	else
+	PORTK.OUTCLR = PIN4_bm;
+}
+
+void set_si_door_led(bool onoff)
+{
+	if(onoff == true)
+	PORTK.OUTSET = PIN5_bm;
+	else
+	PORTK.OUTCLR = PIN5_bm;
+}
+
+void set_drive_door_led(bool onoff)
+{
+	if(onoff == true)
+	PORTK.OUTSET = PIN6_bm;
+	else
+	PORTK.OUTCLR = PIN6_bm;
+}
+
+
+void set_cavin_door_led(bool onoff)
+{
+	if(onoff == true)
+	PORTK.OUTSET = PIN7_bm;
+	else
+	PORTK.OUTCLR = PIN7_bm;
+}
+
+
+
+u8 get_freq(void)
+{
+	return PORTQ.IN & 0x0f;
+}
+
+
+void set_mp3_mute_ctl(bool onoff)
+{
+	if(onoff == true)
+	PORTD.OUTSET = PIN4_bm;
+	else
+	PORTD.OUTCLR = PIN4_bm;
+}
+
+
+void set_mp3_sdown_ctl(bool onoff)
+{
+	if(onoff == true)
+	PORTD.OUTSET = PIN5_bm;
+	else
+	PORTD.OUTCLR = PIN5_bm;
+}
