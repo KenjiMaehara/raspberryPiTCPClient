@@ -1,0 +1,1450 @@
+/*
+ * 
+ *
+ * 
+ * 
+ */
+
+#include <stdlib.h>
+#include <avr/io.h> 
+#include "menu.h"
+#include "key.h"
+#include "env.h"
+#include "oper.h"
+
+scr_mode_t	scr_mode;
+u8			menu_mode; // user , mel
+u8			radio_mode,old_radio_mode;
+u8			exe_state;
+
+u8 menu_nokey(u8 init)
+{
+	static int nokey=0;
+	
+	if(init == false)
+	{
+		nokey = 0;
+	}
+	else
+	{
+		nokey++;
+		if(nokey > 2500)
+		{
+			nokey = 0;
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+
+SCREEN_MODE menu_get_mode(void)
+{
+	return scr_mode.screen;
+}
+
+void MenuTask(void *p_arg)
+{
+	int ret;
+	
+	lcd_clear();
+
+	scr_mode.mode = 0;
+	scr_mode.screen = LIVE_SCR;
+	scr_mode.update = false;
+
+	while(1)
+	{
+		switch(scr_mode.screen)
+		{
+			case LIVE_SCR:
+				menu_live_scr();
+				break;
+			case MENU_SCR:
+				menu_nokey(true);
+				main_menu(&scr_mode);
+				lcd_clear();
+				scr_mode.update = true;
+				scr_mode.screen = LIVE_SCR;
+				break;
+			case VERSION_SCR:
+				//menu_version_scr();
+				scr_mode.update = true;
+				scr_mode.screen = LIVE_SCR;
+				break;
+		}
+	}
+} 
+
+
+void menu_change_screen(u8 scr,u8 mode)
+{
+	if(scr_mode.screen != MENU_SCR)
+	{
+		scr_mode.mode = mode;
+		scr_mode.screen = scr;
+		scr_mode.update = true;
+	}
+}
+
+
+
+void key_long_press()
+{
+	{
+		if(stKey.time > 100)
+		{
+			stKey.key |= 0x8000;
+		}
+	}
+}
+
+int	key_key2int(u16 key)
+{
+	switch(key)
+	{
+		case KEY_0: return 0;
+		case KEY_1: return 1;
+		case KEY_2: return 2;
+		case KEY_3: return 3;
+		case KEY_4: return 4;
+		case KEY_5: return 5;
+		case KEY_6: return 6;
+		case KEY_7: return 7;
+		case KEY_8: return 8;
+		case KEY_9: return 9;
+	}
+	return -1;
+}
+
+
+u8	key_key2u8(u16 key)
+{
+	switch(key)
+	{
+		case KEY_0: return '0';
+		case KEY_1: return '1';
+		case KEY_2: return '2';
+		case KEY_3: return '3';
+		case KEY_4: return '4';
+		case KEY_5: return '5';
+		case KEY_6: return '6';
+		case KEY_7: return '7';
+		case KEY_8: return '8';
+		case KEY_9: return '9';
+		case KEY_A: return 'A';
+		case KEY_B: return 'B';
+		case KEY_C: return 'C';
+		case KEY_D: return 'D';
+		case KEY_E: return 'E';
+		case KEY_F: return 'F';
+		case KEY_SHARP: return '#';
+		case KEY_STAR: return '*';
+		//case KEY_LEFT: return 'L';
+		//case KEY_RIGHT: return 'R';
+		case KEY_UP: return 'U';
+		case KEY_DOWN: return 'D';
+		case KEY_EMG: return 'E';
+		case KEY_SAFETY: return 'S';
+		case KEY_MEL: return 'M';
+		case KEY_SECURITY: return 'E';
+		case KEY_DOOR: return 'O';
+		default:
+		return 0;
+	}
+	return 0;
+}
+
+u8 oper_get_emg_state(void);
+
+void key_proc(u8 * buf,int length)
+{
+	u8              str[11];
+	u8 *            pass;
+	int             password,i;
+	volatile u16				pass16;
+
+	sprintf((char *)str,"760928#");
+	if(strstr((char *)buf,(char *)str) != 0)
+	{
+		menu_change_screen(MENU_SCR,1);
+		return;
+	}
+
+
+	if(strstr((char *)buf,"PDW") != 0)
+	{
+		// power down
+		oper_insert(OPER_POWERDOWN,0);
+		
+		return;
+	}
+
+	if(strstr((char *)buf,"VER") != 0)
+	{
+		// power down
+		oper_insert(OPER_VERSIONCHECK,0);
+		
+		return;
+	}
+
+	if(strstr((char *)buf,"EE#") != 0)
+	{
+		menu_change_screen(MENU_SCR,1);
+		return;
+	}
+	
+	if(strstr((char *)buf,"E#") != 0)
+	{
+		oper_insert(OPER_SET,0);
+		return;
+	}
+	
+	if(strstr((char *)buf,"E*") != 0)
+	{
+		// reset
+		oper_insert(OPER_RESET,0);
+		return;
+	}
+	
+	if(strstr((char *)buf,"LSE") != 0)
+	{
+		// emg occur
+		if(oper_get_emg_state() == false)
+			oper_insert(OPER_EMG,0);
+		else
+			oper_insert(OPER_EMG_RESET,0);
+		
+		return;
+	}
+	
+	if(strstr((char *)buf,"LSA") != 0)
+	{
+		oper_insert(OPER_CHECK,0);
+		
+		return;
+	}
+		
+	
+	if(strstr((char *)buf,"M#") != 0)
+	{
+		// emg reset
+		oper_insert(OPER_AUDIO_MINUS,0);
+		return;
+	}
+	
+	
+	if(strstr((char *)buf,"M*") != 0)
+	{
+		// emg reset
+		oper_insert(OPER_AUDIO_PLUS,0);
+		return;
+	}
+	
+	
+	if(buf[0] == 'O' && buf[2] == '#' && (buf[1] == '0' || buf[1] == '1' || buf[1] == '2' || buf[1] == '3' ) )
+	{
+		oper_insert(OPER_DOOR,buf[1] - 0x030);
+	}
+	
+	
+	pass16 = (u16)gEnv.main.engine_start;
+	sprintf((char *)str,"%04d#",pass16);
+	str[5] =0;
+	if(strstr((char *)buf,(char *)str) != 0)
+	{
+		oper_insert(OPER_ENG_START,0);
+		return;
+	}
+	
+	pass16 = (u16)gEnv.main.engine_start;
+	sprintf((char *)str,"%04d*",pass16);
+	str[5] =0;
+	if(strstr((char *)buf,(char *)str) != 0)
+	{
+		oper_insert(OPER_ENG_RESET,0);
+		return;
+	}	
+	
+	pass16 = (u16)gEnv.main.service_code;
+	sprintf((char *)str,"%04d#",pass16);
+	str[5] =0;
+	if(strstr((char *)buf,(char *)str) != 0)
+	{
+		oper_insert(OPER_SERVICE,0);
+		return;
+	}
+}
+
+
+u8	key_buf[21];
+
+void menu_live_scr(void)
+{
+
+	u8			err;
+	u8			key_index;
+
+	key_index =  0;
+
+	while(1)
+	{
+		OSSemPend(KeyWait, 100, &err);
+
+		if(err != 0)
+		{
+			if(scr_mode.update == true) break;
+
+			continue;
+		}
+		key_long_press();
+
+
+		switch(stKey.key)
+		{
+			case KEY_MEL:
+				key_buf[key_index++] = 'M';
+				break;
+			case L_KEY_MEL:
+				key_buf[0] = 'P';
+				key_buf[1] = 'D';
+				key_buf[2] = 'W';
+				key_buf[3] = 0;
+				key_proc(key_buf,3);
+				key_index = 0;
+				break;
+			case L_KEY_SHARP:
+				key_buf[0] = 'V';
+				key_buf[1] = 'E';
+				key_buf[2] = 'R';
+				key_buf[3] = 0;
+				key_proc(key_buf,3);
+				key_index = 0;
+				break;
+			case L_KEY_EMG:	
+				key_buf[0] = 'L';
+				key_buf[1] = 'S';
+				key_buf[2] = 'E';
+				key_buf[3] = 0;
+				key_proc(key_buf,3);
+				key_index = 0;
+				break;
+			case L_KEY_SAFETY:
+				key_buf[0] = 'L';
+				key_buf[1] = 'S';
+				key_buf[2] = 'A';
+				key_buf[3] = 0;
+				key_proc(key_buf,3);
+				key_index = 0;
+				break;
+			case KEY_SHARP:
+			case KEY_STAR:
+				key_buf[key_index++] = key_key2u8(stKey.key);
+				key_buf[key_index]=0;
+				key_proc(key_buf,key_index);
+				key_index = 0;
+				break;
+			default:
+				key_buf[key_index++] = key_key2u8(stKey.key);
+				if(key_index >= 20)
+				key_index = 0;
+				break;
+		}
+	}
+
+	scr_mode.update = false;
+}
+
+
+#define MAX_MENU 64
+
+typedef struct menu_type
+{
+	char * str;
+	u8	   type;	
+}menu_type_t;
+
+const menu_type_t Menu[MAX_MENU]=
+{
+{"1.ｼｭｳﾁｭｳｿｳﾁ(A)ID",1},
+{"2.ウンテンシュ(B)ID", 1},
+{"3.ケイジョウイン(C)",1},
+{"4.ウシロトビラ(D)ID",1},
+{"5.ヨコトビラ(E)ID",1},
+{"6.キャビンミギ(F)ID",1},
+{"7.キャビンヒダリ(G)ID",1},
+{"8.ウンテンシユリモコン",2},
+{"9.ケイジョインリモコン",2},
+{"10.ウシロトビセイギ",2},
+{"11.ヨコトビセイギ",2},
+{"12.キャビンミギ",2},
+{"13.キャビンヒダリ",2},
+{"14.EMG_D_ON",3},
+{"15.EMG_D_OFF",3},
+{"16.Button ON",3},
+{"17.ウシロウチトビラ",2},
+{"18.ウシロウチトビラ ",4},
+{"19.ウシロウチトビラ ",5},
+{"20.ｳｼﾛｿﾄﾄﾋﾞﾗ",2},
+{"21.ｳｼﾛｿﾄﾄﾋﾞﾗ ",4},
+{"22.ｳｼﾛｿﾄﾄﾋﾞﾗ",6},
+{"23.セジョウジカン",7},
+{"24.カイジョウジカン",7},
+{"25.サイドウチトビラ",2},
+{"26.サイドウチトビラ",4},
+{"27.サイドウチトビラ",5},
+{"28.ｻｲﾄﾞｿﾄﾄﾋﾞﾗ",2},
+{"29.ｻｲﾄﾞｿﾄﾄﾋﾞﾗ",4},
+{"30.ｻｲﾄﾞｿﾄﾄﾋﾞﾗ",6},
+{"31.セジョウジカン",7},
+{"32.カイジョウジカン",7},
+{"33.ｷｬﾋﾞﾝﾐｷﾞｿﾄﾄﾋﾞﾗ",2},
+{"34.ｷｬﾋﾞﾝﾐｷﾞｿﾄﾄﾋﾞﾗ",4},
+{"35.ｷｬﾋﾞﾝﾐｷﾞｿﾄﾄﾋﾞﾗ",6},
+{"36.キャビンミギウチ",2},
+{"37.キャビンミギウチトビラ",4},
+{"38.キャビンミギウチトビラ",5},
+{"39.セジョウジカン",7},
+{"40.カイジョウジカン",7},
+{"41.ｷｬﾋﾞﾝﾋﾀﾞﾘｿﾄﾄﾋﾞﾗ",2},
+{"42.ｷｬﾋﾞﾝﾋﾀﾞﾘｿﾄﾄﾋﾞﾗ",4},
+{"43.ｷｬﾋﾞﾝﾋﾀﾞﾘｿﾄﾄﾋﾞﾗ",6},
+{"44.キャビンヒダリウチ",2},
+{"45.キャビンヒタリウチトビラ",4},
+{"46.キャビンヒダリウチトビラ",5},
+{"47.セジョウジカン",7},
+{"48.カイジョウジカン",7},
+{"49.ウンテンセキトビラ",2},
+{"50.ウンテンセキトビラSW",4},
+{"51.ウンテンセキトビラSW", 6},
+{"52.セジョウジカン",5},
+{"53.ｶｲｼﾞｮｳｼﾞｶﾝ",5},
+{"54.ジョシュセキトビラ",2},
+{"55.ジョシュセキトビラSW",4},
+{"56.ジョシュセキトビラSW",6},
+{"57.セジョウジカン",5},
+{"58.カイジョウジカン",5},
+{"59.クルマEMG",3},
+{"60.アンピ",3},
+{"61.ｴﾝｼﾞﾝｽﾀｰﾄ NO.",8},
+{"62.セイビNO.",8},
+{"63.ﾃｽﾄﾓｰﾄﾞ.",9},
+{"モドル",9},
+};
+
+
+void menu_draw_menu(int index)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString(Menu[index].str);
+	lcd_position(1,0);
+	lcd_prCString(Menu[index + 1].str);
+	lcd_set_cursor(0,0);
+	lcd_blink_enable(true);
+}
+
+
+u8 rf_setup_id(u32 id);
+
+int main_menu(void * handle)
+{
+	u8				err;
+	scr_mode_t * 	scr = (scr_mode_t *)handle;
+	int				menu_cnt;
+	int 			i;
+	int				index = 0;
+	char			result[10];
+
+
+	menu_draw_menu(0);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 1;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_UP:
+				if(--index < 0)
+				{
+					//index = MAX_MENU - 1;
+					index = MAX_MENU - 2;
+				}
+				break;
+			case KEY_DOWN:
+				if(++index >= MAX_MENU - 1 )
+				{
+					index = 0;
+				}
+				break;
+			case KEY_LEFT:
+				lcd_scroll_left();
+				break;
+			case KEY_RIGHT:
+				lcd_scroll_right();
+				break;
+
+			case KEY_SHARP:
+				{
+					int ret;
+					u32 * pEnv = (u32 *)&gEnv;
+					
+					
+					switch(Menu[index].type)
+					{
+						case 1:
+							sprintf(result,"%08lx",pEnv[index]);
+							ret = menu_type_1(index,result);
+							if(ret == 1)
+							{
+								pEnv[index] = strtoul(result,NULL,16);
+								
+								if(index > 0  && index < 7)
+								{
+									// set id;
+									if(rf_setup_id(pEnv[index]) == true)
+									{
+										set_buzzer_drv(true);
+										OSTimeDlyHMSM(0,0,0,100);
+										set_buzzer_drv(false);
+										OSTimeDlyHMSM(0,0,0,100);
+										set_buzzer_drv(true);
+										OSTimeDlyHMSM(0,0,0,100);
+										set_buzzer_drv(false);
+										set_buzzer_drv(true);
+										OSTimeDlyHMSM(0,0,0,100);
+										set_buzzer_drv(false);
+										OSTimeDlyHMSM(0,0,0,100);
+										set_buzzer_drv(true);
+										OSTimeDlyHMSM(0,0,0,100);
+										set_buzzer_drv(false);
+							
+									}
+									else
+									{
+										set_buzzer_drv(true);
+										OSTimeDlyHMSM(0,0,1,100);
+										set_buzzer_drv(false);
+									}
+								}
+							}
+							break;
+						case 2:
+							sprintf(result,"%01d",pEnv[index]);
+							ret = menu_type_2(index,result);
+							if(ret == 1)
+							{
+								pEnv[index] = strtoul(result,NULL,10);
+							}
+							break;
+						case 3:
+							sprintf(result,"%01d",pEnv[index]);
+							ret = menu_type_3(index,result);
+							if(ret == 1)
+							{
+								pEnv[index] = strtoul(result,NULL,10);
+								
+							}
+							break;
+						case 4:
+							sprintf(result,"%01d",pEnv[index]);
+							ret = menu_type_4(index,result);
+							if(ret == 1)
+							{
+								pEnv[index] = strtoul(result,NULL,10);
+							}
+							break;
+						case 5:
+							sprintf(result,"%01d",pEnv[index]);
+							ret = menu_type_5(index,result);
+							if(ret == 1)
+							{
+								pEnv[index] = strtoul(result,NULL,10);
+								
+							}
+							break;
+						case 6:
+							sprintf(result,"%02d",pEnv[index]);
+							ret = menu_type_6(index,result);
+							if(ret == 1)
+							{
+								pEnv[index] = strtoul(result,NULL,10);
+								
+							}
+							break;
+						case 7:
+							sprintf(result,"%01d",pEnv[index]);
+							ret = menu_type_7(index,result);
+							if(ret == 1)
+							{
+								pEnv[index] = strtoul(result,NULL,10);
+								
+							}
+							break;
+						case 8:
+							sprintf(result,"%04d",pEnv[index]);
+							ret = menu_type_8(index,result);
+							if(ret == 1)
+							{
+								pEnv[index] = strtoul(result,NULL,10);
+							}
+							break;
+						case 9:
+							sprintf(result,"%01d",radio_mode);				//radio test mode 20150116 add
+							ret = menu_type_9(index,result);
+							if(ret == 1)
+							{
+								radio_mode = strtoul(result,NULL,10);
+								
+								if(radio_mode != RF_NOMAL_MODE)
+								{
+									rf_unlock();
+								}
+
+							}
+							break;
+					}
+				}
+				break;
+			case KEY_STAR:
+				env_save(&gEnv);
+				lcd_clear();
+				radio_mode = RF_NOMAL_MODE;
+				return 1;
+		}
+		menu_draw_menu(index);		
+	}
+}
+
+void menu_draw_menu1(int index,int pos,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString(Menu[index].str);
+	lcd_position(1,0);
+	lcd_prCString(value);
+	lcd_blink_enable(true);
+	lcd_set_cursor(pos,1);
+}
+
+
+int menu_type_1(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,8);
+	value[8]= 0;
+
+	menu_draw_menu1(cur,0,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_0	:
+			case KEY_1	:
+			case KEY_2	:
+			case KEY_3	:
+			case KEY_4	:
+			case KEY_5	:
+			case KEY_6	:
+			case KEY_7	:
+			case KEY_8	:
+			case KEY_9	:
+			case KEY_A	:
+			case KEY_B	:
+			case KEY_C	:
+			case KEY_D	:
+			case KEY_E	:
+			case KEY_F	:
+				if(index >= 8)			
+				{
+					index =0;
+					memset(value,0,9);
+				}
+				value[index] =key_key2u8(stKey.key);
+				index++;
+				
+				break;
+				
+
+			break;			
+			case KEY_SHARP:
+				if(index == 8)
+				{
+					memcpy(result,value,9);					
+					
+					return 1;
+				}
+				break;
+			case KEY_STAR:
+				return -1;
+		}
+		menu_draw_menu1(cur,index,value);		
+	}
+}
+
+void menu_draw_menu2(int index,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString(Menu[index].str);
+	lcd_position(1,3);
+	if(value[0] == '0')
+		lcd_prCString("シヨウ:シナイ");
+	else
+		lcd_prCString("シヨウ:スル");
+	
+	lcd_blink_enable(false);
+}
+
+
+int menu_type_2(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,2);
+
+	menu_draw_menu2(cur,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_UP	:
+			case KEY_DOWN:
+			case KEY_LEFT:
+			case KEY_RIGHT:
+				if(value[0] == '0')
+					value[0] = '1';
+				else
+					value[0] = '0';
+				break;
+			case KEY_SHARP:
+				memcpy(result,value,2);					
+				return 1;
+				break;
+			case KEY_STAR:
+				return -1;
+		}
+		menu_draw_menu2(cur,value);		
+	}
+}
+
+
+
+void menu_draw_menu3(int index,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString(Menu[index].str);
+	lcd_position(1,2);
+	lcd_prCString("TIME:");
+	lcd_prCString(value);
+	lcd_blink_enable(true);
+}
+
+
+int menu_type_3(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,2);
+	value[1] = 0;
+	
+
+	menu_draw_menu3(cur,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_2	:
+			case KEY_3	:
+			case KEY_4	:
+			case KEY_5	:
+				value[0] = key_key2u8(stKey.key);;
+				value[1] = 0;
+				break;
+			case KEY_SHARP:
+				memcpy(result,value,2);					
+				return 1;
+				break;
+			case KEY_STAR:
+				return -1;
+		}
+		menu_draw_menu3(cur,value);		
+	}
+}
+
+
+void menu_draw_menu4(int index,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString(Menu[index].str);
+	lcd_position(1,2);
+	lcd_prCString("ON Time:");
+	lcd_prCString(value);
+	lcd_blink_enable(true);
+}
+
+
+int menu_type_4(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,2);
+	value[1] = 0;
+	
+
+	menu_draw_menu4(cur,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_1	:
+			case KEY_2	:
+			case KEY_3	:
+				value[0] = key_key2u8(stKey.key);;
+				value[1] = 0;
+				break;
+			case KEY_SHARP:
+				memcpy(result,value,2);					
+				return 1;
+				break;
+			case KEY_STAR:
+				return -1;
+		}
+		menu_draw_menu4(cur,value);		
+	}
+}
+
+void menu_draw_menu5(int index,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString(Menu[index].str);
+	lcd_position(1,2);
+	lcd_prCString("OFF Time:");
+	lcd_prCString(value);
+	lcd_blink_enable(true);
+}
+
+
+int menu_type_5(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,2);
+	value[1] = 0;
+	
+
+	menu_draw_menu5(cur,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_1	:
+			case KEY_2	:
+			case KEY_3	:
+			case KEY_4	:
+			case KEY_5	:
+				value[0] = key_key2u8(stKey.key);;
+				value[1] = 0;
+				break;
+			case KEY_SHARP:
+				memcpy(result,value,2);					
+				return 1;
+				break;
+			case KEY_STAR:
+				return -1;
+		}
+		menu_draw_menu5(cur,value);		
+	}
+}
+
+
+void menu_draw_menu6(int index,int pos,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString(Menu[index].str);
+	lcd_position(1,0);
+	lcd_prCString("OFF Time:");
+	lcd_prCString(value);
+	lcd_blink_enable(true);
+	lcd_set_cursor(pos + 9,1);
+}
+
+
+int menu_type_6(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,3);
+	value[3] = 0;
+
+	menu_draw_menu6(cur,0,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_0	:
+			case KEY_1	:
+			case KEY_2	:
+			case KEY_3	:
+			case KEY_4	:
+			case KEY_5	:
+			case KEY_6	:
+			case KEY_7	:
+			case KEY_8	:
+			case KEY_9	:
+				if(index >= 2)			
+				{
+					index =0;
+					memset(value,0,9);
+				}
+				value[index] =key_key2u8(stKey.key);
+				index++;
+				
+				if(index >= 2)
+				{
+					int val;
+					value[3] = 0;
+					val = atoi(value);
+					if(val > 28)
+					{
+						value[0] = '2';	
+						value[1] = '8';	
+					}
+					else if(val < 1)
+					{
+						value[0] = '0';					
+						value[1] = '1';					
+					}
+				}
+				
+				break;
+			case KEY_SHARP:
+				if(index == 2)
+				{
+									
+					return 1;
+				}
+				break;
+			case KEY_STAR:
+				return -1;
+		}
+		menu_draw_menu6(cur,index,value);		
+	}
+}
+
+
+void menu_draw_menu7(int index,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString(Menu[index].str);
+	lcd_position(1,2);
+	lcd_prCString("ON Time:");
+	lcd_prCString(value);
+	lcd_blink_enable(true);
+}
+
+
+int menu_type_7(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,2);
+	value[1] = 0;
+	
+
+	menu_draw_menu7(cur,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_1	:
+			case KEY_2	:
+			case KEY_3	:
+			case KEY_4	:
+				value[0] = key_key2u8(stKey.key);;
+				value[1] = 0;
+				break;
+			case KEY_SHARP:
+				memcpy(result,value,2);					
+				return 1;
+				break;
+			case KEY_STAR:
+				return -1;
+		}
+		menu_draw_menu7(cur,value);		
+	}
+}
+
+
+
+void menu_draw_menu8(int index,int pos,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString(Menu[index].str);
+	lcd_position(1,0);
+	lcd_prCString(value);
+	lcd_blink_enable(true);
+	lcd_set_cursor(pos,1);
+}
+
+
+int menu_type_8(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,5);
+	value[5]= 0;
+
+	menu_draw_menu8(cur,0,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_0	:
+			case KEY_1	:
+			case KEY_2	:
+			case KEY_3	:
+			case KEY_4	:
+			case KEY_5	:
+			case KEY_6	:
+			case KEY_7	:
+			case KEY_8	:
+			case KEY_9	:
+				if(index >= 4)			
+				{
+					index =0;
+					memset(value,0,5);
+				}
+				value[index] =key_key2u8(stKey.key);
+				index++;
+				
+				break;
+			case KEY_SHARP:
+				if(index == 4)
+				{
+					memcpy(result,value,5);					
+					return 1;
+				}
+				break;
+			case KEY_STAR:
+				return -1;
+		}
+		menu_draw_menu8(cur,index,value);		
+	}
+}
+
+
+
+
+void menu_draw_menu9(int index,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString(Menu[index].str);
+	lcd_position(1,3);
+	
+	if(value[0] == '1')
+		lcd_prCString("キャリア");
+	else if(value[0] == '2')
+		lcd_prCString("ヘンチョウハ");
+	else if(value[0] == '3')
+		lcd_prCString("fre adj");
+	else if(value[0] == '4')
+		lcd_prCString("ID check");	
+	else
+		lcd_prCString("no test");
+				
+	lcd_blink_enable(false);
+}
+
+
+int menu_type_9(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,2);
+
+	menu_draw_menu9(cur,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_1:
+				value[0] = '1';
+				break;
+			case KEY_2:
+				value[0] = '2';
+				break;
+			case KEY_3:
+				value[0] = '3';
+				break;
+			case KEY_4:
+				value[0] = '4';
+				break;
+			case KEY_0		:
+			case KEY_UP		:
+			case KEY_DOWN	:
+			case KEY_LEFT	:
+			case KEY_RIGHT	:
+				value[0] = '0';
+				break;
+			case KEY_SHARP:
+				memcpy(result,value,2);
+				if(value[0] == '0')
+					radio_mode = RF_NOMAL_MODE;
+				else if(value[0] == '1')
+				{
+					radio_mode = RF_TEST_CARRIER;
+					menu_type_freq_adjust(index,result);
+				}
+				else if(value[0] == '2')
+				{
+					radio_mode = RF_TEST_MODURATION;
+					menu_type_freq_adjust(index,result);
+					break;
+				}
+				else if(value[0] == '3')
+					radio_mode = RF_TEST_ADJ_FREQ;
+				else if(value[0] == '4')
+					radio_mode = RF_TEST_ID_CHECK;
+					menu_type_idcheck(index,result);
+				return 1;
+				break;
+			case KEY_STAR:
+				return -1;
+		}
+		menu_draw_menu9(cur,value);		
+	}
+}
+
+
+
+
+
+void menu_draw_freq_adjust(int index,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString("Push the buttom");
+	lcd_position(1,3);
+	lcd_prCString("UP or Down");
+
+	
+	if(value[0] == 'U')
+	{
+		if(gTele_env.ctl_data.freq_add_sub==0x80)
+		{
+			gTele_env.ctl_data.adj_freq--;
+			
+			if(gTele_env.ctl_data.adj_freq==0x00)
+			{
+				gTele_env.ctl_data.freq_add_sub = 0x00;
+			}
+		}
+		else
+		{
+			gTele_env.ctl_data.adj_freq++;
+		}
+		tele_env_save(&gTele_env);		
+
+	}
+	else if(value[0] == 'D')
+	{
+		if(gTele_env.ctl_data.freq_add_sub==0x80)
+		{
+			gTele_env.ctl_data.adj_freq++;
+		}
+		else
+		{
+			gTele_env.ctl_data.adj_freq--;
+			
+			if(gTele_env.ctl_data.adj_freq==0x00)
+			{
+				gTele_env.ctl_data.freq_add_sub = 0x80;
+			}
+		}
+		tele_env_save(&gTele_env);		
+	}
+
+	lcd_blink_enable(false);
+}
+
+
+
+
+
+int menu_type_freq_adjust(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,2);
+
+	menu_draw_freq_adjust(cur,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_1:
+			case KEY_2:
+			case KEY_3:
+			case KEY_4:
+			case KEY_0:
+			break;
+			case KEY_UP:
+				value[0] = 'U';
+				break;
+			case KEY_DOWN	:
+				value[0] = 'D';
+				break;			
+			break;
+			case KEY_LEFT	:
+			case KEY_RIGHT	:
+			break;
+			case KEY_SHARP:
+			memcpy(result,value,2);
+
+			return 1;
+			break;
+			case KEY_STAR:
+				radio_mode = RF_NOMAL_MODE;
+				return -1;
+		}
+		menu_draw_freq_adjust(cur,value);
+	}
+}
+
+
+
+
+void menu_draw_idcheck(int index,char * value)
+{
+	lcd_clear();
+	lcd_position(0,0);
+	lcd_prCString("id_check");
+	lcd_position(1,3);
+	lcd_prCString("UP or Down");
+
+
+
+	lcd_blink_enable(false);
+}
+
+
+
+
+
+int menu_type_idcheck(int cur,char * result)
+{
+	u8				err;
+	int				index = 0;
+	char			value[9];
+
+	memcpy(value,result,2);
+
+	menu_draw_idcheck(cur,value);
+	while(1)
+	{
+		OSSemPend(KeyWait, 300, &err);
+
+		//err = 0;
+		if(menu_nokey(err) == true)
+		{
+			return 0;
+		}
+		else
+		{
+			if(err != 0)continue;
+		}
+
+
+		switch(stKey.key)
+		{
+			case KEY_1:
+			case KEY_2:
+			case KEY_3:
+			case KEY_4:
+			case KEY_0:
+			case KEY_UP:
+			case KEY_DOWN	:
+			case KEY_LEFT	:
+			case KEY_RIGHT	:
+			case KEY_SHARP:
+			break;
+			case KEY_STAR:
+				radio_mode = RF_NOMAL_MODE;
+				return -1;
+		}
+		menu_draw_idcheck(cur,value);
+	}
+}
+
+
