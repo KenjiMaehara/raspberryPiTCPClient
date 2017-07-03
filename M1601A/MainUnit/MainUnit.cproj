@@ -258,13 +258,19 @@
       <SubType>compile</SubType>
     </Compile>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of f8ff870... test063003
     <Compile Include="SoundPlay.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SoundPlay.h">
       <SubType>compile</SubType>
     </Compile>
+<<<<<<< HEAD
+>>>>>>> parent of f8ff870... test063003
+=======
 >>>>>>> parent of f8ff870... test063003
     <Compile Include="spi.c">
       <SubType>compile</SubType>

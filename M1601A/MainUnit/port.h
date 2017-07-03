@@ -87,7 +87,10 @@ void set_pstn_DM_SEL(u8 set);
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of f8ff870... test063003
 u8 get_ch1_Input(void);
 u8 get_ch2_Input(void);
 u8 get_ch3_Input(void);
@@ -112,6 +115,9 @@ u8 get_BattLow(void);
 
 
 
+<<<<<<< HEAD
+>>>>>>> parent of f8ff870... test063003
+=======
 >>>>>>> parent of f8ff870... test063003
 
 

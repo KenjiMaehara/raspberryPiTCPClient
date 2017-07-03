@@ -21,7 +21,12 @@ void port_init_direction(void)
 	PORTB.DIR = PIN7_bm;
 	//PORTC.DIR = PIN0_bm |PIN4_bm | PIN5_bm | PIN7_bm;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	PORTC.DIR = 0x80;
+=======
+	PORTC.DIR = 0x88;
+	//PORTC.DIR = 0x80;
+>>>>>>> parent of f8ff870... test063003
 =======
 	PORTC.DIR = 0x88;
 	//PORTC.DIR = 0x80;

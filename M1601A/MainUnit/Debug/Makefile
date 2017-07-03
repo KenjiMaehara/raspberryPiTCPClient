@@ -58,6 +58,10 @@ C_SRCS +=  \
 ../RTOS/os_time.c \
 ../port.c \
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+../SoundPlay.c \
+>>>>>>> parent of f8ff870... test063003
 =======
 ../SoundPlay.c \
 >>>>>>> parent of f8ff870... test063003
@@ -98,6 +102,10 @@ RTOS/os_task.o \
 RTOS/os_time.o \
 port.o \
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+SoundPlay.o \
+>>>>>>> parent of f8ff870... test063003
 =======
 SoundPlay.o \
 >>>>>>> parent of f8ff870... test063003
@@ -128,6 +136,10 @@ RTOS/os_task.o \
 RTOS/os_time.o \
 port.o \
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+SoundPlay.o \
+>>>>>>> parent of f8ff870... test063003
 =======
 SoundPlay.o \
 >>>>>>> parent of f8ff870... test063003
@@ -158,6 +170,10 @@ RTOS/os_task.d \
 RTOS/os_time.d \
 port.d \
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+SoundPlay.d \
+>>>>>>> parent of f8ff870... test063003
 =======
 SoundPlay.d \
 >>>>>>> parent of f8ff870... test063003
@@ -188,6 +204,10 @@ RTOS/os_task.d \
 RTOS/os_time.d \
 port.d \
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+SoundPlay.d \
+>>>>>>> parent of f8ff870... test063003
 =======
 SoundPlay.d \
 >>>>>>> parent of f8ff870... test063003
@@ -252,6 +272,11 @@ LINKER_SCRIPT_DEP+=
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of f8ff870... test063003
 =======
 
 

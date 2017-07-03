@@ -142,8 +142,13 @@
     
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     .extern   TickISR
 
+=======
+    .extern		TickISR
+	.extern		spif_int
+>>>>>>> parent of f8ff870... test063003
 =======
     .extern		TickISR
 	.extern		spif_int
@@ -276,7 +281,11 @@ __vector_115:   JMP     __unhandled_interrupt      ;    115       0x01C8       T
 __vector_116:   JMP     __unhandled_interrupt      ;    116       0x01CC       Timer F1 Compare or Capture A
 __vector_117:   JMP     __unhandled_interrupt      ;    117       0x01D0       Timer F1 Compare or Capture B
 <<<<<<< HEAD
+<<<<<<< HEAD
 __vector_118:   JMP     __unhandled_interrupt      ;    118       0x01D4       SPI F
+=======
+__vector_118:   JMP     spif_int     ;    118       0x01D4       SPI F
+>>>>>>> parent of f8ff870... test063003
 =======
 __vector_118:   JMP     spif_int     ;    118       0x01D4       SPI F
 >>>>>>> parent of f8ff870... test063003

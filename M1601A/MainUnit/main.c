@@ -27,6 +27,12 @@ void OperTask(void *p_arg);
 void EventTask(void *p_arg);
 void SoundPlayTask(void *p_arg);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+void uartRxTask(void *p_arg);
+
+
+>>>>>>> parent of f8ff870... test063003
 =======
 void uartRxTask(void *p_arg);
 
@@ -312,11 +318,14 @@ void TaskStartCreateTasks(void)
 	#endif 
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 } 
 
 
 //void uart_init(void);
 =======
+=======
+>>>>>>> parent of f8ff870... test063003
 	#if 1
 	// Task2: PRIORITY=7
 	OSTaskCreateExt((void (*)(void *)) uartRxTask,
@@ -333,6 +342,9 @@ void TaskStartCreateTasks(void)
 
 
 void uart_init(void);
+<<<<<<< HEAD
+>>>>>>> parent of f8ff870... test063003
+=======
 >>>>>>> parent of f8ff870... test063003
 void SoundPlay(u8 number);
 
@@ -344,6 +356,11 @@ int main(void)
 	spi_init();
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of f8ff870... test063003
 =======
 
 
@@ -356,6 +373,11 @@ int main(void)
 	lcd_prString("ウンテンセキトビラ");
 	//uart_init();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	uart_init();
+	
+>>>>>>> parent of f8ff870... test063003
 =======
 	uart_init();
 	

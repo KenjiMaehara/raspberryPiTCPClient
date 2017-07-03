@@ -80,8 +80,14 @@ void uart_init(void)
 	//PORTC.PIN3CTRL = PORT_OPC_WIREDANDPULL_gc;
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	USARTC0_BAUDCTRLB = 0x50;	//BSCALE is 0
 	USARTC0_BAUDCTRLA = 12;	//BSEL		4.902khz
+=======
+	//USARTC0_BAUDCTRLB = 0x50;	//BSCALE is 0
+	USARTC0_BAUDCTRLB = 0x40;	//BSCALE is 0	
+	USARTC0_BAUDCTRLA = 12;	//BSEL		9.6khz
+>>>>>>> parent of f8ff870... test063003
 =======
 	//USARTC0_BAUDCTRLB = 0x50;	//BSCALE is 0
 	USARTC0_BAUDCTRLB = 0x40;	//BSCALE is 0	
@@ -102,7 +108,10 @@ void uart_init(void)
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of f8ff870... test063003
 void putstr(u8 * data)
 {
 	int i =0 ;
@@ -114,6 +123,9 @@ void putstr(u8 * data)
 		if(data[i] == 0x0d || data[i] == 0x00) break;
 	}
 }
+<<<<<<< HEAD
+>>>>>>> parent of f8ff870... test063003
+=======
 >>>>>>> parent of f8ff870... test063003
 
 

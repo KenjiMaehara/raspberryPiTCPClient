@@ -7,6 +7,10 @@
 
 #include <avr/io.h>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+#include <avr/interrupt.h>
+>>>>>>> parent of f8ff870... test063003
 =======
 #include <avr/interrupt.h>
 >>>>>>> parent of f8ff870... test063003
@@ -21,6 +25,10 @@
 #include "key.h"
 #include "spi.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+#include "uartRx.h"
+>>>>>>> parent of f8ff870... test063003
 =======
 #include "uartRx.h"
 >>>>>>> parent of f8ff870... test063003
@@ -71,7 +79,10 @@ u32	Os_GetTime_for_DoorOpen_Resettimeout=0;
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of f8ff870... test063003
 u8 cmd_data02[50];
 int cnt03 = 0;
 
@@ -85,6 +96,9 @@ char hex_to_asc(u8 hex)
 	else return ('a' + da - 0x0a);
 }
 
+<<<<<<< HEAD
+>>>>>>> parent of f8ff870... test063003
+=======
 >>>>>>> parent of f8ff870... test063003
 
 u8 chInputStatus1(void)
@@ -97,7 +111,10 @@ u8 chInputStatus1(void)
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of f8ff870... test063003
 #if 1
 void spif_int(void)
 {
@@ -133,6 +150,9 @@ ISR(SPIF_INT_vect)
 #endif
 
 
+<<<<<<< HEAD
+>>>>>>> parent of f8ff870... test063003
+=======
 >>>>>>> parent of f8ff870... test063003
 
 void EventTask(void *p_arg)
@@ -140,7 +160,12 @@ void EventTask(void *p_arg)
 	volatile testCount=0;
 	volatile u8 testCharacter[100];
 <<<<<<< HEAD
+<<<<<<< HEAD
 	volatile u8 cmd_data[20];
+=======
+	//volatile u8 cmd_data[50];
+	volatile u8 reverse_data[20];
+>>>>>>> parent of f8ff870... test063003
 =======
 	//volatile u8 cmd_data[50];
 	volatile u8 reverse_data[20];
@@ -151,6 +176,7 @@ void EventTask(void *p_arg)
 	volatile u8 txdata02[20];
 	volatile u8 testtest=0;
 	
+<<<<<<< HEAD
 <<<<<<< HEAD
 	u8 state = CMD_WAIT;
 	volatile int cnt = 0;
@@ -362,6 +388,8 @@ void EventTask(void *p_arg)
 }
 
 =======
+=======
+>>>>>>> parent of f8ff870... test063003
 	volatile int cntRevData=0;
 	
 	u8 state = CMD_WAIT;
@@ -565,5 +593,9 @@ void EventTask(void *p_arg)
 			}
 		}
 	}		
+<<<<<<< HEAD
+}
+>>>>>>> parent of f8ff870... test063003
+=======
 }
 >>>>>>> parent of f8ff870... test063003
