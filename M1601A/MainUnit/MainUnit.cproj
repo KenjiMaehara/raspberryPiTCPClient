@@ -257,6 +257,15 @@
     <Compile Include="port.h">
       <SubType>compile</SubType>
     </Compile>
+<<<<<<< HEAD
+=======
+    <Compile Include="SoundPlay.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SoundPlay.h">
+      <SubType>compile</SubType>
+    </Compile>
+>>>>>>> parent of f8ff870... test063003
     <Compile Include="spi.c">
       <SubType>compile</SubType>
     </Compile>

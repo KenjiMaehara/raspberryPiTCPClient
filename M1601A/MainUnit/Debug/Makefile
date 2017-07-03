@@ -57,6 +57,10 @@ C_SRCS +=  \
 ../RTOS/os_task.c \
 ../RTOS/os_time.c \
 ../port.c \
+<<<<<<< HEAD
+=======
+../SoundPlay.c \
+>>>>>>> parent of f8ff870... test063003
 ../spi.c \
 ../TWI_I2CMaster.c
 
@@ -93,6 +97,10 @@ RTOS/os_sem.o \
 RTOS/os_task.o \
 RTOS/os_time.o \
 port.o \
+<<<<<<< HEAD
+=======
+SoundPlay.o \
+>>>>>>> parent of f8ff870... test063003
 spi.o \
 TWI_I2CMaster.o
 
@@ -119,6 +127,10 @@ RTOS/os_sem.o \
 RTOS/os_task.o \
 RTOS/os_time.o \
 port.o \
+<<<<<<< HEAD
+=======
+SoundPlay.o \
+>>>>>>> parent of f8ff870... test063003
 spi.o \
 TWI_I2CMaster.o
 
@@ -145,6 +157,10 @@ RTOS/os_sem.d \
 RTOS/os_task.d \
 RTOS/os_time.d \
 port.d \
+<<<<<<< HEAD
+=======
+SoundPlay.d \
+>>>>>>> parent of f8ff870... test063003
 spi.d \
 TWI_I2CMaster.d
 
@@ -171,6 +187,10 @@ RTOS/os_sem.d \
 RTOS/os_task.d \
 RTOS/os_time.d \
 port.d \
+<<<<<<< HEAD
+=======
+SoundPlay.d \
+>>>>>>> parent of f8ff870... test063003
 spi.d \
 TWI_I2CMaster.d
 
@@ -231,6 +251,11 @@ LINKER_SCRIPT_DEP+=
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of f8ff870... test063003
 ./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1

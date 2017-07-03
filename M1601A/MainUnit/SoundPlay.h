@@ -11,6 +11,11 @@
 
 #include <mytype.h>
 
+<<<<<<< HEAD
 
+=======
+void putstr(u8 * data);
+void sendChar(char c);
+>>>>>>> parent of f8ff870... test063003
 
 #endif /* SOUNDPLAY_H_ */
